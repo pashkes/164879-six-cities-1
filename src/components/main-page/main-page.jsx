@@ -103,10 +103,10 @@ const MainPage = ({offers}) => {
               </select>*/}
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer, index) => {
+              {offers.map((offer) => {
                 const {title, photoURL, isPremium, isFavorite, price, type, rating} = offer;
                 return <CardPlace
-                  key={`${name}-${index}`}
+                  key={title}
                   title={title}
                   photoURL={photoURL}
                   isPremium={isPremium}

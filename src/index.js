@@ -38,15 +38,6 @@ const OFFERS_MOCK = [
     price: 180,
     type: `Apartment`,
     rating: 80
-  },
-  {
-    title: `Wood and stone place`,
-    photoURL: `img/room.jpg`,
-    isPremium: true,
-    isFavorite: false,
-    price: 80,
-    type: `Private room`,
-    rating: 100
   }
 ];
 
