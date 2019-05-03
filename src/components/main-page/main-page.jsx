@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaceCard from './../place-card/place-card.jsx';
+import CardPlace from '../card-place/card-place.jsx';
 import PropTypes from 'prop-types';
 
 const MainPage = ({offers}) => {
@@ -103,10 +103,19 @@ const MainPage = ({offers}) => {
               </select>*/}
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer, index) => <PlaceCard
-                key={index}
-                title={offer}
-              />)}
+              {offers.map((offer, index) => {
+                const {title, photoURL, isPremium, isFavorite, price, type, rating} = offer;
+                return <CardPlace
+                  key={`${name}-${index}`}
+                  title={title}
+                  photoURL={photoURL}
+                  isPremium={isPremium}
+                  isFavorite={isFavorite}
+                  price={price}
+                  type={type}
+                  rating={rating}
+                />;
+              })}
             </div>
           </section>
           <div className="cities__right-section">
@@ -121,5 +130,4 @@ const MainPage = ({offers}) => {
 MainPage.propTypes = {
   offers: PropTypes.array
 };
-
 export default MainPage;
