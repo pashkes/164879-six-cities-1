@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardPlace = ({title, photoURL, isPremium, isFavorite, price, type, rating}) => {
+const CardPlace = ({title, photoURL, isPremium, isFavorite, price, type, rating, onTitleClickHandler}) => {
   return <article className="cities__place-card place-card">
     {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
     <div className="cities__image-wrapper place-card__image-wrapper">
@@ -29,7 +29,7 @@ const CardPlace = ({title, photoURL, isPremium, isFavorite, price, type, rating}
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{title}</a>
+        <a href="#" onClick={onTitleClickHandler}>{title}</a>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
@@ -43,7 +43,8 @@ CardPlace.propTypes = {
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired
+  rating: PropTypes.number.isRequired,
+  onTitleClickHandler: PropTypes.func
 };
 
 CardPlace.defaultProps = {
