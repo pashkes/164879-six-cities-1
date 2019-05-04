@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainPage from './components/main-page/main-page.jsx';
-import OFFERS_MOCK from './mock-data';
+import App from './App';
+
 
 const initApp = () => {
   ReactDOM.render(
-      <MainPage
-        offers={OFFERS_MOCK}
-      />,
+      <App/>,
       document.getElementById(`root`)
   );
-};
-
-MainPage.defaultProps = {
-  offers: []
 };
 
 initApp();
