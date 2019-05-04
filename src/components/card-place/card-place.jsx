@@ -46,4 +46,14 @@ CardPlace.propTypes = {
   rating: PropTypes.number.isRequired,
 };
 
+CardPlace.defaultProps = {
+  title: `default name`,
+  photoURL: `img/apartment-01.jpg`,
+  type: `Apartment`,
+  isPremium: false,
+  isFavorite: false,
+  price: 0,
+  rating: 0,
+};
+
 export default CardPlace;

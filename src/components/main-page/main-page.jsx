@@ -103,19 +103,10 @@ const MainPage = ({offers}) => {
               </select>*/}
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer) => {
-                const {title, photoURL, isPremium, isFavorite, price, type, rating} = offer;
-                return <CardPlace
-                  key={title}
-                  title={title}
-                  photoURL={photoURL}
-                  isPremium={isPremium}
-                  isFavorite={isFavorite}
-                  price={price}
-                  type={type}
-                  rating={rating}
-                />;
-              })}
+              {offers.map((offer) => <CardPlace
+                key={offer.title}
+                {...offer}
+              />)}
             </div>
           </section>
           <div className="cities__right-section">
