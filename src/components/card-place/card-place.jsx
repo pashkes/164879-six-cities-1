@@ -43,7 +43,7 @@ CardPlace.propTypes = {
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired
 };
 
 CardPlace.defaultProps = {

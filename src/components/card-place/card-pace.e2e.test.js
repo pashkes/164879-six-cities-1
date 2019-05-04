@@ -5,8 +5,9 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
 
+const clickHandler = jest.fn();
 it(`simulate click to the title of card`, () => {
-  const cardComponent = shallow(<CardPlace/>);
+  const cardComponent = shallow(<CardPlace onClick={clickHandler}/>);
   cardComponent.find(`.place-card__name a`).simulate(`click`);
-  expect(jest.fn()).toHaveBeenCalled();
+  expect(clickHandler).toHaveBeenCalled();
 });
