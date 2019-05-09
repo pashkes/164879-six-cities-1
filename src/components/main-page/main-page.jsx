@@ -1,5 +1,5 @@
 import React from 'react';
-import CardPlace from '../card-place/card-place.jsx';
+import Offers from '../offers/offers.jsx';
 import PropTypes from 'prop-types';
 
 const MainPage = ({offers}) => {
@@ -102,12 +102,9 @@ const MainPage = ({offers}) => {
                 <option className="places__option" value="top-rated">Top rated first</option>
               </select>*/}
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer) => <CardPlace
-                key={offer.title}
-                {...offer}
-              />)}
-            </div>
+            <Offers
+              offers={offers}
+            />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"/>
@@ -119,6 +116,7 @@ const MainPage = ({offers}) => {
 };
 
 MainPage.propTypes = {
-  offers: PropTypes.array
+  offers: PropTypes.array,
+
 };
 export default MainPage;

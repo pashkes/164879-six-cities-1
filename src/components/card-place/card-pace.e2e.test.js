@@ -7,7 +7,16 @@ configure({adapter: new Adapter()});
 
 const clickHandler = jest.fn();
 it(`simulate click to the title of card`, () => {
-  const card = shallow(<CardPlace onTitleClickHandler={clickHandler}/>);
+  const card = shallow(<CardPlace
+    title={``}
+    photoURL={``}
+    isPremium={false}
+    isFavorite={false}
+    price={0}
+    type={``}
+    rating={0}
+    onTitleClickHandler={clickHandler}
+  />);
   card.find(`.place-card__name a`).simulate(`click`);
   expect(clickHandler).toHaveBeenCalled();
 });
