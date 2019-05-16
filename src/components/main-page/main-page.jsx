@@ -117,6 +117,5 @@ const MainPage = ({offers}) => {
 
 MainPage.propTypes = {
   offers: PropTypes.array,
-
 };
 export default MainPage;

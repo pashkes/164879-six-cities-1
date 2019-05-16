@@ -9,6 +9,7 @@ exports[`renders correctly if the card is favorite 1`] = `
   >
     <a
       href="#"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
@@ -115,6 +116,7 @@ exports[`renders correctly if the card is premium 1`] = `
   >
     <a
       href="#"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
@@ -214,6 +216,7 @@ exports[`renders correctly in the default state 1`] = `
   >
     <a
       href="#"
+      onClick={[Function]}
     >
       <img
         alt="Place image"

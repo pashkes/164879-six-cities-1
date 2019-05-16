@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MainPage from "./main-page";
-import OFFERS_MOCK from './../../mock-data';
+import offers from './../../mock/offers';
 
 it(`main page renders correctly`, () => {
   const card = renderer
-    .create(<MainPage offers={OFFERS_MOCK}/>)
+    .create(<MainPage offers={offers}/>)
     .toJSON();
   expect(card).toMatchSnapshot();
 });

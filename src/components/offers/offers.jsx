@@ -9,26 +9,31 @@ class Offers extends PureComponent {
     this.state = {
       selected: null
     };
+    this.onSelected = this.onSelected.bind(this);
   }
 
-  _getEvent(index, evt) {
-    evt.preventDefault();
-    const selectedOffer = this.props.offers[index];
-    this.setState({
-      selected: <CardPlace key={selectedOffer.title} {...selectedOffer}/>
-    });
+  onSelected(id) {
+    this.setState({selected: id});
   }
 
   render() {
     const offers = this.props.offers;
     return <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer, index) => <CardPlace key={offer.title} onImageClickHandler={this._getEvent.bind(this, index)} {...offer}/>)}
+      {offers.map((offer) => {
+        return <CardPlace
+          key={offer.title}
+          {...offer}
+          onSelected={this.onSelected}
+          selected={this.state.selected === offer.id}
+        />;
+      })}
     </div>;
   }
 }
 
-Offers.propsTypes = {
+Offers.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     photoURL: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
