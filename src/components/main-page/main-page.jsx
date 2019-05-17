@@ -1,8 +1,9 @@
 import React from 'react';
 import Offers from '../offers/offers.jsx';
 import PropTypes from 'prop-types';
+import Map from '../map/map.jsx';
 
-const MainPage = ({offers}) => {
+const MainPage = ({offers, cities, leaflet}) => {
   return <React.Fragment>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +108,9 @@ const MainPage = ({offers}) => {
             />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"/>
+            <section className="cities__map map">
+              <Map cities={cities} leaflet={leaflet}/>
+            </section>
           </div>
         </div>
       </div>
@@ -116,6 +119,8 @@ const MainPage = ({offers}) => {
 };
 
 MainPage.propTypes = {
-  offers: PropTypes.array,
+  offers: PropTypes.array.isRequired,
+  cities: PropTypes.array.isRequired,
+  leaflet: PropTypes.object.isRequired
 };
 export default MainPage;
