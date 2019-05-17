@@ -1,5 +1,6 @@
-const OFFERS_MOCK = [
+const offers = [
   {
+    id: `5454`,
     title: `Beautiful & luxurious apartment at great location`,
     photoURL: `img/apartment-01.jpg`,
     isPremium: true,
@@ -9,15 +10,17 @@ const OFFERS_MOCK = [
     rating: 93
   },
   {
+    id: `5675675`,
     title: `Wood and stone place`,
     photoURL: `img/room.jpg`,
     isPremium: false,
     isFavorite: true,
     price: 80,
     type: `Private room`,
-    rating: 80
+    rating: 80,
   },
   {
+    id: `545345`,
     title: `Canal View Prinsengracht`,
     photoURL: `img/apartment-02.jpg`,
     isPremium: false,
@@ -27,6 +30,7 @@ const OFFERS_MOCK = [
     rating: 80
   },
   {
+    id: `878974`,
     title: `Nice, cozy, warm big bed apartment`,
     photoURL: `img/apartment-03.jpg`,
     isPremium: false,
@@ -37,4 +41,4 @@ const OFFERS_MOCK = [
   }
 ];
 
-export default OFFERS_MOCK;
+export default offers;

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import MainPage from './components/main-page/main-page.jsx';
-import OFFERS_MOCK from './mock-data';
+import offers from './mock/offers';
 
 class App extends Component {
   render() {
-    return <MainPage offers={OFFERS_MOCK} />;
+    return <MainPage offers={offers} />;
   }
 }
 
