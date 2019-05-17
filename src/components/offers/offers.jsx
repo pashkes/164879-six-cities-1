@@ -21,7 +21,7 @@ class Offers extends PureComponent {
     return <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => {
         return <CardPlace
-          key={offer.title}
+          key={offer.id}
           {...offer}
           onSelected={this.onSelected}
           selected={this.state.selected === offer.id}

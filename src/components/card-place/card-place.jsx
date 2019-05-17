@@ -2,8 +2,8 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 class CardPlace extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleImageClick = this.handleImageClick.bind(this);
   }
 
