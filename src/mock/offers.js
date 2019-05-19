@@ -7,7 +7,8 @@ const offers = [
     isFavorite: false,
     price: 120,
     type: `Apartment`,
-    rating: 93
+    rating: 93,
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
     id: `5675675`,
@@ -18,6 +19,7 @@ const offers = [
     price: 80,
     type: `Private room`,
     rating: 80,
+    coordinates: [52.369553943508, 4.85309666406198]
   },
   {
     id: `545345`,
@@ -27,7 +29,8 @@ const offers = [
     isFavorite: false,
     price: 132,
     type: `Apartment`,
-    rating: 80
+    rating: 80,
+    coordinates: [52.3909553943508, 4.929309666406198]
   },
   {
     id: `878974`,
@@ -37,8 +40,8 @@ const offers = [
     isFavorite: false,
     price: 180,
     type: `Apartment`,
-    rating: 80
+    rating: 80,
+    coordinates: [52.3809553943508, 4.939309666406198]
   }
 ];
-
 export default offers;
