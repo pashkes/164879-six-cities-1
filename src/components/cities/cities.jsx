@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import City from './../city/city.jsx';
+import City from '../city-link/cityLink.jsx';
 
 class Cities extends PureComponent {
   constructor(props) {

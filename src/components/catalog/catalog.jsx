@@ -99,7 +99,8 @@ const Catalog = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currentCity: state.city
+  currentCity: state.city,
+  offers: state.offers
 });
 
 Catalog.propTypes = {
