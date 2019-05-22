@@ -1,26 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import Cities from './../cities/cities.jsx';
 import Offers from '../offers/offers.jsx';
 import Map from '../map/map.jsx';
 
-const getCities = (offers) => {
-  return [...new Set([...offers.map((offer) => offer.city)])];
+const getCities = (offersList) => {
+  return [...new Set([...offersList.map((offer) => offer.city)])];
 };
 
-const getOffers = (offers, city) => {
-  return offers.filter((offer) => offer.city === city);
-};
+const getCitiesCoordinates = (offersList) => offersList.map((it) => it.coordinates);
 
-const MainPage = (props) => {
+const Catalog = (props) => {
   const {
     offers,
-    cities,
     leaflet,
+    currentCity,
   } = props;
-  // temporarily value
-  const currentCity = `Amsterdam`;
   return <React.Fragment>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +33,6 @@ const MainPage = (props) => {
         </symbol>
       </svg>
     </div>
-
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -63,13 +59,13 @@ const MainPage = (props) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">
-        <Cities currentCity={currentCity} cities={getCities(offers)}/>
+        <Cities cities={getCities(offers)}/>
       </div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{getOffers(offers, currentCity).length} places to stay in {currentCity}</b>
+            <b className="places__found">{offers.length} places to stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">Popular<svg className="places__sorting-arrow" width="7" height="4"><use
@@ -88,12 +84,12 @@ const MainPage = (props) => {
               </select>*/}
             </form>
             <Offers
-              offers={getOffers(offers, currentCity)}
+              offers={offers}
             />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map cities={cities} leaflet={leaflet}/>
+              <Map cities={getCitiesCoordinates(offers)} leaflet={leaflet}/>
             </section>
           </div>
         </div>
@@ -102,9 +98,13 @@ const MainPage = (props) => {
   </React.Fragment>;
 };
 
-MainPage.propTypes = {
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  currentCity: state.city
+});
+
+Catalog.propTypes = {
   offers: PropTypes.array.isRequired,
-  cities: PropTypes.array.isRequired,
-  leaflet: PropTypes.object.isRequired
+  leaflet: PropTypes.object.isRequired,
+  currentCity: PropTypes.string.isRequired
 };
-export default MainPage;
+export default connect(mapStateToProps)(Catalog);

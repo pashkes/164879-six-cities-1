@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MainPage from "./main-page";
-import offers from './../../mock/offers';
+import MainPage from "./catalog";
+import offers from '../../mock/offers';
 import leafletMock from './../../mock/leaflet';
 
 const citiesCoordinates = offers.map((it) => it.coordinates);

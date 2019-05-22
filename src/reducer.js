@@ -1,8 +1,13 @@
 import offers from './mock/offers';
 
+
+const filterOffers = (offersList, city) => {
+  return offers.filter((offer) => offer.city === city);
+};
+
 const initialState = {
-  city: `Amsterdam`,
-  offers: [...offers]
+  city: `Paris`,
+  offers
 };
 
 const ActionType = {
@@ -10,15 +15,14 @@ const ActionType = {
   GET_OFFERS: `GET_OFFERS`
 };
 
-
 const ActionCreators = {
   changeCity: (city) => {
     return {
       type: ActionType.CHANGE_CITY,
-      name: city,
+      city,
     };
   },
-  getOffers: (offersList) => {
+  updateOffers: (city, offersList) => {
     return {
       type: ActionType.GET_OFFERS,
       offersList
@@ -27,21 +31,17 @@ const ActionCreators = {
 };
 
 const reducer = (state = initialState, action) => {
-  let result;
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      result = Object.assign({}, state, {city: action.name});
-      break;
+      return Object.assign({}, state, {city: action.city});
     case ActionType.GET_OFFERS:
-      result = Object.assign({}, state, {offers: action.offersList});
-      break;
+      return Object.assign({}, state, {offers: action.offersList});
     default:
+      return state;
   }
-  return result;
 };
 
 export {
   reducer,
-  ActionCreators,
-  ActionType,
+  ActionCreators
 };

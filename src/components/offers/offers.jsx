@@ -13,7 +13,7 @@ class Offers extends PureComponent {
   }
 
   onSelected(id) {
-    this.setState({selected: id});
+    this.setState({current: id});
   }
 
   render() {
@@ -24,7 +24,7 @@ class Offers extends PureComponent {
           key={offer.id}
           {...offer}
           onSelected={this.onSelected}
-          selected={this.state.selected === offer.id}
+          selected={this.state.currentCity === offer.id}
         />;
       })}
     </div>;
