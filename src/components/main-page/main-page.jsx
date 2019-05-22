@@ -1,9 +1,26 @@
 import React from 'react';
-import Offers from '../offers/offers.jsx';
 import PropTypes from 'prop-types';
+
+import Cities from './../cities/cities.jsx';
+import Offers from '../offers/offers.jsx';
 import Map from '../map/map.jsx';
 
-const MainPage = ({offers, cities, leaflet}) => {
+const getCities = (offers) => {
+  return [...new Set([...offers.map((offer) => offer.city)])];
+};
+
+const getOffers = (offers, city) => {
+  return offers.filter((offer) => offer.city === city);
+};
+
+const MainPage = (props) => {
+  const {
+    offers,
+    cities,
+    leaflet,
+  } = props;
+  // temporarily value
+  const currentCity = `Amsterdam`;
   return <React.Fragment>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -46,46 +63,13 @@ const MainPage = ({offers, cities, leaflet}) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+        <Cities currentCity={currentCity} cities={getCities(offers)}/>
       </div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
+            <b className="places__found">{getOffers(offers, currentCity).length} places to stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">Popular<svg className="places__sorting-arrow" width="7" height="4"><use
@@ -104,7 +88,7 @@ const MainPage = ({offers, cities, leaflet}) => {
               </select>*/}
             </form>
             <Offers
-              offers={offers}
+              offers={getOffers(offers, currentCity)}
             />
           </section>
           <div className="cities__right-section">
