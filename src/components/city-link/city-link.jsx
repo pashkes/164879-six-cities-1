@@ -1,17 +1,17 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreators} from "../../reducers/reducer";
 
-class CityLink extends PureComponent {
+
+export class CityLink extends PureComponent {
   constructor(props) {
     super(props);
-    this._onClick = this._onClick.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  _onClick(evt) {
+  onClick(evt) {
     evt.preventDefault();
-    this.props.changeCurrentCity(this.props.city);
+    this.props.changeCity(this.props.city);
   }
 
   render() {
@@ -19,7 +19,7 @@ class CityLink extends PureComponent {
     return (
       <li className="locations__item">
         <a
-          onClick={this._onClick}
+          onClick={this.onClick}
           className={`locations__item-link tabs__item ${currentCity === city ? `tabs__item--active` : ``}`}
           href="#">
           <span>{city}</span>
@@ -31,8 +31,8 @@ class CityLink extends PureComponent {
 
 CityLink.propTypes = {
   city: PropTypes.string.isRequired,
-  changeCurrentCity: PropTypes.func.isRequired,
-  currentCity: PropTypes.string,
+  changeCity: PropTypes.func.isRequired,
+  currentCity: PropTypes.string
 };
 
 
@@ -40,11 +40,6 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.city
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  changeCurrentCity: (city) => dispatch(ActionCreators.changeCity(city)),
-});
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(CityLink);

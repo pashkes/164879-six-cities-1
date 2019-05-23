@@ -9,6 +9,9 @@
     "eslint": "eslint src/**/*.js src/**/*.jsx",
     "test": "npm run eslint && jest"
   },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
+  },
   "devDependencies": {
     "@babel/core": "7.4.4",
     "@babel/preset-env": "7.4.4",
@@ -17,6 +20,7 @@
     "babel-loader": "8.0.5",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.12.1",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "5.13.0",
     "eslint-config-htmlacademy": "0.5.2",
     "eslint-plugin-react": "7.12.4",

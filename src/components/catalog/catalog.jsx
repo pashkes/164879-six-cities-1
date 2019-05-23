@@ -8,9 +8,8 @@ import Map from '../map/map.jsx';
 
 export const Catalog = (props) => {
   const {
-    leaflet,
     currentCity,
-    filteredOffersLength
+    offers
   } = props;
   return <React.Fragment>
     <div style={{display: `none`}}>
@@ -59,7 +58,7 @@ export const Catalog = (props) => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffersLength} places to stay in {currentCity}</b>
+            <b className="places__found">{offers.length} places to stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">Popular<svg className="places__sorting-arrow" width="7" height="4"><use
@@ -81,7 +80,7 @@ export const Catalog = (props) => {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map leaflet={leaflet}/>
+              <Map/>
             </section>
           </div>
         </div>
@@ -92,15 +91,15 @@ export const Catalog = (props) => {
 
 const mapStateToProps = (state) => ({
   currentCity: state.city,
-  filteredOffersLength: state.offers.filter((offer) => {
+  offers: state.offers.filter((offer) => {
     return offer.city === state.city;
-  }).length
+  })
 });
 
 Catalog.propTypes = {
-  leaflet: PropTypes.object.isRequired,
   currentCity: PropTypes.string.isRequired,
-  filteredOffersLength: PropTypes.number.isRequired
+  offers: PropTypes.array.isRequired
 };
 
+export {mapStateToProps};
 export default connect(mapStateToProps)(Catalog);

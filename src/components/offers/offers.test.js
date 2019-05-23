@@ -1,8 +1,9 @@
 import React from 'react';
+import {Offers} from "./../offers/offers";
+import offers from '../../mock/offers';
 import {shallow, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-
-import {Catalog, mapStateToProps} from "./catalog.jsx";
+import {mapStateToProps} from './offers.jsx';
 
 configure({adapter: new Adapter()});
 
@@ -48,24 +49,17 @@ const expectedOffers = [
   }
 ];
 
-it(`catalog renders correctly`, () => {
-  const catalog = shallow(
-      <Catalog
-        offers={inputOffers}
-        currentCity={`Amsterdam`}
-      />
-  );
-  expect(catalog).toMatchSnapshot();
+it(`list of offers renders correctly`, () => {
+  const cards = shallow(<Offers offers={offers}/>);
+  expect(cards).toMatchSnapshot();
 });
 
-it(`should return object array with filtered selected city`, () => {
+it(`should return array with unique list of offer`, () => {
   const filteredOffers = mapStateToProps({
     city: `Amsterdam`,
     offers: inputOffers
   });
   expect(filteredOffers).toEqual({
-    currentCity: `Amsterdam`,
     offers: expectedOffers
   });
 });
-

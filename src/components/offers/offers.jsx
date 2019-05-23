@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CardPlace from '../card-place/card-place.jsx';
 import {connect} from "react-redux";
 
-class Offers extends PureComponent {
+export class Offers extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,5 +52,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export {Offers};
+export {mapStateToProps};
 export default connect(mapStateToProps)(Offers);

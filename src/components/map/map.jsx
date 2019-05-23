@@ -1,10 +1,11 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import leaflet from 'leaflet';
 
 import CitiesCoordinates from './../../mock/coordinatesCities';
 
-class Map extends PureComponent {
+export class Map extends PureComponent {
   constructor(props) {
     super(props);
     this._zoom = 12;
@@ -15,17 +16,15 @@ class Map extends PureComponent {
     this._group = null;
   }
 
-  __addMarkers() {
-    this._group = this.props.leaflet.layerGroup().addTo(this._map);
+  _addMarkers() {
+    this._group = leaflet.layerGroup().addTo(this._map);
     for (let item of this.props.coordinates) {
-      this.props.leaflet
-        .marker(item, this._marker)
+      leaflet.marker(item, this._marker)
         .addTo(this._group);
     }
   }
 
   _initMap() {
-    const leaflet = this.props.leaflet;
     const city = CitiesCoordinates.get(this.props.currentCity);
     this._map = leaflet.map(`map`, {
       center: city,
@@ -39,7 +38,7 @@ class Map extends PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this._map);
-    this.__addMarkers();
+    this._addMarkers();
   }
 
   componentDidMount() {
@@ -50,8 +49,7 @@ class Map extends PureComponent {
     this._group.clearLayers();
     this._map.setView(CitiesCoordinates.get(this.props.currentCity), this._zoom);
     for (let item of this.props.coordinates) {
-      this.props.leaflet
-        .marker(item, this._marker)
+      leaflet.marker(item, this._marker)
         .addTo(this._group);
     }
   }
@@ -65,7 +63,6 @@ class Map extends PureComponent {
 
 Map.propTypes = {
   coordinates: PropTypes.array.isRequired,
-  leaflet: PropTypes.object,
   currentCity: PropTypes.string.isRequired
 };
 
@@ -76,5 +73,5 @@ const mapStateToProps = (state) => ({
   }).map((it) => it.coordinates)
 });
 
-export {Map};
+export {mapStateToProps};
 export default connect(mapStateToProps)(Map);
