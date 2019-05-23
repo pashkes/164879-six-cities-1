@@ -6,17 +6,11 @@ import Cities from './../cities/cities.jsx';
 import Offers from '../offers/offers.jsx';
 import Map from '../map/map.jsx';
 
-const getCities = (offersList) => {
-  return [...new Set([...offersList.map((offer) => offer.city)])];
-};
-
-const getCitiesCoordinates = (offersList) => offersList.map((it) => it.coordinates);
-
 const Catalog = (props) => {
   const {
-    offers,
     leaflet,
     currentCity,
+    filteredOffersLength
   } = props;
   return <React.Fragment>
     <div style={{display: `none`}}>
@@ -59,13 +53,13 @@ const Catalog = (props) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">
-        <Cities cities={getCities(offers)}/>
+        <Cities/>
       </div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {currentCity}</b>
+            <b className="places__found">{filteredOffersLength} places to stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">Popular<svg className="places__sorting-arrow" width="7" height="4"><use
@@ -83,13 +77,11 @@ const Catalog = (props) => {
                 <option className="places__option" value="top-rated">Top rated first</option>
               </select>*/}
             </form>
-            <Offers
-              offers={offers}
-            />
+            <Offers/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map cities={getCitiesCoordinates(offers)} leaflet={leaflet}/>
+              <Map leaflet={leaflet}/>
             </section>
           </div>
         </div>
@@ -98,14 +90,17 @@ const Catalog = (props) => {
   </React.Fragment>;
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state) => ({
   currentCity: state.city,
-  offers: state.offers
+  filteredOffersLength: state.offers.filter((offer) => {
+    return offer.city === state.city;
+  }).length
 });
 
 Catalog.propTypes = {
-  offers: PropTypes.array.isRequired,
   leaflet: PropTypes.object.isRequired,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  filteredOffersLength: PropTypes.number.isRequired
 };
+
 export default connect(mapStateToProps)(Catalog);

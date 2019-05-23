@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import CardPlace from '../card-place/card-place.jsx';
-
+import {connect} from "react-redux";
 
 class Offers extends PureComponent {
   constructor(props) {
@@ -44,4 +44,12 @@ Offers.propTypes = {
   })).isRequired,
 };
 
-export default Offers;
+const mapStateToProps = (state) => {
+  return {
+    offers: state.offers.filter((offer) => {
+      return offer.city === state.city;
+    })
+  };
+};
+
+export default connect(mapStateToProps)(Offers);

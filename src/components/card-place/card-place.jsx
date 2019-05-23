@@ -13,7 +13,16 @@ class CardPlace extends PureComponent {
   }
 
   render() {
-    const {isPremium, photoURL, price, isFavorite, rating, onTitleClickHandler, title, type} = this.props;
+    const {
+      isPremium,
+      photoURL,
+      price,
+      isFavorite,
+      rating,
+      onTitleClickHandler,
+      title,
+      type
+    } = this.props;
     return <article className="cities__place-card place-card">
       {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
