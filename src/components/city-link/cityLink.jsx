@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreators} from "../../reducer";
+import {ActionCreators} from "../../reducers/reducer";
 
 class CityLink extends PureComponent {
   constructor(props) {

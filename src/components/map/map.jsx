@@ -76,5 +76,5 @@ const mapStateToProps = (state) => ({
   }).map((it) => it.coordinates)
 });
 
-
+export {Map};
 export default connect(mapStateToProps)(Map);

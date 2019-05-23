@@ -6,7 +6,7 @@ import Cities from './../cities/cities.jsx';
 import Offers from '../offers/offers.jsx';
 import Map from '../map/map.jsx';
 
-const Catalog = (props) => {
+export const Catalog = (props) => {
   const {
     leaflet,
     currentCity,

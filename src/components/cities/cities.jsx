@@ -23,4 +23,5 @@ const mapStateToProps = (state) => {
   };
 };
 
+export {Cities};
 export default connect(mapStateToProps)(Cities);

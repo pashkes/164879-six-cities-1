@@ -1,4 +1,4 @@
-import offers from './mock/offers';
+import offers from '../mock/offers';
 
 
 const initialState = {

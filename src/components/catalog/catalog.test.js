@@ -1,14 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MainPage from "./catalog";
+import {Catalog} from "./catalog.jsx";
 import offers from '../../mock/offers';
 import leafletMock from './../../mock/leaflet';
 
-const citiesCoordinates = offers.map((it) => it.coordinates);
-
-it(`main page renders correctly`, () => {
+it(`catalog renders correctly`, () => {
   const card = renderer
-    .create(<MainPage offers={offers} cities={citiesCoordinates} leaflet={leafletMock}/>)
+    .create(<Catalog offers={offers} currentCity={`Amsterdam`} filteredOffersLength={4} leaflet={leafletMock} />)
     .toJSON();
   expect(card).toMatchSnapshot();
 });
