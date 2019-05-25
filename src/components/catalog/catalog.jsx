@@ -1,9 +1,16 @@
 import React from 'react';
-import Offers from '../offers/offers.jsx';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+import Cities from './../cities/cities.jsx';
+import Offers from '../offers/offers.jsx';
 import Map from '../map/map.jsx';
 
-const MainPage = ({offers, cities, leaflet}) => {
+export const Catalog = (props) => {
+  const {
+    currentCity,
+    offers
+  } = props;
   return <React.Fragment>
     <div style={{display: `none`}}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +26,6 @@ const MainPage = ({offers, cities, leaflet}) => {
         </symbol>
       </svg>
     </div>
-
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -46,46 +52,13 @@ const MainPage = ({offers, cities, leaflet}) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">
-        <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
-        </section>
+        <Cities/>
       </div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
+            <b className="places__found">{offers.length} places to stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">Popular<svg className="places__sorting-arrow" width="7" height="4"><use
@@ -103,13 +76,11 @@ const MainPage = ({offers, cities, leaflet}) => {
                 <option className="places__option" value="top-rated">Top rated first</option>
               </select>*/}
             </form>
-            <Offers
-              offers={offers}
-            />
+            <Offers/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map cities={cities} leaflet={leaflet}/>
+              <Map/>
             </section>
           </div>
         </div>
@@ -118,9 +89,17 @@ const MainPage = ({offers, cities, leaflet}) => {
   </React.Fragment>;
 };
 
-MainPage.propTypes = {
-  offers: PropTypes.array.isRequired,
-  cities: PropTypes.array.isRequired,
-  leaflet: PropTypes.object.isRequired
+const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  offers: state.offers.filter((offer) => {
+    return offer.city === state.city;
+  })
+});
+
+Catalog.propTypes = {
+  currentCity: PropTypes.string.isRequired,
+  offers: PropTypes.array.isRequired
 };
-export default MainPage;
+
+export {mapStateToProps};
+export default connect(mapStateToProps)(Catalog);

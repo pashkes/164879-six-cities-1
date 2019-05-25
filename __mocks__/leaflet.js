@@ -1,4 +1,4 @@
-const leafletMock = {
+const leaflet = {
   map() {
     return {
       setView: jest.fn(),
@@ -17,7 +17,12 @@ const leafletMock = {
     return {
       addTo: jest.fn(),
     };
+  },
+  layerGroup() {
+    return {
+      addTo: jest.fn()
+    };
   }
 };
 
-export default leafletMock;
+export default leaflet;

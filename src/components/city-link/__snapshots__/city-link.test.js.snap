@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`city link renders correctly if the city is current 1`] = `
+<li
+  className="locations__item"
+>
+  <a
+    className="locations__item-link tabs__item tabs__item--active"
+    href="#"
+    onClick={[Function]}
+  >
+    <span>
+      Amsterdam
+    </span>
+  </a>
+</li>
+`;
+
+exports[`city link renders correctly if the city isn't current 1`] = `
+<li
+  className="locations__item"
+>
+  <a
+    className="locations__item-link tabs__item "
+    href="#"
+    onClick={[Function]}
+  >
+    <span>
+      Amsterdam
+    </span>
+  </a>
+</li>
+`;

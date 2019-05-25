@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cities renders correctly 1`] = `
+<section
+  className="locations container"
+>
+  <ul
+    className="locations__list tabs__list"
+  >
+    <ConnectFunction
+      changeCity={[Function]}
+      city="Amsterdam"
+      key="0"
+    />
+    <ConnectFunction
+      changeCity={[Function]}
+      city="Paris"
+      key="1"
+    />
+    <ConnectFunction
+      changeCity={[Function]}
+      city="Cologne"
+      key="2"
+    />
+    <ConnectFunction
+      changeCity={[Function]}
+      city="Hamburg"
+      key="3"
+    />
+    <ConnectFunction
+      changeCity={[Function]}
+      city="Dusseldorf"
+      key="4"
+    />
+  </ul>
+</section>
+`;

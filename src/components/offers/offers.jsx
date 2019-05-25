@@ -1,9 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import CardPlace from '../card-place/card-place.jsx';
+import {connect} from "react-redux";
 
-
-class Offers extends PureComponent {
+export class Offers extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ class Offers extends PureComponent {
   }
 
   onSelected(id) {
-    this.setState({selected: id});
+    this.setState({current: id});
   }
 
   render() {
@@ -24,7 +24,7 @@ class Offers extends PureComponent {
           key={offer.id}
           {...offer}
           onSelected={this.onSelected}
-          selected={this.state.selected === offer.id}
+          selected={this.state.currentCity === offer.id}
         />;
       })}
     </div>;
@@ -44,4 +44,13 @@ Offers.propTypes = {
   })).isRequired,
 };
 
-export default Offers;
+const mapStateToProps = (state) => {
+  return {
+    offers: state.offers.filter((offer) => {
+      return offer.city === state.city;
+    })
+  };
+};
+
+export {mapStateToProps};
+export default connect(mapStateToProps)(Offers);
