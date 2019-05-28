@@ -1,8 +1,8 @@
 import React from 'react';
-import MainPage from './components/catalog/catalog.jsx';
+import Catalog from './components/catalog/catalog.jsx';
 
 const App = () =>{
-  return <MainPage/>;
+  return <Catalog />;
 };
 
 export default App;
