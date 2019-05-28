@@ -3,11 +3,11 @@ import offers from '../mock/offers';
 
 const initialState = {
   city: `Amsterdam`,
-  offers
+  offers,
 };
 
 const ActionType = {
-  CHANGE_CITY: `CHANGE_CITY`
+  CHANGE_CITY: `CHANGE_CITY`,
 };
 
 const ActionCreators = {

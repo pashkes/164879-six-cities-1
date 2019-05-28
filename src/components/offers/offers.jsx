@@ -7,7 +7,7 @@ export class Offers extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selected: null
+      current: null
     };
     this.onSelected = this.onSelected.bind(this);
   }
@@ -24,7 +24,7 @@ export class Offers extends PureComponent {
           key={offer.id}
           {...offer}
           onSelected={this.onSelected}
-          selected={this.state.currentCity === offer.id}
+          selected={this.state.current === offer.id}
         />;
       })}
     </div>;
