@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 
-class CityLink extends PureComponent {
+export class CityLink extends PureComponent {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
@@ -34,4 +35,11 @@ CityLink.propTypes = {
   currentCity: PropTypes.string
 };
 
-export default CityLink;
+
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  currentCity: state.city
+});
+
+export default connect(
+    mapStateToProps
+)(CityLink);

@@ -8,21 +8,20 @@ import {ActionCreators} from "../../reducers/reducer";
 export class Cities extends PureComponent {
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
+    this.changeCity = this.changeCity.bind(this);
   }
-  onChange(selectedItem) {
-    this.props.changeCurrentCity(selectedItem);
+  changeCity(city) {
+    this.props.changeCurrentCity(city);
   }
   render() {
-    const {cities, currentCity} = this.props;
+    const {cities} = this.props;
     return (
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {cities.map((city, i) => <City
             key={i}
             city={city}
-            changeCity={this.onChange}
-            currentCity={currentCity}
+            changeCity={this.changeCity}
           />)}
         </ul>
       </section>
@@ -32,14 +31,12 @@ export class Cities extends PureComponent {
 
 Cities.propTypes = {
   cities: PropTypes.array.isRequired,
-  changeCurrentCity: PropTypes.func.isRequired,
-  currentCity: PropTypes.string
+  changeCurrentCity: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     cities: [...new Set([...state.offers.map((offer) => offer.city)])],
-    currentCity: state.city
   };
 };
 
