@@ -12,12 +12,12 @@ exports[`list of offers renders correctly 1`] = `
         4.939309666406198,
       ]
     }
-    id="878974"
+    id={334454}
     isFavorite={false}
     isPremium={false}
-    key="878974"
+    key="334454"
     onSelected={[Function]}
-    photoURL="img/apartment-03.jpg"
+    previewPhoto="img/apartment-03.jpg"
     price={180}
     rating={80}
     selected={false}
@@ -32,12 +32,12 @@ exports[`list of offers renders correctly 1`] = `
         4.85309666406198,
       ]
     }
-    id="5454"
+    id={5435}
     isFavorite={false}
     isPremium={true}
-    key="5454"
+    key="5435"
     onSelected={[Function]}
-    photoURL="img/apartment-01.jpg"
+    previewPhoto="img/apartment-01.jpg"
     price={120}
     rating={93}
     selected={false}
@@ -52,12 +52,12 @@ exports[`list of offers renders correctly 1`] = `
         4.85309666406198,
       ]
     }
-    id="5675675"
+    id={54353}
     isFavorite={true}
     isPremium={false}
-    key="5675675"
+    key="54353"
     onSelected={[Function]}
-    photoURL="img/room.jpg"
+    previewPhoto="img/room.jpg"
     price={80}
     rating={80}
     selected={false}
@@ -72,12 +72,12 @@ exports[`list of offers renders correctly 1`] = `
         4.929309666406198,
       ]
     }
-    id="545345"
+    id={53453}
     isFavorite={false}
     isPremium={false}
-    key="545345"
+    key="53453"
     onSelected={[Function]}
-    photoURL="img/apartment-02.jpg"
+    previewPhoto="img/apartment-02.jpg"
     price={132}
     rating={80}
     selected={false}
@@ -92,12 +92,12 @@ exports[`list of offers renders correctly 1`] = `
         2.37852,
       ]
     }
-    id="fdfdg"
+    id={534534}
     isFavorite={false}
     isPremium={true}
-    key="fdfdg"
+    key="534534"
     onSelected={[Function]}
-    photoURL="img/apartment-01.jpg"
+    previewPhoto="img/apartment-01.jpg"
     price={120}
     rating={93}
     selected={false}
@@ -112,12 +112,12 @@ exports[`list of offers renders correctly 1`] = `
         6.961092,
       ]
     }
-    id="jfghjf"
+    id={3434}
     isFavorite={true}
     isPremium={false}
-    key="jfghjf"
+    key="3434"
     onSelected={[Function]}
-    photoURL="img/room.jpg"
+    previewPhoto="img/room.jpg"
     price={80}
     rating={80}
     selected={false}
@@ -132,12 +132,12 @@ exports[`list of offers renders correctly 1`] = `
         10.062009,
       ]
     }
-    id="jjfghjgf56"
+    id={65656}
     isFavorite={false}
     isPremium={false}
-    key="jjfghjgf56"
+    key="65656"
     onSelected={[Function]}
-    photoURL="img/apartment-02.jpg"
+    previewPhoto="img/apartment-02.jpg"
     price={132}
     rating={80}
     selected={false}
@@ -152,12 +152,12 @@ exports[`list of offers renders correctly 1`] = `
         6.804574,
       ]
     }
-    id="bncvb"
+    id={23232}
     isFavorite={false}
     isPremium={false}
-    key="bncvb"
+    key="23232"
     onSelected={[Function]}
-    photoURL="img/apartment-03.jpg"
+    previewPhoto="img/apartment-03.jpg"
     price={180}
     rating={80}
     selected={false}

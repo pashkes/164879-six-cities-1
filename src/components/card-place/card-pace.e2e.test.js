@@ -8,9 +8,9 @@ configure({adapter: new Adapter()});
 const clickHandler = jest.fn();
 it(`simulate click to the title of card`, () => {
   const card = shallow(<CardPlace
-    id={`567657`}
+    id={567657}
     title={``}
-    photoURL={``}
+    previewPhoto={``}
     isPremium={false}
     isFavorite={false}
     price={0}

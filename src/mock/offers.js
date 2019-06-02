@@ -1,9 +1,9 @@
 const offers = [
   {
-    id: `878974`,
+    id: 334454,
     city: `Amsterdam`,
     title: `Nice, cozy, warm big bed apartment`,
-    photoURL: `img/apartment-03.jpg`,
+    previewPhoto: `img/apartment-03.jpg`,
     isPremium: false,
     isFavorite: false,
     price: 180,
@@ -12,10 +12,10 @@ const offers = [
     coordinates: [52.3809553943508, 4.939309666406198]
   },
   {
-    id: `5454`,
+    id: 5435,
     city: `Amsterdam`,
     title: `Beautiful & luxurious apartment at great location`,
-    photoURL: `img/apartment-01.jpg`,
+    previewPhoto: `img/apartment-01.jpg`,
     isPremium: true,
     isFavorite: false,
     price: 120,
@@ -24,10 +24,10 @@ const offers = [
     coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
-    id: `5675675`,
+    id: 54353,
     city: `Amsterdam`,
     title: `Wood and stone place`,
-    photoURL: `img/room.jpg`,
+    previewPhoto: `img/room.jpg`,
     isPremium: false,
     isFavorite: true,
     price: 80,
@@ -36,10 +36,10 @@ const offers = [
     coordinates: [52.369553943508, 4.85309666406198]
   },
   {
-    id: `545345`,
+    id: 53453,
     city: `Amsterdam`,
     title: `Canal View Prinsengracht`,
-    photoURL: `img/apartment-02.jpg`,
+    previewPhoto: `img/apartment-02.jpg`,
     isPremium: false,
     isFavorite: false,
     price: 132,
@@ -48,10 +48,10 @@ const offers = [
     coordinates: [52.3909553943508, 4.929309666406198]
   },
   {
-    id: `fdfdg`,
+    id: 534534,
     city: `Paris`,
     title: `Beautiful & luxurious apartment at great location`,
-    photoURL: `img/apartment-01.jpg`,
+    previewPhoto: `img/apartment-01.jpg`,
     isPremium: true,
     isFavorite: false,
     price: 120,
@@ -60,10 +60,10 @@ const offers = [
     coordinates: [48.866790, 2.378520]
   },
   {
-    id: `jfghjf`,
+    id: 3434,
     city: `Cologne`,
     title: `Wood and stone place`,
-    photoURL: `img/room.jpg`,
+    previewPhoto: `img/room.jpg`,
     isPremium: false,
     isFavorite: true,
     price: 80,
@@ -72,10 +72,10 @@ const offers = [
     coordinates: [50.958694, 6.961092]
   },
   {
-    id: `jjfghjgf56`,
+    id: 65656,
     city: `Hamburg`,
     title: `Canal View Prinsengracht`,
-    photoURL: `img/apartment-02.jpg`,
+    previewPhoto: `img/apartment-02.jpg`,
     isPremium: false,
     isFavorite: false,
     price: 132,
@@ -84,10 +84,10 @@ const offers = [
     coordinates: [53.598154, 10.062009]
   },
   {
-    id: `bncvb`,
+    id: 23232,
     city: `Dusseldorf`,
     title: `Nice, cozy, warm big bed apartment`,
-    photoURL: `img/apartment-03.jpg`,
+    previewPhoto: `img/apartment-03.jpg`,
     isPremium: false,
     isFavorite: false,
     price: 180,

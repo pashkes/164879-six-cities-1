@@ -6,9 +6,9 @@ describe(`renders correctly`, () => {
   it(`in the default state`, () => {
     const card = renderer
       .create(<CardPlace
-        id={`dsdsd`}
+        id={525}
         title={``}
-        photoURL={``}
+        previewPhoto={``}
         isPremium={false}
         isFavorite={false}
         price={0}
@@ -22,9 +22,9 @@ describe(`renders correctly`, () => {
   it(`if the card is favorite`, () => {
     const cardIsFavorite = renderer
       .create(<CardPlace
-        id={`fcdx34`}
+        id={414}
         title={``}
-        photoURL={``}
+        previewPhoto={``}
         isPremium={false}
         isFavorite={true}
         price={0}
@@ -38,9 +38,9 @@ describe(`renders correctly`, () => {
   it(`if the card is premium`, () => {
     const cardIsPremium = renderer
       .create(<CardPlace
-        id={`ds43d`}
+        id={454554}
         title={``}
-        photoURL={``}
+        previewPhoto={``}
         isPremium={true}
         isFavorite={false}
         price={0}

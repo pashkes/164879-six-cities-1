@@ -1,5 +1,5 @@
 import React from 'react';
-import Catalog from './components/catalog/catalog.jsx';
+import Catalog from '../catalog/catalog.jsx';
 
 const App = () =>{
   return <Catalog />;
