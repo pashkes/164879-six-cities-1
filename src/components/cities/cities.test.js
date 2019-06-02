@@ -2,17 +2,9 @@ import React from 'react';
 import {shallow, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import {Cities, mapStateToProps} from './cities.jsx';
+import {Cities} from './cities.jsx';
 
 configure({adapter: new Adapter()});
-
-const inputOffers = [
-  {city: `Amsterdam`},
-  {city: `Paris`},
-  {city: `Cologne`},
-  {city: `Hamburg`},
-  {city: `Dusseldorf`}
-];
 
 const mockCities = [
   `Amsterdam`,
@@ -27,12 +19,3 @@ it(`cities renders correctly`, () => {
   expect(cities).toMatchSnapshot();
 });
 
-it(`should return state object with unique list cities`, () => {
-  const state = mapStateToProps({
-    offers: inputOffers,
-    city: `Amsterdam`
-  });
-  expect(state).toEqual({
-    cities: mockCities
-  });
-});

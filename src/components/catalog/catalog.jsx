@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import Cities from './../cities/cities.jsx';
 import Offers from '../offers/offers.jsx';
 import Map from '../map/map.jsx';
+import {getActiveCity, getFilteredOffers} from './../../reducer/data/selectors';
+import Constants from './../../constants';
 
 export const Catalog = (props) => {
   const {
@@ -52,7 +54,7 @@ export const Catalog = (props) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">
-        <Cities/>
+        <Cities cities={Constants.CITIES} />
       </div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
@@ -76,11 +78,11 @@ export const Catalog = (props) => {
                 <option className="places__option" value="top-rated">Top rated first</option>
               </select>*/}
             </form>
-            <Offers />
+            <Offers/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map />
+              <Map/>
             </section>
           </div>
         </div>
@@ -90,10 +92,8 @@ export const Catalog = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  offers: state.offers.filter((offer) => {
-    return offer.city === state.city;
-  })
+  currentCity: getActiveCity(state),
+  offers: getFilteredOffers(state),
 });
 
 Catalog.propTypes = {
