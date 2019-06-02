@@ -15,7 +15,7 @@ class CardPlace extends PureComponent {
   render() {
     const {
       isPremium,
-      photoURL,
+      previewPhoto,
       price,
       isFavorite,
       rating,
@@ -27,7 +27,7 @@ class CardPlace extends PureComponent {
       {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#" onClick={this.handleImageClick}>
-          <img className="place-card__image" src={photoURL} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewPhoto} width="260" height="200" alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
@@ -61,9 +61,9 @@ class CardPlace extends PureComponent {
 }
 
 CardPlace.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  photoURL: PropTypes.string.isRequired,
+  previewPhoto: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,

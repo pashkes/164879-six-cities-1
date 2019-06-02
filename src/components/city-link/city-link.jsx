@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-
+import {getActiveCity} from './../../reducer/data/selectors';
 
 export class CityLink extends PureComponent {
   constructor(props) {
@@ -37,7 +37,7 @@ CityLink.propTypes = {
 
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currentCity: state.city
+  currentCity: getActiveCity(state),
 });
 
 export default connect(

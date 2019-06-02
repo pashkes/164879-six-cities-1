@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import CardPlace from '../card-place/card-place.jsx';
 import {connect} from "react-redux";
 
+import {getFilteredOffers} from '../../reducer/data/selectors';
+
 export class Offers extends PureComponent {
   constructor(props) {
     super(props);
@@ -33,9 +35,9 @@ export class Offers extends PureComponent {
 
 Offers.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    photoURL: PropTypes.string.isRequired,
+    previewPhoto: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
     isFavorite: PropTypes.bool.isRequired,
@@ -44,13 +46,9 @@ Offers.propTypes = {
   })).isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    offers: state.offers.filter((offer) => {
-      return offer.city === state.city;
-    })
-  };
-};
+const mapStateToProps = (state) => ({
+  offers: getFilteredOffers(state)
+});
 
 export {mapStateToProps};
 export default connect(mapStateToProps)(Offers);
