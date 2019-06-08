@@ -35,7 +35,6 @@ Cities.propTypes = {
   cities: PropTypes.array.isRequired,
   changeCurrentCity: PropTypes.func.isRequired
 };
-
 const mapDispatchToProps = (dispatch) => ({
   changeCurrentCity: (city) => dispatch(ActionCreators.changeCity(city)),
 });

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import leaflet from 'leaflet';
 
 import CitiesCoordinates from './../../mock/coordinatesCities';
-import {getFilteredOffers, getActiveCity} from '../../reducer/data/selectors';
+import {getCoordinatesOfCurrentCity, getActiveCity} from '../../reducer/data/selectors';
 
 export class Map extends PureComponent {
   constructor(props) {
@@ -69,7 +69,7 @@ Map.propTypes = {
 
 const mapStateToProps = (state) => ({
   currentCity: getActiveCity(state),
-  coordinates: getFilteredOffers(state).map((it) => [it.location.latitude, it.location.longitude])
+  coordinates: getCoordinatesOfCurrentCity(state),
 });
 
 export {mapStateToProps};

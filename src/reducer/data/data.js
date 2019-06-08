@@ -5,44 +5,6 @@ const initialState = {
   city: Constants.DEFAULT_CITY,
 };
 
-const getRelatedRating = (rating) => rating * 100 / Constants.MAX_RATING;
-const toModelOffer = (data) => ({
-  id: data.id,
-  city: {
-    name: data.city.name,
-    location: {
-      latitude: data.city.location.latitude,
-      longitude: data.city.location.longitude,
-      zoom: data.city.location.zoom,
-    }
-  },
-  price: data.price,
-  rating: getRelatedRating(data.rating),
-  title: data.title,
-  type: data.type,
-  description: data.description,
-  goods: data.goods,
-  bedrooms: data.bedrooms,
-  isFavorite: data[`is_favorite`],
-  isPremium: data[`is_premium`],
-  previewPhoto: data[`preview_image`],
-  maxAdults: data[`max_adults`],
-  images: data.images,
-  host: {
-    avatarURL: data.host[`avatar_url`],
-    id: data.host.id,
-    isPro: data.host[`is_pro`],
-    name: data.host.name,
-  },
-  location: {
-    latitude: data.location.latitude,
-    longitude: data.location.longitude,
-    zoom: data.location.zoom,
-  },
-});
-
-const transformHotels = (hotels) => hotels.map((item) => toModelOffer(item));
-
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   CHANGE_CITY: `CHANGE_CITY`,

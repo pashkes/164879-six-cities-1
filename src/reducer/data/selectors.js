@@ -16,3 +16,8 @@ export const getFilteredOffers = createSelector(
     getActiveCity,
     (offers, city) => offers.filter((offer) => offer.city.name === city)
 );
+
+export const getCoordinatesOfCurrentCity = createSelector(
+    getFilteredOffers,
+    (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
+);
