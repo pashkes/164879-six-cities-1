@@ -1,4 +1,5 @@
 import Constants from './../../constants';
+import toModelOffer from './adapter';
 
 const initialState = {
   offers: [],
@@ -33,7 +34,7 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
-      return Object.assign({}, state, {offers: transformHotels(action.payload)});
+      return Object.assign({}, state, {offers: toModelOffer(action.payload)});
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {city: action.city});
   }
