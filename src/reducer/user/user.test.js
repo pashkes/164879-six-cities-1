@@ -12,15 +12,15 @@ describe(`Reducer works correctly`, () => {
     const authorization = Operation.authorization(``, ``);
 
     apiMock
-      .onPost(`/login`, {params: {fake: true}})
-      .reply(200, {params: {fake: true}});
+      .onPost(`/login`)
+      .reply(200, true);
 
     return authorization(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: {params: {fake: true}},
+          payload: true,
         });
       });
   });
