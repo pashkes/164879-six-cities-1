@@ -24,7 +24,7 @@ describe(`Reducer works correctly`, () => {
     };
     const getUserData = reducer(
         {isAuthorizationRequired: false, authorization: {}},
-        {type: ActionType.REQUIRED_AUTHORIZATION, authorization: userData}
+        {type: ActionType.AUTHORIZATION, authorization: userData}
     );
 
     expect(getUserData).toEqual({isAuthorizationRequired: false, authorization: userData});
