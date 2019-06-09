@@ -8,7 +8,7 @@ describe(`Reducer works correctly`, () => {
   it(`should change required authorization`, () => {
     const reducerDoneLogIn = reducer(
         {isAuthorizationRequired: false, authorization: {}},
-        {type: ActionType.REQUIRED_AUTHORIZATION, isAuthorizationRequired: true}
+        {type: ActionType.REQUIRED_AUTHORIZATION, payload: true}
     );
 
     expect(reducerDoneLogIn).toEqual({isAuthorizationRequired: true, authorization: {}});
@@ -24,7 +24,7 @@ describe(`Reducer works correctly`, () => {
     };
     const getUserData = reducer(
         {isAuthorizationRequired: false, authorization: {}},
-        {type: ActionType.AUTHORIZATION, authorization: userData}
+        {type: ActionType.AUTHORIZATION, payload: userData}
     );
 
     expect(getUserData).toEqual({isAuthorizationRequired: false, authorization: userData});

@@ -8,7 +8,7 @@ describe(`Reducer works correctly`, () => {
   it(`should change city`, () => {
     const reducerDone = reducer(
         {city: `Dusseldorf`, offers: []},
-        {type: ActionType.CHANGE_CITY, city: `Amsterdam`}
+        {type: ActionType.CHANGE_CITY, payload: `Amsterdam`}
     );
     expect(reducerDone).toEqual({city: `Amsterdam`, offers: []});
   });

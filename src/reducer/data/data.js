@@ -18,7 +18,7 @@ const ActionCreators = {
   }),
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
-    city,
+    payload: city,
   })
 };
 
@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return Object.assign({}, state, {offers: toModelOffer(action.payload)});
     case ActionType.CHANGE_CITY:
-      return Object.assign({}, state, {city: action.city});
+      return Object.assign({}, state, {city: action.payload});
   }
   return state;
 };
