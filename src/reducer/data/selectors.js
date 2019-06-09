@@ -1,4 +1,4 @@
-import NameSpace from '../name-spaces';
+import NameSpace from "../name-spaces";
 import {createSelector} from "reselect";
 
 const NAME_SPACE = NameSpace.DATA;

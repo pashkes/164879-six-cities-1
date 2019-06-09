@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import CardPlace from '../card-place/card-place.jsx';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
+import CardPlace from "../card-place/card-place.jsx";
 import {connect} from "react-redux";
 
 import {getFilteredOffers} from '../../reducer/data/selectors';

@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import Cities from "../cities/cities.jsx";
 import Constants from "../../constants";
 import Offers from "../offers/offers.jsx";

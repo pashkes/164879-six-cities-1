@@ -1,5 +1,5 @@
-import Constants from './../../constants';
-import toModelOffer from './adapter';
+import Constants from "./../../constants";
+import toModelOffer from "./adapter";
 
 const initialState = {
   offers: [],

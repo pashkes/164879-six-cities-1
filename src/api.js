@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 import {ActionCreators} from "./reducer/user/user";
-import Constants from './constants';
+import Constants from "./constants";
 
 const createApi = (dispatch) => {
   const api = axios.create({

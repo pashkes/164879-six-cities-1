@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import LoginForm from './../login-form/login-form.jsx';
+import LoginForm from "./../login-form/login-form.jsx";
 
 const SignIn = () => {
   return (

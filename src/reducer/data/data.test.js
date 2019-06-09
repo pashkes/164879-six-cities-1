@@ -1,4 +1,4 @@
-import MockAdapter from 'axios-mock-adapter';
+import MockAdapter from "axios-mock-adapter";
 
 import createApi from './../../api';
 import {Operation, ActionType, reducer} from './data';

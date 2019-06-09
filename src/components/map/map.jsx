@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import leaflet from 'leaflet';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import leaflet from "leaflet";
 
-import CitiesCoordinates from './../../mock/coordinatesCities';
-import {getCoordinatesOfCurrentCity, getActiveCity} from '../../reducer/data/selectors';
+import CitiesCoordinates from "./../../mock/coordinatesCities";
+import {getCoordinatesOfCurrentCity, getActiveCity} from "../../reducer/data/selectors";
 
 export class Map extends PureComponent {
   constructor(props) {

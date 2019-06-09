@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Constants from './../../constants';
-import {ActionCreators} from './../../reducer/user/user';
-import {getUserData} from './../../reducer/user/selectors';
+import Constants from "./../../constants";
+import {ActionCreators} from "./../../reducer/user/user";
+import {getUserData} from "./../../reducer/user/selectors";
 
 export class Header extends PureComponent {
   constructor(props) {

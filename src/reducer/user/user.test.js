@@ -1,9 +1,34 @@
-import MockAdapter from 'axios-mock-adapter';
+import MockAdapter from "axios-mock-adapter";
 
-import createApi from './../../api';
-import {Operation, ActionType} from './user';
+import createApi from "./../../api";
+import {Operation, ActionType, reducer} from "./user";
 
 describe(`Reducer works correctly`, () => {
+
+  it(`should change required authorization`, () => {
+    const reducerDoneLogIn = reducer(
+        {isAuthorizationRequired: false, authorization: {}},
+        {type: ActionType.REQUIRED_AUTHORIZATION, isAuthorizationRequired: true}
+    );
+
+    expect(reducerDoneLogIn).toEqual({isAuthorizationRequired: true, authorization: {}});
+  });
+
+  it(`should get correct user data`, () => {
+    const userData = {
+      id: ``,
+      email: ``,
+      name: ``,
+      avatar: ``,
+      isPro: ``,
+    };
+    const getUserData = reducer(
+        {isAuthorizationRequired: false, authorization: {}},
+        {type: ActionType.REQUIRED_AUTHORIZATION, authorization: userData}
+    );
+
+    expect(getUserData).toEqual({isAuthorizationRequired: false, authorization: userData});
+  });
 
   it(`Should make a correctly API post login`, () => {
     const dispatch = jest.fn();

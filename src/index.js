@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {createStore, applyMiddleware} from 'redux';
-import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
+import React from "react";
+import ReactDOM from "react-dom";
+import {createStore, applyMiddleware} from "redux";
+import {Provider} from "react-redux";
+import thunk from "redux-thunk";
 import {compose} from "recompose";
 
 import reducer from "./reducer/reducer";
-import App from './components/app/app';
-import createAPI from './api.js';
-import {Operation} from './reducer/data/data';
+import App from "./components/app/app";
+import createAPI from "./api.js";
+import {Operation} from "./reducer/data/data";
 
 const initApp = () => {
   const api = createAPI((...args) => store.dispatch(...args));

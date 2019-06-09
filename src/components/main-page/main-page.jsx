@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import {connect} from "react-redux";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Header from '../header/header.jsx';
-import Catalog from './../catalog/catalog.jsx';
-import SignIn from './../sign-in/sign-in.jsx';
-import {getAuthorizationStatus, getUserData} from './../../reducer/user/selectors';
+import Header from "../header/header.jsx";
+import Catalog from "./../catalog/catalog.jsx";
+import SignIn from "./../sign-in/sign-in.jsx";
+import {getAuthorizationStatus, getUserData} from "./../../reducer/user/selectors";
 
 export const MainPage = (props) =>{
   return (

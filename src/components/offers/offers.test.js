@@ -1,8 +1,8 @@
 import React from 'react';
 import {Offers} from "./../offers/offers";
-import offers from '../../mock/offers';
-import {shallow, configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import offers from "../../mock/offers";
+import {shallow, configure} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 configure({adapter: new Adapter()});
 

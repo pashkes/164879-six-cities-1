@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import {LoginForm} from "./login-form.jsx";
-import {shallow, configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow, configure} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 configure({adapter: new Adapter()});
 
