@@ -53,7 +53,6 @@ export class Header extends PureComponent {
 Header.propTypes = {
   isAuthorization: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
-  onClickLogOut: PropTypes.func,
   logOut: PropTypes.func.isRequired,
 };
 
