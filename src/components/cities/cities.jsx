@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import City from '../city-link/city-link.jsx';
+import City from "../city-link/city-link.jsx";
 import {ActionCreators} from "../../reducer/data/data";
 
 export class Cities extends PureComponent {
@@ -35,7 +35,6 @@ Cities.propTypes = {
   cities: PropTypes.array.isRequired,
   changeCurrentCity: PropTypes.func.isRequired
 };
-
 const mapDispatchToProps = (dispatch) => ({
   changeCurrentCity: (city) => dispatch(ActionCreators.changeCity(city)),
 });

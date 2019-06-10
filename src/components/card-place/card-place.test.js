@@ -1,6 +1,6 @@
-import React from 'react';
-import CardPlace from './card-place.jsx';
-import renderer from 'react-test-renderer';
+import React from "react";
+import CardPlace from "./card-place.jsx";
+import renderer from "react-test-renderer";
 
 describe(`renders correctly`, () => {
   it(`in the default state`, () => {

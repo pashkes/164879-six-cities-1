@@ -1,8 +1,12 @@
-import React from 'react';
-import Catalog from '../catalog/catalog.jsx';
+import React from "react";
+import MainPage from "../main-page/main-page.jsx";
 
 const App = () =>{
-  return <Catalog />;
+  return (
+    <React.Fragment>
+      <MainPage pageClass={`page--main`} />
+    </React.Fragment>
+  );
 };
 
 export default App;

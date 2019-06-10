@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getActiveCity} from './../../reducer/data/selectors';
+import {getActiveCity} from "./../../reducer/data/selectors";
 
 export class CityLink extends PureComponent {
   constructor(props) {
