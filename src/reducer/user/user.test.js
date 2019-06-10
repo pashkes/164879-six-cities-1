@@ -1,17 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
 
 import createApi from "./../../api";
-import {Operation, ActionType, reducer} from "./user";
+import {Operation, ActionType, reducer, ActionCreators} from "./user";
 
 describe(`Reducer works correctly`, () => {
 
   it(`should change required authorization`, () => {
     const reducerDoneLogIn = reducer(
-        {isAuthorizationRequired: false, authorization: {}},
-        {type: ActionType.REQUIRED_AUTHORIZATION, payload: true}
+        {isAuthorizationRequired: false},
+        ActionCreators.requireAuthorization(true)
     );
 
-    expect(reducerDoneLogIn).toEqual({isAuthorizationRequired: true, authorization: {}});
+    expect(reducerDoneLogIn).toEqual({isAuthorizationRequired: true});
   });
 
   it(`should get correct user data`, () => {
@@ -23,11 +23,11 @@ describe(`Reducer works correctly`, () => {
       isPro: ``,
     };
     const getUserData = reducer(
-        {isAuthorizationRequired: false, authorization: {}},
-        {type: ActionType.AUTHORIZATION, payload: userData}
+        {authorization: {}},
+        ActionCreators.authorization(userData)
     );
 
-    expect(getUserData).toEqual({isAuthorizationRequired: false, authorization: userData});
+    expect(getUserData).toEqual({authorization: userData});
   });
 
   it(`Should make a correctly API post login`, () => {

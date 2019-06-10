@@ -1,16 +1,16 @@
 import MockAdapter from "axios-mock-adapter";
 
 import createApi from './../../api';
-import {Operation, ActionType, reducer} from './data';
+import {Operation, ActionType, reducer, ActionCreators} from './data';
 
 describe(`Reducer works correctly`, () => {
 
-  it(`should change city`, () => {
+  it(`Should change active city`, () => {
     const reducerDone = reducer(
-        {city: `Dusseldorf`, offers: []},
-        {type: ActionType.CHANGE_CITY, payload: `Amsterdam`}
+        {city: `Dusseldorf`},
+        ActionCreators.changeCity(`Amsterdam`)
     );
-    expect(reducerDone).toEqual({city: `Amsterdam`, offers: []});
+    expect(reducerDone).toEqual({city: `Amsterdam`});
   });
 
   it(`Should make a correctly API load hotels`, () => {

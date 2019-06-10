@@ -52,7 +52,7 @@ exports[`catalog renders correctly 1`] = `
           method="get"
         >
           <span
-            className="p  laces__sorting-caption"
+            className="places__sorting-caption"
           >
             Sort by
           </span>

@@ -11,14 +11,14 @@ export const LoginForm = (props) => {
     onChangePassword,
     emailValue,
     passwordValue,
-    logIn,
+    onLogIn,
   } = props;
   return (
     <section className="login">
       <h1 className="login__title">Sign in</h1>
       <form onSubmit={(evt)=> {
         evt.preventDefault();
-        logIn(emailValue, passwordValue);
+        onLogIn(emailValue, passwordValue);
       }} className="login__form form" action="#" method="post">
         <div className="login__input-wrapper form__input-wrapper">
           <label className="visually-hidden">E-mail</label>
@@ -56,11 +56,11 @@ LoginForm.propTypes = {
   onChangePassword: PropTypes.func.isRequired,
   emailValue: PropTypes.string,
   passwordValue: PropTypes.string,
-  logIn: PropTypes.func.isRequired
+  onLogIn: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  logIn: (email, password) => dispatch(Operation.authorization(email, password)),
+  onLogIn: (email, password) => dispatch(Operation.authorization(email, password)),
 });
 
 export default connect(null, mapDispatchToProps)(withLoginForm(LoginForm));
