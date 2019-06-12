@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`favorites is renders correctly 1`] = `
-<WrapperForPages
-  pageClasses=""
->
+<Fragment>
   <ConnectFunction />
   <main
     className="page__main page__main--favorites"
@@ -372,5 +370,5 @@ exports[`favorites is renders correctly 1`] = `
       />
     </Link>
   </footer>
-</WrapperForPages>
+</Fragment>
 `;

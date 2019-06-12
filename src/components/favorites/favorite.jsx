@@ -2,11 +2,10 @@ import React from "react";
 import {Link} from 'react-router-dom';
 
 import Header from "./../header/header.jsx";
-import WrapperForPages from "../wrapper-for-pages/wrapper-for-pages.jsx";
 
 const Favorites = () => {
   return (
-    <WrapperForPages>
+    <React.Fragment>
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
@@ -138,7 +137,7 @@ const Favorites = () => {
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
         </Link>
       </footer>
-    </WrapperForPages>);
+    </React.Fragment>);
 };
 
 export default Favorites;
