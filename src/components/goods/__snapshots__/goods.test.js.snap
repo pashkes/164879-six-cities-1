@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`goods is renders correctly 1`] = `
+<ul
+  className="property__inside-list"
+>
+  <li
+    className="property__inside-item"
+    key="0"
+  />
+</ul>
+`;

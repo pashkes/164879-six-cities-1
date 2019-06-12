@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gallery is renders correctly 1`] = `
+<div
+  className="property__gallery-container container"
+>
+  <div
+    className="property__gallery"
+  >
+    <div
+      className="property__image-wrapper"
+      key="0"
+    >
+      <img
+        alt="Photo studio"
+        className="property__image"
+        src=""
+      />
+    </div>
+  </div>
+</div>
+`;
