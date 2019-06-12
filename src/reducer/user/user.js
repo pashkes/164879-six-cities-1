@@ -31,7 +31,19 @@ const Operation = {
           dispatch(ActionCreators.authorization(toModelUserDate(data)));
         }
       });
-  }
+  },
+  checkAuth: () => {
+    return (dispatch, _getState, api) => {
+      return api
+        .get(`/login`)
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(ActionCreators.requireAuthorization(true));
+            dispatch(ActionCreators.authorization(toModelUserDate(res.data)));
+          }
+        });
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
