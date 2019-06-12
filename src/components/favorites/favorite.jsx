@@ -1,12 +1,11 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 
-import Header from "./../header/header.jsx";
+import Layout from "../layout/layout.jsx";
 
 const Favorites = () => {
   return (
-    <React.Fragment>
-      <Header />
+    <Layout>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -137,7 +136,7 @@ const Favorites = () => {
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
         </Link>
       </footer>
-    </React.Fragment>);
+    </Layout>);
 };
 
 export default Favorites;

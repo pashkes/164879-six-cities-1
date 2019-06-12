@@ -1,13 +1,11 @@
 import React from "react";
 
 import LoginForm from "./../login-form/login-form.jsx";
-import Header from "./../header/header.jsx";
-import WrapperForPages from "../wrapper-for-pages/wrapper-for-pages.jsx";
+import Layout from "../layout/layout.jsx";
 
 const SignIn = () => {
   return (
-    <WrapperForPages pageClasses={[`page`, `page--gray`, `page--login`]}>
-      <Header />
+    <Layout pageClasses={[`page`, `page--gray`, `page--login`]}>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <LoginForm />
@@ -20,7 +18,7 @@ const SignIn = () => {
           </section>
         </div>
       </main>
-    </WrapperForPages>
+    </Layout>
   );
 };
 
