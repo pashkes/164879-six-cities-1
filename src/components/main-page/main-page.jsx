@@ -4,19 +4,15 @@ import PropTypes from "prop-types";
 
 import Header from "../header/header.jsx";
 import Catalog from "./../catalog/catalog.jsx";
-import SignIn from "./../sign-in/sign-in.jsx";
+import WrapperForPages from "../wrapper-for-pages/wrapper-for-pages.jsx";
 import {getAuthorizationStatus, getUserData} from "./../../reducer/user/selectors";
 
-export const MainPage = (props) =>{
+export const MainPage = () =>{
   return (
-    <div className={`page page--gray ${props.pageClass}`}>
-      <Header
-        isAuthorization={props.isAuthorizationRequired}
-        email={props.authorization.email}
-        avatar={props.authorization.avatar}
-      />
-      {props.isAuthorizationRequired ? <Catalog/> : <SignIn />}
-    </div>
+    <WrapperForPages pageClasses={[`page`, `page--gray`, `page--main`]}>
+      <Header />
+      <Catalog/>
+    </WrapperForPages>
   );
 };
 

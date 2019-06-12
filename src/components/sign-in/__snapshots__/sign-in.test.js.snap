@@ -1,29 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`city link renders correctly 1`] = `
-<main
-  className="page__main page__main--login"
+<WrapperForPages
+  pageClasses={
+    Array [
+      "page",
+      "page--gray",
+      "page--login",
+    ]
+  }
 >
-  <div
-    className="page__login-container container"
+  <ConnectFunction />
+  <main
+    className="page__main page__main--login"
   >
-    <ConnectFunction />
-    <section
-      className="locations locations--login locations--current"
+    <div
+      className="page__login-container container"
     >
-      <div
-        className="locations__item"
+      <ConnectFunction />
+      <section
+        className="locations locations--login locations--current"
       >
-        <a
-          className="locations__item-link"
-          href="#"
+        <div
+          className="locations__item"
         >
-          <span>
-            Amsterdam
-          </span>
-        </a>
-      </div>
-    </section>
-  </div>
-</main>
+          <a
+            className="locations__item-link"
+            href="#"
+          >
+            <span>
+              Amsterdam
+            </span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+</WrapperForPages>
 `;
