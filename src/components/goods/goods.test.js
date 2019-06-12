@@ -2,10 +2,11 @@ import React from "react";
 import {shallow, configure} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import SignIn from './sign-in';
+import Goods from "./goods.jsx";
+
 configure({adapter: new Adapter()});
 
-it(`Sign in page renders correctly`, () => {
-  const signIn = shallow(<SignIn />);
-  expect(signIn).toMatchSnapshot();
+it(`goods is renders correctly`, () => {
+  const goods = shallow(<Goods list={[``]} />);
+  expect(goods).toMatchSnapshot();
 });

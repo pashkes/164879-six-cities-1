@@ -8,7 +8,7 @@ import SignIn from "./../sign-in/sign-in.jsx";
 import Favorites from "./../favorites/favorite.jsx";
 import withPrivateRoute from "./../../hocs/with-private-route/with-private-route";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
-
+import Property from "./../property/property.jsx";
 
 export const App = ({isAuthorization}) => {
   const FavoritesPrivate = withPrivateRoute(Favorites, isAuthorization, `/login`);
@@ -18,6 +18,7 @@ export const App = ({isAuthorization}) => {
       <Route path="/" exact component={MainPage} />
       <Route path="/login" exact component={SignInPrivate} />
       <Route path="/favorites" exact component={FavoritesPrivate} />
+      <Route path="/offer/:id" exact render={({match}) => <Property id={match.params.id} />} />
     </Switch>
   );
 };

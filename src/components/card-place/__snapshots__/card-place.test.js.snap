@@ -85,17 +85,13 @@ exports[`renders correctly if the card is favorite 1`] = `
     <h2
       className="place-card__name"
     >
-      <a
-        href="#"
-      >
-        
-      </a>
+      <Link
+        to="/offer/414"
+      />
     </h2>
     <p
       className="place-card__type"
-    >
-      
-    </p>
+    />
   </div>
 </article>
 `;
@@ -192,17 +188,13 @@ exports[`renders correctly if the card is premium 1`] = `
     <h2
       className="place-card__name"
     >
-      <a
-        href="#"
-      >
-        
-      </a>
+      <Link
+        to="/offer/454554"
+      />
     </h2>
     <p
       className="place-card__type"
-    >
-      
-    </p>
+    />
   </div>
 </article>
 `;
@@ -292,17 +284,13 @@ exports[`renders correctly in the default state 1`] = `
     <h2
       className="place-card__name"
     >
-      <a
-        href="#"
-      >
-        
-      </a>
+      <Link
+        to="/offer/525"
+      />
     </h2>
     <p
       className="place-card__type"
-    >
-      
-    </p>
+    />
   </div>
 </article>
 `;

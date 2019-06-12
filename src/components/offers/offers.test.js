@@ -10,3 +10,4 @@ it(`list of offers renders correctly`, () => {
   const cards = shallow(<Offers offers={offers} />);
   expect(cards).toMatchSnapshot();
 });
+
