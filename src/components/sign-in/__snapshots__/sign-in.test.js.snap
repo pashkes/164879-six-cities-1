@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`city link renders correctly 1`] = `
-<WrapperForPages
+<Layout
   pageClasses={
     Array [
       "page",
@@ -10,7 +10,6 @@ exports[`city link renders correctly 1`] = `
     ]
   }
 >
-  <ConnectFunction />
   <main
     className="page__main page__main--login"
   >
@@ -36,5 +35,5 @@ exports[`city link renders correctly 1`] = `
       </section>
     </div>
   </main>
-</WrapperForPages>
+</Layout>
 `;
