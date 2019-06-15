@@ -12,9 +12,10 @@ import createAPI from "./api.js";
 import {Operation as DataOperation} from "./reducer/data/data";
 import {Operation as UserOperation} from "./reducer/user/user";
 import history from "./history.js";
+import Constants from "./constants";
 
 const initApp = () => {
-  const api = createAPI(() => history.push(`/login`));
+  const api = createAPI(() => history.push(Constants.LOGIN_PATH));
   const store = createStore(
       reducer,
       compose(

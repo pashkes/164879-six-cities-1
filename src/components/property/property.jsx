@@ -306,6 +306,27 @@ Property.propTypes = {
   }).isRequired,
 };
 
+Property.defaultProps = {
+  targetOffer: {
+    images: [``],
+    isPremium: false,
+    title: ``,
+    isFavorite: false,
+    rating: 0,
+    goods: [],
+    price: 0,
+    host: {
+      avatarURL: ``,
+      name: ``,
+      isPro: false,
+    },
+    description: ``,
+    maxAdults: 0,
+    bedrooms: 0,
+    type: ``,
+  }
+};
+
 const mapStateToProps = (state, ownProps) => {
   return {
     targetOffer: getOffers(state).find((item) => {

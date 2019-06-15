@@ -26,7 +26,7 @@ const Operation = {
   authorization: (email, password) => (dispatch, _getState, api) => {
     return api.post(Constants.LOGIN_PATH, {email, password})
       .then(({status, data}) => {
-        if (status === 200) {
+        if (status === Constants.STATUS_OK) {
           dispatch(ActionCreators.requireAuthorization(true));
           dispatch(ActionCreators.authorization(toModelUserDate(data)));
         }
@@ -35,11 +35,11 @@ const Operation = {
   checkAuth: () => {
     return (dispatch, _getState, api) => {
       return api
-        .get(`/login`)
-        .then((res) => {
-          if (res.status === 200) {
+        .get(Constants.LOGIN_PATH)
+        .then(({status, data}) => {
+          if (status === Constants.STATUS_OK) {
             dispatch(ActionCreators.requireAuthorization(true));
-            dispatch(ActionCreators.authorization(toModelUserDate(res.data)));
+            dispatch(ActionCreators.authorization(toModelUserDate(data)));
           }
         });
     };
