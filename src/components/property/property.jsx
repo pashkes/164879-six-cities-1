@@ -6,6 +6,8 @@ import PropType from "prop-types";
 import Gallery from "./../gallery/gallery.jsx";
 import Goods from "./../goods/goods.jsx";
 import {getOffers} from "./../../reducer/data/selectors";
+import withLoadData from "./../../hocs/with-load-data/with-load-data";
+import {Operation as DataOperation} from "../../reducer/data/data";
 
 export const Property = (props) => {
   const {
@@ -306,7 +308,7 @@ Property.propTypes = {
   }).isRequired,
 };
 
-Property.defaultProps = {
+/*Property.defaultProps = {
   targetOffer: {
     images: [``],
     isPremium: false,
@@ -325,14 +327,22 @@ Property.defaultProps = {
     bedrooms: 0,
     type: ``,
   }
-};
+}*/;
 
 const mapStateToProps = (state, ownProps) => {
+  const offers = getOffers(state);
   return {
-    targetOffer: getOffers(state).find((item) => {
+    loaded: offers.length !== 0,
+    targetOffer: offers.find((item) => {
       return item.id === Number(ownProps.id);
     })
   };
 };
 
-export default connect(mapStateToProps)(Property);
+const mapDispatchToProps = (dispatch) => ({
+  loadData: dispatch(DataOperation.loadOffers()),
+});
+
+const PropertyWithLoader = withLoadData(Property);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyWithLoader);

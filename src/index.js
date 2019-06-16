@@ -9,8 +9,6 @@ import {BrowserRouter} from "react-router-dom";
 import reducer from "./reducer/reducer";
 import App from "./components/app/app";
 import createAPI from "./api.js";
-import {Operation as DataOperation} from "./reducer/data/data";
-import {Operation as UserOperation} from "./reducer/user/user";
 import history from "./history.js";
 import Constants from "./constants";
 
@@ -23,9 +21,6 @@ const initApp = () => {
           window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       )
   );
-
-  store.dispatch(DataOperation.loadOffers());
-  store.dispatch(UserOperation.checkAuth());
   ReactDOM.render(
       <Provider store={store}>
         <BrowserRouter>
