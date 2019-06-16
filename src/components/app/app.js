@@ -12,6 +12,7 @@ import {getOffers} from "../../reducer/data/selectors";
 import Property from "./../property/property.jsx";
 import {Operation as DataOperation} from "./../../reducer/data/data";
 import {Operation as UserOperation} from "./../../reducer/user/user";
+import Constants from "../../constants";
 
 export class App extends PureComponent {
   constructor(props) {
@@ -28,7 +29,7 @@ export class App extends PureComponent {
 
   render() {
     const {isAuthorization} = this.props;
-    const FavoritesPrivate = withPrivateRoute(Favorites, isAuthorization, `/login`);
+    const FavoritesPrivate = withPrivateRoute(Favorites, isAuthorization, Constants.LOGIN_PATH);
     const SignInPrivate = withPrivateRoute(SignIn, !isAuthorization);
     return (
       <Switch>

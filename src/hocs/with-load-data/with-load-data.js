@@ -1,23 +1,28 @@
 import React, {PureComponent} from "react";
+import PropType from "prop-types";
+import Spinner from "./../../components/spinner/spinner.jsx";
 
 const withLoadData = (Component) => {
   class WithLoadData extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {
-        isLoaded: false
-      };
     }
+
     componentDidMount() {
-      if (this.props.loaded) {
+      if (this.props.isLoading) {
         this.props.loadData();
       }
     }
 
     render() {
-      return this.props.loaded ? <Component {...this.props} /> : <span>loading...</span>;
+      return this.props.isLoading ? <Component {...this.props} /> : <Spinner />;
     }
   }
+
+  WithLoadData.propTypes = {
+    isLoading: PropType.bool.isRequired,
+    loadData: PropType.func.isRequired,
+  };
 
   return WithLoadData;
 };

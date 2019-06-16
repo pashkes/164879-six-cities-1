@@ -8,6 +8,7 @@ import Goods from "./../goods/goods.jsx";
 import {getOffers} from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation} from "../../reducer/data/data";
+import Constants from "../../constants";
 
 export const Property = (props) => {
   const {
@@ -28,13 +29,15 @@ export const Property = (props) => {
     bedrooms,
     type,
   } = props.targetOffer;
+  const convertRating = (value, maxRating) => (value / 100 * maxRating).toFixed(1);
+
   return (
     <Layout pageClasses={[`page`]}>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <Gallery photos={images} />
+              <Gallery photos={images}/>
             </div>
           </div>
           <div className="property__container container">
@@ -56,10 +59,10 @@ export const Property = (props) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${rating}%`}} />
+                  <span style={{width: `${rating}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{rating / 100 * 5}</span>
+                <span className="property__rating-value rating__value">{convertRating(rating, Constants.MAX_RATING)}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
@@ -76,7 +79,7 @@ export const Property = (props) => {
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
-                <Goods list={goods} />
+                <Goods list={goods}/>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
@@ -236,7 +239,7 @@ export const Property = (props) => {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}} />
+                      <span style={{width: `80%`}}/>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -308,39 +311,16 @@ Property.propTypes = {
   }).isRequired,
 };
 
-/*Property.defaultProps = {
-  targetOffer: {
-    images: [``],
-    isPremium: false,
-    title: ``,
-    isFavorite: false,
-    rating: 0,
-    goods: [],
-    price: 0,
-    host: {
-      avatarURL: ``,
-      name: ``,
-      isPro: false,
-    },
-    description: ``,
-    maxAdults: 0,
-    bedrooms: 0,
-    type: ``,
-  }
-}*/;
-
 const mapStateToProps = (state, ownProps) => {
   const offers = getOffers(state);
   return {
-    loaded: offers.length !== 0,
-    targetOffer: offers.find((item) => {
-      return item.id === Number(ownProps.id);
-    })
+    isLoading: offers.length !== 0,
+    targetOffer: offers.find((item) => item.id === Number(ownProps.id)),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: dispatch(DataOperation.loadOffers()),
+  loadData: () => dispatch(DataOperation.loadOffers()),
 });
 
 const PropertyWithLoader = withLoadData(Property);

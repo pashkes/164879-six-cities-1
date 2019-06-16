@@ -83,7 +83,7 @@ exports[`Property page renders correctly 1`] = `
             <span
               className="property__rating-value rating__value"
             >
-              0
+              0.0
             </span>
           </div>
           <ul
