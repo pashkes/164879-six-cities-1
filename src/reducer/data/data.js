@@ -25,8 +25,8 @@ const ActionCreators = {
 const Operation = {
   loadOffers: () => (dispatch, _getState, api) => {
     return api.get(Constants.HOTEL_PATH)
-      .then((response) => {
-        dispatch(ActionCreators.loadOffers(response.data));
+      .then(({data}) => {
+        dispatch(ActionCreators.loadOffers(data));
       });
   },
 };
