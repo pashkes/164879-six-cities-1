@@ -5,6 +5,7 @@ const Constants = {
   HOTEL_PATH: `/hotels`,
   LOGIN_PATH: `/login`,
   ACCESS_DENIED: 403,
+  STATUS_OK: 200,
   TIMEOUT: 5000,
   MAX_RATING: 5,
 };

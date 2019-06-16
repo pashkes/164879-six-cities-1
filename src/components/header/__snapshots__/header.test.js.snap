@@ -13,8 +13,9 @@ exports[`Header renders correctly 1`] = `
       <div
         className="header__left"
       >
-        <a
+        <Link
           className="header__logo-link header__logo-link--active"
+          to="/"
         >
           <img
             alt="6 cities logo"
@@ -23,7 +24,7 @@ exports[`Header renders correctly 1`] = `
             src="img/logo.svg"
             width="81"
           />
-        </a>
+        </Link>
       </div>
       <nav
         className="header__nav"
@@ -34,10 +35,9 @@ exports[`Header renders correctly 1`] = `
           <li
             className="header__nav-item user"
           >
-            <a
+            <Link
               className="header__nav-link header__nav-link--profile"
-              href="#"
-              onClick={[Function]}
+              to="/login"
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
@@ -48,7 +48,7 @@ exports[`Header renders correctly 1`] = `
               >
                 Sign In
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

@@ -2,6 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 
 import createApi from './../../api';
 import {Operation, ActionType, reducer, ActionCreators} from './data';
+import Constants from "./../../constants";
 
 describe(`Reducer works correctly`, () => {
 
@@ -20,8 +21,8 @@ describe(`Reducer works correctly`, () => {
     const hotelsLoader = Operation.loadOffers();
 
     apiMock
-      .onGet(`/hotels`)
-      .reply(200, [{fake: true}]);
+      .onGet(Constants.HOTEL_PATH)
+      .reply(Constants.STATUS_OK, [{fake: true}]);
 
     return hotelsLoader(dispatch, jest.fn(), api)
       .then(() => {

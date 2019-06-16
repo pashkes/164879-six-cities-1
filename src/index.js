@@ -4,14 +4,16 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import {compose} from "recompose";
+import {BrowserRouter} from "react-router-dom";
 
 import reducer from "./reducer/reducer";
 import App from "./components/app/app";
 import createAPI from "./api.js";
-import {Operation} from "./reducer/data/data";
+import history from "./history.js";
+import Constants from "./constants";
 
 const initApp = () => {
-  const api = createAPI((...args) => store.dispatch(...args));
+  const api = createAPI(() => history.push(Constants.LOGIN_PATH));
   const store = createStore(
       reducer,
       compose(
@@ -19,12 +21,11 @@ const initApp = () => {
           window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       )
   );
-
-  store.dispatch(Operation.loadOffers());
-
   ReactDOM.render(
       <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
       </Provider>,
       document.getElementById(`root`)
   );

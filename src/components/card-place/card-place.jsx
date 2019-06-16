@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 class CardPlace extends PureComponent {
   constructor(props) {
@@ -19,9 +20,9 @@ class CardPlace extends PureComponent {
       price,
       isFavorite,
       rating,
-      onTitleClickHandler,
       title,
-      type
+      type,
+      id
     } = this.props;
     return <article className="cities__place-card place-card">
       {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
@@ -52,7 +53,7 @@ class CardPlace extends PureComponent {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={onTitleClickHandler}>{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -69,7 +70,6 @@ CardPlace.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  onTitleClickHandler: PropTypes.func,
   onSelected: PropTypes.func
 };
 

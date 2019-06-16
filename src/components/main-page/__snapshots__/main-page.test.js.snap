@@ -1,12 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`main page renders correctly 1`] = `
-<div
-  className="page page--gray undefined"
+<Layout
+  pageClasses={
+    Array [
+      "page",
+      "page--gray",
+      "page--main",
+    ]
+  }
 >
-  <ConnectFunction
-    isAuthorization={false}
-  />
-  <SignIn />
-</div>
+  <ConnectFunction />
+</Layout>
 `;
