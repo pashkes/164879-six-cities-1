@@ -1,14 +1,18 @@
 import React from "react";
+import PropType from "prop-types";
 import {connect} from "react-redux";
 
 import Layout from "./../layout/layout.jsx";
-import PropType from "prop-types";
 import Gallery from "./../gallery/gallery.jsx";
 import Goods from "./../goods/goods.jsx";
-import {getOffers} from "./../../reducer/data/selectors";
+import Reviews from "./../reviews/reviews.jsx";
+import Map from "./../map/map.jsx";
+
+import {getOffers, getRandomOffers, filterRandomOffers, getActiveCity} from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import Constants from "../../constants";
+import {convertRating} from "./../../utils";
 
 export const Property = (props) => {
   const {
@@ -28,8 +32,13 @@ export const Property = (props) => {
     maxAdults,
     bedrooms,
     type,
+    location: {latitude, longitude},
   } = props.targetOffer;
-  const convertRating = (value, maxRating) => (value / 100 * maxRating).toFixed(1);
+  const {
+    id,
+    activeCity,
+    offersOnMap,
+  } = props;
 
   return (
     <Layout pageClasses={[`page`]}>
@@ -104,32 +113,7 @@ export const Property = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: `94%`}}/>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-                        The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
+                <Reviews id={id} />
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
@@ -180,7 +164,9 @@ export const Property = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map selectedOffer={[latitude, longitude]} currentCity={activeCity} coordinates={offersOnMap} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -309,6 +295,9 @@ Property.propTypes = {
     bedrooms: PropType.number.isRequired,
     type: PropType.string.isRequired,
   }).isRequired,
+  nearlyOffers: PropType.array.isRequired,
+  activeCity: PropType.string.isRequired,
+  offersOnMap: PropType.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -316,6 +305,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: offers.length !== 0,
     targetOffer: offers.find((item) => item.id === Number(ownProps.id)),
+    nearlyOffers: getRandomOffers(state),
+    offersOnMap: filterRandomOffers(state),
+    activeCity: getActiveCity(state),
   };
 };
 

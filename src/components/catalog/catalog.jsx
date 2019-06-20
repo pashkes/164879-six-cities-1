@@ -4,13 +4,14 @@ import Cities from "../cities/cities.jsx";
 import Constants from "../../constants";
 import Offers from "../offers/offers.jsx";
 import Map from "../map/map.jsx";
-import {getActiveCity, getFilteredOffers} from "../../reducer/data/selectors";
+import {getActiveCity, getFilteredOffers, getCoordinatesOfCurrentCity} from "../../reducer/data/selectors";
 import {connect} from "react-redux";
 
 export const Catalog = (props) => {
   const {
     currentCity,
-    offers
+    offers,
+    coordinates,
   } = props;
   return (
     <main className="page__main page__main--index">
@@ -44,7 +45,7 @@ export const Catalog = (props) => {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map/>
+              <Map currentCity={currentCity} coordinates={coordinates} />
             </section>
           </div>
         </div>
@@ -56,11 +57,15 @@ export const Catalog = (props) => {
 const mapStateToProps = (state) => ({
   currentCity: getActiveCity(state),
   offers: getFilteredOffers(state),
+  coordinates: getCoordinatesOfCurrentCity(state),
 });
 
 Catalog.propTypes = {
   currentCity: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  coordinates: PropTypes.array.isRequired,
 };
+
+
 export {mapStateToProps};
 export default connect(mapStateToProps)(Catalog);

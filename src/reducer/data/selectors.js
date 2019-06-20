@@ -21,3 +21,17 @@ export const getCoordinatesOfCurrentCity = createSelector(
     getFilteredOffers,
     (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
 );
+
+export const getRandomOffers = createSelector(
+    getFilteredOffers,
+    (offers) => offers.sort().slice(-3),
+);
+
+export const filterRandomOffers = createSelector(
+  getRandomOffers,
+  (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
+);
+
+export const getComments = (state, id) => {
+  return state[NAME_SPACE].comments.map((item) => item[id]);
+};

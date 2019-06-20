@@ -1,14 +1,16 @@
 import Constants from "./../../constants";
-import toModelOffer from "./adapter";
+import {toModelOffer, toModelReview} from "./adapter";
 
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
+  comments: [],
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   CHANGE_CITY: `CHANGE_CITY`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
 };
 
 const ActionCreators = {
@@ -19,16 +21,30 @@ const ActionCreators = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
-  })
+  }),
+  getReviews: (comments) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: comments,
+  }),
 };
 
 const Operation = {
-  loadOffers: () => (dispatch, _getState, api) => {
-    return api.get(Constants.HOTEL_PATH)
-      .then(({data}) => {
-        dispatch(ActionCreators.loadOffers(data));
-      });
+  loadOffers: () => {
+    return (dispatch, _getState, api) => {
+      return api.get(Constants.HOTEL_PATH)
+        .then(({data}) => {
+          dispatch(ActionCreators.loadOffers(data));
+        });
+    };
   },
+  loadReviews: (id) => {
+    return (dispatch, _getState, api) => {
+      return api.get(`${Constants.COMMENTS_PATH}/${id}`)
+        .then(({data}) => {
+          dispatch(ActionCreators.getReviews({[id]: data}));
+        });
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +53,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {offers: toModelOffer(action.payload)});
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {city: action.payload});
+    case ActionType.LOAD_REVIEWS:
+      return Object.assign({}, state, {comments: toModelReview(action.payload)});
   }
   return state;
 };
