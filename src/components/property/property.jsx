@@ -11,7 +11,7 @@ import Offers from "./../offers/offers.jsx";
 import {
   getOffers,
   getNearbyOffers,
-  filterRandomOffers,
+  filterNearbyOffers,
   getActiveCity,
   getCurrentOffer
 } from "./../../reducer/data/selectors";
@@ -212,8 +212,8 @@ Property.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
   isLoading: (getOffers(state)).length !== 0,
   currentOffer: getCurrentOffer(state, ownProps.id),
-  nearbyOffers: getNearbyOffers(state),
-  offersOnMap: filterRandomOffers(state),
+  nearbyOffers: getNearbyOffers(state, ownProps.id),
+  offersOnMap: filterNearbyOffers(state, ownProps.id),
   activeCity: getActiveCity(state),
 });
 
