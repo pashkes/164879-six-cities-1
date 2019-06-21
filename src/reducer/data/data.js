@@ -56,7 +56,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {city: action.payload});
     case ActionType.LOAD_REVIEWS:
-      return Object.assign({}, state.comments, toModelReview(action.payload));
+      return Object.assign({}, state, Object.assign({}, state.comments, toModelReview(action.payload)));
   }
   return state;
 };
