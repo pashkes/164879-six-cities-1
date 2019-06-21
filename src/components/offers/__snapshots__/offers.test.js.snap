@@ -2,7 +2,7 @@
 
 exports[`list of offers renders correctly 1`] = `
 <div
-  className="cities__places-list places__list tabs__content"
+  className=" places__list"
 >
   <CardPlace
     city="Amsterdam"

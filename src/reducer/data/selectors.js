@@ -22,14 +22,18 @@ export const getCoordinatesOfCurrentCity = createSelector(
     (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
 );
 
-export const getRandomOffers = createSelector(
+export const getNearbyOffers = createSelector(
     getFilteredOffers,
-    (offers) => offers.sort().slice(-3),
+    (offers) => offers.sort().slice(-3)
 );
 
+export const getCurrentOffer = (state, id) => {
+  return state[NAME_SPACE].offers.find((item) => item.id === Number(id));
+};
+
 export const filterRandomOffers = createSelector(
-  getRandomOffers,
-  (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
+    getNearbyOffers,
+    (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
 );
 
 export const getComments = (state, id) => {

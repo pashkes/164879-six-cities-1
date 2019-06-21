@@ -1,9 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import CardPlace from "../card-place/card-place.jsx";
-import {connect} from "react-redux";
-
-import {getFilteredOffers} from '../../reducer/data/selectors';
 
 export class Offers extends PureComponent {
   constructor(props) {
@@ -19,14 +16,15 @@ export class Offers extends PureComponent {
   }
 
   render() {
-    const offers = this.props.offers;
-    return <div className="cities__places-list places__list tabs__content">
+    const {offers, classModOffers = [], classModCard} = this.props;
+    return <div className={`${classModOffers.join(` `)} places__list`}>
       {offers.map((offer) => {
         return <CardPlace
           key={offer.id}
           {...offer}
           onSelected={this.onSelected}
           selected={this.state.current === offer.id}
+          classMod={classModCard}
         />;
       })}
     </div>;
@@ -44,11 +42,8 @@ Offers.propTypes = {
     price: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
   })).isRequired,
+  classModOffers: PropTypes.array,
+  classModCard: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  offers: getFilteredOffers(state)
-});
-
-export {mapStateToProps};
-export default connect(mapStateToProps)(Offers);
+export default Offers;

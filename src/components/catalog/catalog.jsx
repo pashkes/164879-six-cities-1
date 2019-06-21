@@ -41,7 +41,7 @@ export const Catalog = (props) => {
                 <option className="places__option" value="top-rated">Top rated first</option>
               </select>*/}
             </form>
-            <Offers />
+            <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">

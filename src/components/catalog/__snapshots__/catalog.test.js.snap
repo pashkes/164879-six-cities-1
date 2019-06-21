@@ -100,7 +100,49 @@ exports[`catalog renders correctly 1`] = `
             </li>
           </ul>
         </form>
-        <ConnectFunction />
+        <Offers
+          classModCard="cities__place-card"
+          classModOffers={
+            Array [
+              "cities__places-list",
+              "tabs__content",
+            ]
+          }
+          offers={
+            Array [
+              Object {
+                "city": "Amsterdam",
+                "coordinates": Array [
+                  0,
+                  0,
+                ],
+                "id": "",
+                "isFavorite": false,
+                "isPremium": false,
+                "photoURL": "",
+                "price": 0,
+                "rating": 0,
+                "title": "",
+                "type": "",
+              },
+              Object {
+                "city": "Berlin",
+                "coordinates": Array [
+                  0,
+                  0,
+                ],
+                "id": "",
+                "isFavorite": false,
+                "isPremium": false,
+                "photoURL": "",
+                "price": 0,
+                "rating": 0,
+                "title": "",
+                "type": "",
+              },
+            ]
+          }
+        />
       </section>
       <div
         className="cities__right-section"
@@ -108,7 +150,10 @@ exports[`catalog renders correctly 1`] = `
         <section
           className="cities__map map"
         >
-          <ConnectFunction />
+          <Map
+            currentCity="Amsterdam"
+            selectedOffer={Array []}
+          />
         </section>
       </div>
     </div>

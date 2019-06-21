@@ -2,10 +2,10 @@
 
 exports[`renders correctly if the card is favorite 1`] = `
 <article
-  className="cities__place-card place-card"
+  className=" place-card"
 >
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"
@@ -98,7 +98,7 @@ exports[`renders correctly if the card is favorite 1`] = `
 
 exports[`renders correctly if the card is premium 1`] = `
 <article
-  className="cities__place-card place-card"
+  className=" place-card"
 >
   <div
     className="place-card__mark"
@@ -108,7 +108,7 @@ exports[`renders correctly if the card is premium 1`] = `
     </span>
   </div>
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"
@@ -201,10 +201,10 @@ exports[`renders correctly if the card is premium 1`] = `
 
 exports[`renders correctly in the default state 1`] = `
 <article
-  className="cities__place-card place-card"
+  className=" place-card"
 >
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"

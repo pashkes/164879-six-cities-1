@@ -23,12 +23,16 @@ const propertyProps = {
   maxAdults: 1,
   bedrooms: 1,
   type: ``,
+  location: {latitude: ``, longitude: ``},
 };
 
 it(`Property page renders correctly`, () => {
   const propertyPage = shallow(<Property
+    offersOnMap={[]}
+    nearbyOffers={[]}
+    activeCity={``}
     id={`0`}
-    targetOffer={propertyProps}
+    currentOffer={propertyProps}
   />);
   expect(propertyPage).toMatchSnapshot();
 });
