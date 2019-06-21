@@ -20,7 +20,7 @@ export const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link to={isAuthorization ? `./favorites` : `/login`} className="header__nav-link header__nav-link--profile">
+                <Link to={isAuthorization ? `/favorites` : `/login`} className="header__nav-link header__nav-link--profile">
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
                     style={isAuthorization ? {backgroundImage: `url(${Constants.BASE_URL}${userData.avatar})`} : {}}>

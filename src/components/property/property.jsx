@@ -17,7 +17,7 @@ import {
 } from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation} from "../../reducer/data/data";
-import {convertRating} from "./../../utils";
+import {toPercentRating} from "./../../utils";
 
 export const Property = (props) => {
   const {
@@ -45,7 +45,6 @@ export const Property = (props) => {
     offersOnMap,
     nearbyOffers,
   } = props;
-
   return (
     <Layout pageClasses={[`page`]}>
       <main className="page__main page__main--property">
@@ -77,7 +76,7 @@ export const Property = (props) => {
                   <span style={{width: `${rating}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{convertRating(rating)}</span>
+                <span className="property__rating-value rating__value">{toPercentRating(rating)}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">

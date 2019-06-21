@@ -1,4 +1,4 @@
-import {getRelatedRating} from "../../utils";
+import {toRelatedRating} from "../../utils";
 
 export const toModelOffer = (data) => {
   return data.map((offer) => ({
@@ -12,7 +12,7 @@ export const toModelOffer = (data) => {
       }
     },
     price: offer.price,
-    rating: getRelatedRating(offer.rating),
+    rating: toRelatedRating(offer.rating),
     title: offer.title,
     type: offer.type,
     description: offer.description,

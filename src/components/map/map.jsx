@@ -8,14 +8,14 @@ export class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.zoom = 12;
-    this.marker = {
+    this.icon = leaflet.icon({
       iconUrl: `img/marker.svg`,
       iconSize: [30, 30]
-    };
-    this.activeMarker = {
+    });
+    this.activeIcon = leaflet.icon({
       iconUrl: `img/active-marker.svg`,
       iconSize: [30, 30]
-    };
+    });
     this.group = null;
   }
 
@@ -24,11 +24,11 @@ export class Map extends PureComponent {
     const activeOffer = selectedOffer.length !== 0;
     this.group = leaflet.layerGroup().addTo(this.map);
     for (let item of coordinates) {
-      leaflet.marker(item, this.marker)
+      leaflet.marker(item, {icon: this.icon})
         .addTo(this.group);
     }
     if (activeOffer) {
-      leaflet.marker(selectedOffer, this.activeMarker)
+      leaflet.marker(selectedOffer, {icon: this.activeIcon})
         .addTo(this.group);
     }
   }
@@ -56,11 +56,19 @@ export class Map extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {currentCity, coordinates} = this.props;
+    const {currentCity, coordinates, selectedOffer} = this.props;
+    const activeOffer = selectedOffer.length !== 0;
+
     this.group.clearLayers();
     this.map.setView(CitiesCoordinates.get(currentCity), this.zoom);
+
     for (let item of coordinates) {
-      leaflet.marker(item, this.marker)
+      leaflet.marker(item, {icon: this.icon})
+        .addTo(this.group);
+    }
+
+    if (activeOffer) {
+      leaflet.marker(selectedOffer, {icon: this.activeIcon})
         .addTo(this.group);
     }
   }

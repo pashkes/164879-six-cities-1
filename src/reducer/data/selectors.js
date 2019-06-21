@@ -37,5 +37,5 @@ export const filterRandomOffers = createSelector(
 );
 
 export const getComments = (state, id) => {
-  return state[NAME_SPACE][id] ? state[NAME_SPACE][id] : [];
+  return state[NAME_SPACE].comments[id] ? state[NAME_SPACE].comments[id] : [];
 };
