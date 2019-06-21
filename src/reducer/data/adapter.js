@@ -50,20 +50,17 @@ const toFormatPostDate = (date) => new Intl.DateTimeFormat(`en-US`, {
   month: `long`
 }).format(new Date(date));
 
-export const toModelReview = (reviews) => {
-  const key = reviews.id;
-  return {
-    [key]: reviews.data.map((item) => {
-      return {
-        id: item.id,
-        comment: item.comment,
-        date: toFormatPostDate(item.date),
-        machineDate: toFormatMachineDate(item.date),
-        rating: item.rating,
-        name: item.user.name,
-        avatar: item.user[`avatar_url`],
-        isPro: item.user[`is_pro`],
-      };
-    })
-  };
-};
+export const toModelReview = (reviews) => ({
+  [reviews.id]: reviews.data.map((item) => {
+    return {
+      id: item.id,
+      comment: item.comment,
+      date: toFormatPostDate(item.date),
+      machineDate: toFormatMachineDate(item.date),
+      rating: item.rating,
+      name: item.user.name,
+      avatar: item.user[`avatar_url`],
+      isPro: item.user[`is_pro`],
+    };
+  })
+});

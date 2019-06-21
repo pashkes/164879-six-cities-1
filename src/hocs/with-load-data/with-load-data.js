@@ -13,6 +13,11 @@ const withLoadData = (Component) => {
         this.props.loadData();
       }
     }
+    componentDidUpdate() {
+      if (!this.props.isLoading) {
+        this.props.loadData();
+      }
+    }
 
     render() {
       return this.props.isLoading ? <Component {...this.props} /> : <Spinner />;

@@ -20,14 +20,15 @@ export class Map extends PureComponent {
   }
 
   addMarkers() {
-    const activeOffer = this.props.selectedOffer.length !== 0;
+    const {selectedOffer, coordinates} = this.props;
+    const activeOffer = selectedOffer.length !== 0;
     this.group = leaflet.layerGroup().addTo(this.map);
-    for (let item of this.props.coordinates) {
+    for (let item of coordinates) {
       leaflet.marker(item, this.marker)
         .addTo(this.group);
     }
     if (activeOffer) {
-      leaflet.marker(this.props.selectedOffer, this.activeMarker)
+      leaflet.marker(selectedOffer, this.activeMarker)
         .addTo(this.group);
     }
   }
@@ -55,9 +56,10 @@ export class Map extends PureComponent {
   }
 
   componentDidUpdate() {
+    const {currentCity, coordinates} = this.props;
     this.group.clearLayers();
-    this.map.setView(CitiesCoordinates.get(this.props.currentCity), this.zoom);
-    for (let item of this.props.coordinates) {
+    this.map.setView(CitiesCoordinates.get(currentCity), this.zoom);
+    for (let item of coordinates) {
       leaflet.marker(item, this.marker)
         .addTo(this.group);
     }
