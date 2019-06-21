@@ -37,14 +37,33 @@ export const toModelOffer = (data) => {
   }));
 };
 
-export const toModelReview = (data) => {
-  return data.map((item) => ({
-    id: item.id,
-    comment: item.comment,
-    date: new Date(item.date),
-    rating: item.rating,
-    name: item.user.name,
-    avatar: item.user[`avatar_url`],
-    isPro: item.user[`is_pro`],
-  }));
+const toFormatMachineDate = (date) => {
+  const toDate = new Date(date);
+  const getYear = toDate.getFullYear().toString();
+  const getDay = (toDate.getDay()).toString().padStart(2, `0`);
+  const getMonth = (toDate.getMonth() + 1).toString().padStart(2, `0`);
+  return `${getYear}-${getMonth}-${getDay}`;
+};
+
+const toFormatPostDate = (date) => new Intl.DateTimeFormat(`en-US`, {
+  year: `numeric`,
+  month: `long`
+}).format(new Date(date));
+
+export const toModelReview = (reviews) => {
+  const key = reviews.id;
+  return {
+    [key]: reviews.data.map((item) => {
+      return {
+        id: item.id,
+        comment: item.comment,
+        date: toFormatPostDate(item.date),
+        machineDate: toFormatMachineDate(item.date),
+        rating: item.rating,
+        name: item.user.name,
+        avatar: item.user[`avatar_url`],
+        isPro: item.user[`is_pro`],
+      };
+    })
+  };
 };

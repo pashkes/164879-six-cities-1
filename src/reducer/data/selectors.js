@@ -33,5 +33,6 @@ export const filterRandomOffers = createSelector(
 );
 
 export const getComments = (state, id) => {
-  return state[NAME_SPACE].comments.map((item) => item[id]);
+  debugger
+  return state[NAME_SPACE].comments[id] ? state[NAME_SPACE].comments[id] : [];
 };

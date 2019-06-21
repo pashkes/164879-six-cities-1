@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Constants from "./../../constants";
-import {convertRating} from "./../../utils";
+import {getRelatedRating} from "./../../utils";
 
 const Review = (props) => {
   const {
@@ -11,24 +10,25 @@ const Review = (props) => {
     rating,
     avatar,
     name,
+    machineDate,
   } = props;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={`${Constants.BASE_URL}/${avatar}`} width="54" height="54" alt={name}/>
+          <img className="reviews__avatar user__avatar" src={avatar} width="54" height="54" alt={name}/>
         </div>
         <span className="reviews__user-name">{name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: convertRating(rating)}}/>
+            <span style={{width: `${getRelatedRating(rating)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{`${date.getMonth()} ${date.getFullYear()}`}</time>
+        <time className="reviews__time" dateTime={machineDate}>{date}</time>
       </div>
     </li>
   );
@@ -37,6 +37,7 @@ const Review = (props) => {
 Review.propTypes = {
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  machineDate: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   avatar: PropTypes.string.isRequired,
   isPro: PropTypes.bool.isRequired,

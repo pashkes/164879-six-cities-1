@@ -9,7 +9,7 @@ const withLoadData = (Component) => {
     }
 
     componentDidMount() {
-      if (this.props.isLoading) {
+      if (!this.props.isLoading) {
         this.props.loadData();
       }
     }

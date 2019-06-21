@@ -38,7 +38,8 @@ export class Map extends PureComponent {
       center: city,
       zoom: this.zoom,
       zoomControl: false,
-      marker: true
+      marker: true,
+      scrollWheelZoom: false,
     });
     this.map.setView(city, this.zoom);
     leaflet

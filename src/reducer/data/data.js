@@ -4,7 +4,7 @@ import {toModelOffer, toModelReview} from "./adapter";
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
-  comments: [],
+  comments: {},
 };
 
 const ActionType = {
@@ -22,10 +22,12 @@ const ActionCreators = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  getReviews: (comments) => ({
-    type: ActionType.LOAD_REVIEWS,
-    payload: comments,
-  }),
+  getReviews: (comments, id) => {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: {id: id, data: comments},
+    };
+  },
 };
 
 const Operation = {
@@ -41,7 +43,7 @@ const Operation = {
     return (dispatch, _getState, api) => {
       return api.get(`${Constants.COMMENTS_PATH}/${id}`)
         .then(({data}) => {
-          dispatch(ActionCreators.getReviews({[id]: data}));
+          dispatch(ActionCreators.getReviews(data, id));
         });
     };
   }
@@ -54,7 +56,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return Object.assign({}, state, {city: action.payload});
     case ActionType.LOAD_REVIEWS:
-      return Object.assign({}, state, {comments: toModelReview(action.payload)});
+      return Object.assign({}, state.comments, toModelReview(action.payload));
   }
   return state;
 };
