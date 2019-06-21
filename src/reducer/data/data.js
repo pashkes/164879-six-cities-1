@@ -25,7 +25,7 @@ const ActionCreators = {
   getReviews: (comments, id) => {
     return {
       type: ActionType.LOAD_REVIEWS,
-      payload: {id: id, data: comments},
+      payload: {id, data: comments},
     };
   },
 };
@@ -46,7 +46,7 @@ const Operation = {
           dispatch(ActionCreators.getReviews(data, id));
         });
     };
-  }
+  },
 };
 
 const reducer = (state = initialState, action) => {

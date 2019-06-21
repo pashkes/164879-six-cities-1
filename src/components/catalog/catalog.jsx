@@ -54,18 +54,17 @@ export const Catalog = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: getActiveCity(state),
-  offers: getFilteredOffers(state),
-  coordinates: getCoordinatesOfCurrentCity(state),
-});
-
 Catalog.propTypes = {
   currentCity: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired,
   coordinates: PropTypes.array.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  currentCity: getActiveCity(state),
+  offers: getFilteredOffers(state),
+  coordinates: getCoordinatesOfCurrentCity(state),
+});
 
 export {mapStateToProps};
 export default connect(mapStateToProps)(Catalog);

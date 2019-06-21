@@ -44,7 +44,6 @@ exports[`catalog renders correctly 1`] = `
         >
           2
            places to stay in 
-          Amsterdam
         </b>
         <form
           action="#"
@@ -116,10 +115,10 @@ exports[`catalog renders correctly 1`] = `
                   0,
                   0,
                 ],
-                "id": "",
+                "id": 0,
                 "isFavorite": false,
                 "isPremium": false,
-                "photoURL": "",
+                "previewPhoto": "",
                 "price": 0,
                 "rating": 0,
                 "title": "",
@@ -131,10 +130,10 @@ exports[`catalog renders correctly 1`] = `
                   0,
                   0,
                 ],
-                "id": "",
+                "id": 1,
                 "isFavorite": false,
                 "isPremium": false,
-                "photoURL": "",
+                "previewPhoto": "",
                 "price": 0,
                 "rating": 0,
                 "title": "",
@@ -151,7 +150,13 @@ exports[`catalog renders correctly 1`] = `
           className="cities__map map"
         >
           <Map
-            currentCity="Amsterdam"
+            coordinates={
+              Array [
+                0,
+                0,
+              ]
+            }
+            currentCity=""
             selectedOffer={Array []}
           />
         </section>
