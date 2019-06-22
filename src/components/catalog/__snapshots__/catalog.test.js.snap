@@ -99,7 +99,7 @@ exports[`catalog renders correctly 1`] = `
             </li>
           </ul>
         </form>
-        <Offers
+        <ConnectFunction
           classModCard="cities__place-card"
           classModOffers={
             Array [

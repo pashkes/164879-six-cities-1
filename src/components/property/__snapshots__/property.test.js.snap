@@ -364,7 +364,7 @@ exports[`Property page renders correctly 1`] = `
         >
           Other places in the neighbourhood
         </h2>
-        <Offers
+        <ConnectFunction
           classModCard="near-places__card"
           classModOffers={
             Array [

@@ -4,13 +4,9 @@ import NameSpace from "../name-spaces";
 
 const NAME_SPACE = NameSpace.DATA;
 
-export const getActiveCity = (state) => {
-  return state[NAME_SPACE].city;
-};
+export const getActiveCity = (state) => state[NAME_SPACE].city;
 
-export const getOffers = (state) => {
-  return state[NAME_SPACE].offers;
-};
+export const getOffers = (state) => state[NAME_SPACE].offers;
 
 export const getFilteredOffers = createSelector(
     getOffers,
@@ -23,9 +19,7 @@ export const getCoordinatesOfCurrentCity = createSelector(
     (offers) => offers.map((it) => [it.location.latitude, it.location.longitude])
 );
 
-export const getCurrentOffer = (state, id) => {
-  return state[NAME_SPACE].offers.find((item) => item.id === Number(id));
-};
+export const getCurrentOffer = (state, id) => state[NAME_SPACE].offers.find((item) => item.id === Number(id));
 
 export const getNearbyOffers = (state, id) => {
   const filterOffers = getFilteredOffers(state);
@@ -49,8 +43,19 @@ export const filterNearbyOffers = (state, id) => {
   return nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [[0, 0]];
 };
 
-export const getComments = (state, id) => {
-  return state[NAME_SPACE].comments[id] ? state[NAME_SPACE].comments[id] : [];
-};
+export const getComments = (state, id) => state[NAME_SPACE].comments[id] ? state[NAME_SPACE].comments[id] : [];
 
 const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+
+export const getSelectedIdOffer = (state) => state[NAME_SPACE].currentOfferId;
+
+export const getSelectedOffer = (state) => {
+  const currentOfferId = getSelectedIdOffer(state);
+  const offers = getFilteredOffers(state);
+  if (currentOfferId) {
+    const currentOffer = offers.find((item) => item.id === currentOfferId);
+    return currentOffer ? [currentOffer.location.latitude, currentOffer.location.longitude] : [0, 0];
+  } else {
+    return [0, 0];
+  }
+};

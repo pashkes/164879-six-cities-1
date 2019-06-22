@@ -5,12 +5,14 @@ const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
   comments: {},
+  currentOfferId: false,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   CHANGE_CITY: `CHANGE_CITY`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  ACTIVE_OFFER: `ACTIVE_OFFER`,
 };
 
 const ActionCreators = {
@@ -22,12 +24,14 @@ const ActionCreators = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  getReviews: (comments, id) => {
-    return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: {id, data: comments},
-    };
-  },
+  getReviews: (comments, id) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: {id, data: comments},
+  }),
+  idActiveOffer: (id) => ({
+    type: ActionType.ACTIVE_OFFER,
+    payload: id,
+  })
 };
 
 const Operation = {
@@ -64,6 +68,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         comments
       });
+    case ActionType.ACTIVE_OFFER:
+      return Object.assign({}, state, {currentOfferId: action.payload});
   }
   return state;
 };

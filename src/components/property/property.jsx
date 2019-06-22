@@ -79,12 +79,8 @@ export const Property = (props) => {
                 <span className="property__rating-value rating__value">{toPercentRating(rating)}</span>
               </div>
               <ul className="property__features">
-                <li className="property__feature property__feature--entire">
-                  {type}
-                </li>
-                <li className="property__feature property__feature--bedrooms">
-                  {bedrooms} Bedrooms
-                </li>
+                <li className="property__feature property__feature--entire">{type}</li>
+                <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
                 <li className="property__feature property__feature--adults">{maxAdults}</li>
               </ul>
               <div className="property__price">
@@ -101,20 +97,11 @@ export const Property = (props) => {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img className="property__avatar user__avatar" src={avatarURL} width="74" height="74" alt={name}/>
                   </div>
-                  <span className="property__user-name">
-                    {name}
-                  </span>
-                  {
-                    isPro &&
-                    <span className="property__user-status">
-                      Pro
-                    </span>
-                  }
+                  <span className="property__user-name">{name}</span>
+                  {isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    {description}
-                  </p>
+                  <p className="property__text">{description}</p>
                 </div>
               </div>
               <section className="property__reviews reviews">
@@ -170,13 +157,21 @@ export const Property = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map selectedOffer={[latitude, longitude]} currentCity={activeCity} coordinates={offersOnMap}/>
+            <Map
+              selectedOffer={[latitude, longitude]}
+              currentCity={activeCity}
+              coordinates={offersOnMap}
+            />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <Offers offers={nearbyOffers} classModOffers={[`near-places__list`]} classModCard={`near-places__card`}/>
+            <Offers
+              offers={nearbyOffers}
+              classModOffers={[`near-places__list`]}
+              classModCard={`near-places__card`}
+            />
           </section>
         </div>
       </main>
@@ -203,6 +198,10 @@ Property.propTypes = {
     maxAdults: PropType.number.isRequired,
     bedrooms: PropType.number.isRequired,
     type: PropType.string.isRequired,
+    location: PropType.shape({
+      latitude: PropType.number.isRequired,
+      longitude: PropType.number.isRequired,
+    }).isRequired
   }).isRequired,
   nearbyOffers: PropType.array.isRequired,
   activeCity: PropType.string.isRequired,

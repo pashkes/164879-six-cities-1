@@ -1,18 +1,18 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import CardPlace from "../card-place/card-place.jsx";
+import {ActionCreators} from "./../../reducer/data/data";
 
 export class Offers extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      current: null
-    };
     this.onSelected = this.onSelected.bind(this);
   }
 
   onSelected(id) {
-    this.setState({current: id});
+    this.props.setActiveOffer(id);
   }
 
   render() {
@@ -23,7 +23,6 @@ export class Offers extends PureComponent {
           key={offer.id}
           {...offer}
           onSelected={this.onSelected}
-          selected={this.state.current === offer.id}
           classMod={classModCard}
         />;
       })}
@@ -44,6 +43,11 @@ Offers.propTypes = {
   })).isRequired,
   classModOffers: PropTypes.array,
   classModCard: PropTypes.string,
+  setActiveOffer: PropTypes.func.isRequired,
 };
 
-export default Offers;
+const mapDispatchToProps = (dispatch) => ({
+  setActiveOffer: (id) => dispatch(ActionCreators.idActiveOffer(id)),
+});
+
+export default connect(null, mapDispatchToProps)(Offers);
