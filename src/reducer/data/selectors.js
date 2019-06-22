@@ -1,5 +1,6 @@
-import NameSpace from "../name-spaces";
 import {createSelector} from "reselect";
+
+import NameSpace from "../name-spaces";
 
 const NAME_SPACE = NameSpace.DATA;
 
@@ -43,7 +44,6 @@ export const getNearbyOffers = (state, id) => {
   }
 };
 
-
 export const filterNearbyOffers = (state, id) => {
   const nearbyOffers = getNearbyOffers(state, id);
   return nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [[0, 0]];
@@ -53,16 +53,4 @@ export const getComments = (state, id) => {
   return state[NAME_SPACE].comments[id] ? state[NAME_SPACE].comments[id] : [];
 };
 
-const getDifference = (num1, num2) => {
-  if (num1 > num2) {
-    return (num1 - num2);
-  } else {
-    return (num2 - num1);
-  }
-};
-
-const calcDistance = (x1, y1, x2, y2) => {
-  const deltaX = getDifference(x1, x2);
-  const deltaY = getDifference(y1, y2);
-  return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-};
+const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
