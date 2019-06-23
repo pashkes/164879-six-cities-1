@@ -6,6 +6,7 @@ const initialState = {
   city: Constants.DEFAULT_CITY,
   comments: {},
   currentOfferId: false,
+  typeSort: `Popular`,
 };
 
 const ActionType = {
@@ -13,6 +14,7 @@ const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   ACTIVE_OFFER: `ACTIVE_OFFER`,
+  SORT_TYPE: `SORT_TYPE`,
 };
 
 const ActionCreators = {
@@ -31,7 +33,11 @@ const ActionCreators = {
   idActiveOffer: (id) => ({
     type: ActionType.ACTIVE_OFFER,
     payload: id,
-  })
+  }),
+  changeSortType: (type) => ({
+    type: ActionType.SORT_TYPE,
+    payload: {type}
+  }),
 };
 
 const Operation = {
@@ -70,6 +76,8 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.ACTIVE_OFFER:
       return Object.assign({}, state, {currentOfferId: action.payload});
+    case ActionType.SORT_TYPE:
+      return Object.assign({}, state, {typeSort: action.payload});
   }
   return state;
 };

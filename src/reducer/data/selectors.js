@@ -10,6 +10,8 @@ export const getOffers = (state) => state[NAME_SPACE].offers;
 
 export const getSelectedIdOffer = (state) => state[NAME_SPACE].currentOfferId;
 
+export const getTypeSort = (state) => state[NAME_SPACE].typeSort;
+
 export const getFilteredOffers = createSelector(
     getOffers,
     getActiveCity,

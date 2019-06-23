@@ -10,8 +10,10 @@ import {
   getActiveCity,
   getFilteredOffers,
   getSelectedOffer,
+  getTypeSort,
 } from "../../reducer/data/selectors";
 import Sorter from "./../select/select.jsx";
+import {TypeSort} from "./../../constants";
 
 export const Catalog = (props) => {
   const {
@@ -24,7 +26,7 @@ export const Catalog = (props) => {
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="cities tabs">
-        <Cities cities={Constants.CITIES} />
+        <Cities cities={Constants.CITIES}/>
       </div>
       <div className="cities__places-wrapper">
         <div className="cities__places-container container">
@@ -33,13 +35,13 @@ export const Catalog = (props) => {
             <b className="places__found">{offers.length} places to stay in {currentCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
-              <Sorter options={SortList} />
+              <Sorter options={sortOptions}/>
             </form>
-            <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]} />
+            <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map selectedOffer={currentOffer} currentCity={currentCity} coordinates={coordinates} />
+              <Map selectedOffer={currentOffer} currentCity={currentCity} coordinates={coordinates}/>
             </section>
           </div>
         </div>
@@ -48,25 +50,28 @@ export const Catalog = (props) => {
   );
 };
 
-const SortList = [
+const sortOptions = [
   {
-    value: `Popular`,
+    name: `Popular`,
+    value: TypeSort.POPULAR,
     selected: true,
   },
   {
-    value: `Price: low to high`,
+    name: `Price: low to high`,
+    value: TypeSort.TO_HIGH,
     selected: false,
   },
   {
-    value: `Price: high to low`,
+    name: `Price: high to low`,
+    value: TypeSort.TO_LOW,
     selected: false,
   },
   {
-    value: `Top rated first`,
+    name: `Top rated first`,
+    value: TypeSort.TOP_RATED,
     selected: false,
   }
 ];
-
 
 Catalog.propTypes = {
   currentCity: PropTypes.string.isRequired,
@@ -75,12 +80,29 @@ Catalog.propTypes = {
   currentOffer: PropTypes.array,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: getActiveCity(state),
-  offers: getFilteredOffers(state),
-  coordinates: (getFilteredOffers(state)).map((it) => [it.location.latitude, it.location.longitude]),
-  currentOffer: getSelectedOffer(state),
-});
+const sortOffers = (offers, sort) => {
+  switch (sort.type) {
+    case (TypeSort.TO_HIGH):
+      return [...offers].sort((current, next) => current.price - next.price);
+    case (TypeSort.TO_LOW):
+      return [...offers].sort((current, next) => next.price - current.price);
+    case (TypeSort.TOP_RATED):
+      return [...offers].sort((current, next) => next.rating - current.rating);
+    default:
+      return offers;
+  }
+};
+
+const mapStateToProps = (state) => {
+  const offers = getFilteredOffers(state);
+  const typeSort = getTypeSort(state);
+  return {
+    currentCity: getActiveCity(state),
+    offers: sortOffers(offers, typeSort),
+    coordinates: offers.map((it) => [it.location.latitude, it.location.longitude]),
+    currentOffer: getSelectedOffer(state),
+  };
+};
 
 export {mapStateToProps};
 export default connect(mapStateToProps)(Catalog);

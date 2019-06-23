@@ -11,18 +11,14 @@ const withSelect = (Component) => {
       this.button = React.createRef();
       this.state = {
         isOpen: false,
-        selected: `Popular`,
+        selected: `popular`,
+        nameSelected: `Popular`
       };
     }
 
     onClickOpenDropdown(evt) {
       evt.preventDefault();
       this.setState({isOpen: !this.state.isOpen});
-    }
-    componentWillUpdate(nextProps, nextState) {
-      if (this.state.selected !== nextState.selected) {
-        console.log(`change`);
-      }
     }
 
     componentDidMount() {
@@ -41,10 +37,11 @@ const withSelect = (Component) => {
       }
     }
 
-    onSelected(value) {
+    onSelected(value, name) {
       this.setState((currentState) => ({
         isOpen: !currentState.isOpen,
         selected: value,
+        nameSelected: name,
       }));
     }
 
@@ -52,6 +49,7 @@ const withSelect = (Component) => {
       return (
         <Component
           {...this.props}
+          selectedName={this.state.nameSelected}
           onClickDropdown={this.onClickOpenDropdown}
           onSelected={this.onSelected}
           button={this.button}

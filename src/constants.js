@@ -11,4 +11,17 @@ const Constants = {
   MAX_RATING: 5,
 };
 
+export const Page = {
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer`
+};
+
+export const TypeSort = {
+  POPULAR: `popular`,
+  TO_HIGH: `to-high`,
+  TO_LOW: `to-low`,
+  TOP_RATED: `top-rated`,
+};
+
 export default Constants;

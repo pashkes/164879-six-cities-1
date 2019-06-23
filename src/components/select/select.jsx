@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import SortItem from "./../option/option.jsx";
-import withSorter from "./../../hocs/with-select/with-select";
+import Option from "./../option/option.jsx";
+import withSelect from "./../../hocs/with-select/with-select";
 
-export const Sorter = (props) => {
+export const Select = (props) => {
   const {
     onClickDropdown,
     isOpen,
@@ -13,6 +13,7 @@ export const Sorter = (props) => {
     button,
     selectList,
     options,
+    selectedName,
   } = props;
 
   return (
@@ -25,7 +26,7 @@ export const Sorter = (props) => {
         id="sorter"
         ref={button}
       >
-        {selected}
+        {selectedName}
         <svg className="places__sorting-arrow" width="7" height="4" aria-hidden="true">
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
@@ -35,32 +36,35 @@ export const Sorter = (props) => {
         aria-labelledby="sorter"
         className={`${isOpen ? `places__options--opened` : ``} places__options places__options--custom`}>
         {options.map((option, i) => {
-          return <SortItem
+          return <Option
             onSelected={onSelected}
             isSelected={selected === option.value}
             value={option.value}
+            name={option.name}
             key={i}
           />;
         })}
       </ul>
       <select defaultValue={selected} hidden id="places-sorting">
-        <option value={selected}>{selected}</option>
+        <option value={selected}>{selectedName}</option>
       </select>
     </React.Fragment>
   );
 };
 
-Sorter.propTypes = {
+Select.propTypes = {
   onClickDropdown: PropTypes.func.isRequired,
   onSelected: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   selected: PropTypes.string.isRequired,
   button: PropTypes.object.isRequired,
   selectList: PropTypes.object.isRequired,
+  selectedName: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     selected: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
   })),
 };
 
-export default withSorter(Sorter);
+export default withSelect(Select);
