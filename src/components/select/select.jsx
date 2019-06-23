@@ -30,8 +30,6 @@ export const Sorter = (props) => {
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </button>
-      {isOpen
-      }
       <ul
         ref={selectList}
         aria-labelledby="sorter"
