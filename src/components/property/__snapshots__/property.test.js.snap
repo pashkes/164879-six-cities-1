@@ -346,8 +346,8 @@ exports[`Property page renders correctly 1`] = `
           currentCity=""
           selectedOffer={
             Array [
-              "",
-              "",
+              0,
+              0,
             ]
           }
         />

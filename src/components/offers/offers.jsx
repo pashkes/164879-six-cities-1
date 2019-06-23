@@ -2,8 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import CardPlace from "../card-place/card-place.jsx";
 import {ActionCreators} from "./../../reducer/data/data";
+import CardPlace from "../card-place/card-place.jsx";
 
 export class Offers extends PureComponent {
   constructor(props) {

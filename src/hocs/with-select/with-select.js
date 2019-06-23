@@ -1,5 +1,7 @@
 import React, {PureComponent} from "react";
 
+import {TypeSort} from "../../constants";
+
 const withSelect = (Component) => {
   class WithSelect extends PureComponent {
     constructor(props) {
@@ -11,7 +13,7 @@ const withSelect = (Component) => {
       this.button = React.createRef();
       this.state = {
         isOpen: false,
-        selected: `popular`,
+        selected: TypeSort.POPULAR,
         nameSelected: `Popular`
       };
     }

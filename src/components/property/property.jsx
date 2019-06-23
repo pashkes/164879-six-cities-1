@@ -2,12 +2,6 @@ import React from "react";
 import PropType from "prop-types";
 import {connect} from "react-redux";
 
-import Layout from "./../layout/layout.jsx";
-import Gallery from "./../gallery/gallery.jsx";
-import Goods from "./../goods/goods.jsx";
-import Reviews from "./../reviews/reviews.jsx";
-import Map from "./../map/map.jsx";
-import Offers from "./../offers/offers.jsx";
 import {
   getOffers,
   getNearbyOffers,
@@ -17,6 +11,13 @@ import {
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import {toPercentRating} from "./../../utils";
+
+import Layout from "./../layout/layout.jsx";
+import Gallery from "./../gallery/gallery.jsx";
+import Goods from "./../goods/goods.jsx";
+import Reviews from "./../reviews/reviews.jsx";
+import Map from "./../map/map.jsx";
+import Offers from "./../offers/offers.jsx";
 
 export const Property = (props) => {
   const {

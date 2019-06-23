@@ -2,10 +2,10 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Review from "./../review/review.jsx";
 import {Operation} from "./../../reducer/data/data";
 import {getComments} from "../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
+import Review from "./../review/review.jsx";
 
 export class Reviews extends PureComponent {
   constructor(props) {
@@ -45,6 +45,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 const ReviewsWithLoader = withLoadData(Reviews);
 
-export default connect(
-    mapStateToProps, mapDispatchToProps
-)(ReviewsWithLoader);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsWithLoader);

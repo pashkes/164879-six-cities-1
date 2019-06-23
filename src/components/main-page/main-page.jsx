@@ -2,9 +2,10 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
+import {getAuthorizationStatus, getUserData} from "./../../reducer/user/selectors";
+
 import Catalog from "./../catalog/catalog.jsx";
 import Layout from "../layout/layout.jsx";
-import {getAuthorizationStatus, getUserData} from "./../../reducer/user/selectors";
 
 export const MainPage = () =>{
   return (

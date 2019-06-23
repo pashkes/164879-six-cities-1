@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Cities from "../cities/cities.jsx";
-import Constants from "../../constants";
-import Offers from "../offers/offers.jsx";
-import Map from "../map/map.jsx";
+import Constants, {TypeSort} from "../../constants";
 import {
   getActiveCity,
   getFilteredOffers,
   getSelectedOffer,
   getTypeSort,
 } from "../../reducer/data/selectors";
+
+import Map from "../map/map.jsx";
 import Sorter from "./../select/select.jsx";
-import {TypeSort} from "./../../constants";
+import Cities from "../cities/cities.jsx";
+import Offers from "../offers/offers.jsx";
 
 export const Catalog = (props) => {
   const {

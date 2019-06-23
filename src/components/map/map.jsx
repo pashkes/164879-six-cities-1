@@ -1,10 +1,11 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
+
 import CitiesCoordinates from "./../../mock/coordinatesCities";
 
 
-export class Map extends PureComponent {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.zoom = 12;

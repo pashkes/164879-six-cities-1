@@ -23,7 +23,7 @@ const propertyProps = {
   maxAdults: 1,
   bedrooms: 1,
   type: ``,
-  location: {latitude: ``, longitude: ``},
+  location: {latitude: 0, longitude: 0},
 };
 
 it(`Property page renders correctly`, () => {

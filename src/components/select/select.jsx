@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Option from "./../option/option.jsx";
 import withSelect from "./../../hocs/with-select/with-select";
+import Option from "./../option/option.jsx";
 
 export const Select = (props) => {
   const {
