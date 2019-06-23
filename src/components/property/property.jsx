@@ -11,7 +11,6 @@ import Offers from "./../offers/offers.jsx";
 import {
   getOffers,
   getNearbyOffers,
-  filterNearbyOffers,
   getActiveCity,
   getCurrentOffer
 } from "./../../reducer/data/selectors";
@@ -208,13 +207,18 @@ Property.propTypes = {
   offersOnMap: PropType.array.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  isLoading: (getOffers(state)).length !== 0,
-  currentOffer: getCurrentOffer(state, ownProps.id),
-  nearbyOffers: getNearbyOffers(state, ownProps.id),
-  offersOnMap: filterNearbyOffers(state, ownProps.id),
-  activeCity: getActiveCity(state),
-});
+const mapStateToProps = (state, ownProps) => {
+  const nearbyOffers = getNearbyOffers(state, ownProps.id);
+  const offers = getOffers(state);
+
+  return {
+    isLoading: offers.length !== 0,
+    currentOffer: getCurrentOffer(state, ownProps.id),
+    nearbyOffers,
+    offersOnMap: nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [[0, 0]],
+    activeCity: getActiveCity(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   loadData: () => dispatch(DataOperation.loadOffers()),
