@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select renders correctly 1`] = `
+<Fragment>
+  <button
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="places__sorting-type"
+    id="sorter"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      className="places__sorting-arrow"
+      height="4"
+      width="7"
+    >
+      <use
+        xlinkHref="#icon-arrow-select"
+      />
+    </svg>
+  </button>
+  <ul
+    aria-labelledby="sorter"
+    className=" places__options places__options--custom"
+  />
+  <select
+    defaultValue=""
+    hidden={true}
+    id="places-sorting"
+  >
+    <option
+      value=""
+    />
+  </select>
+</Fragment>
+`;
