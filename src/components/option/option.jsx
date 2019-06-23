@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-class SortItem extends PureComponent {
+class Option extends PureComponent {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
@@ -20,10 +20,10 @@ class SortItem extends PureComponent {
   }
 }
 
-SortItem.propTypes = {
+Option.propTypes = {
   onSelected: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,
 };
 
-export default SortItem;
+export default Option;

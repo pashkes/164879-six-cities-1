@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 
-const withSorter = (Component) => {
-  class WithSorter extends PureComponent {
+const withSelect = (Component) => {
+  class WithSelect extends PureComponent {
     constructor(props) {
       super(props);
       this.onClickOpenDropdown = this.onClickOpenDropdown.bind(this);
@@ -63,7 +63,7 @@ const withSorter = (Component) => {
     }
   }
 
-  return WithSorter;
+  return WithSelect;
 };
 
-export default withSorter;
+export default withSelect;

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import SortItem from "./../sorter-item/sorter-item.jsx";
-import withSorter from "./../../hocs/with-sorter/with-sorter";
+import SortItem from "./../option/option.jsx";
+import withSorter from "./../../hocs/with-select/with-select";
 
 export const Sorter = (props) => {
   const {

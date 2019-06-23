@@ -11,7 +11,7 @@ import {
   getFilteredOffers,
   getSelectedOffer,
 } from "../../reducer/data/selectors";
-import Sorter from "./../sorter/sorter.jsx";
+import Sorter from "./../select/select.jsx";
 
 export const Catalog = (props) => {
   const {
