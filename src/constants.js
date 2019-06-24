@@ -24,4 +24,9 @@ export const TypeSort = {
   TOP_RATED: `top-rated`,
 };
 
+export const KeyCode = {
+  ESC: 27,
+  ENTER: 13,
+};
+
 export default Constants;

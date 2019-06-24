@@ -41,6 +41,7 @@ export const Select = (props) => {
             isSelected={selected === option.value}
             value={option.value}
             name={option.name}
+            button={button}
             key={i}
           />;
         })}
