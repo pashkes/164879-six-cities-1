@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
@@ -14,6 +14,7 @@ import Map from "../map/map.jsx";
 import Sorter from "./../select/select.jsx";
 import Cities from "../cities/cities.jsx";
 import Offers from "../offers/offers.jsx";
+import MainEmpty from "./../main-empty/main-empty.jsx";
 
 export const Catalog = (props) => {
   const {
@@ -23,30 +24,36 @@ export const Catalog = (props) => {
     currentOffer,
   } = props;
   return (
-    <main className="page__main page__main--index">
-      <h1 className="visually-hidden">Cities</h1>
-      <div className="cities tabs">
-        <Cities cities={Constants.CITIES}/>
-      </div>
-      <div className="cities__places-wrapper">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {currentCity}</b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <Sorter options={sortOptions}/>
-            </form>
-            <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
-          </section>
-          <div className="cities__right-section">
-            <section className="cities__map map">
-              <Map selectedOffer={currentOffer} currentCity={currentCity} coordinates={coordinates}/>
-            </section>
-          </div>
-        </div>
-      </div>
-    </main>
+    <Fragment>
+      {
+        offers.length !== 0 ?
+          <main className="page__main page__main--index">
+            <h1 className="visually-hidden">Cities</h1>
+            <div className="cities tabs">
+              <Cities cities={Constants.CITIES}/>
+            </div>
+            <div className="cities__places-wrapper">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offers.length} places to stay in {currentCity}</b>
+                  <form className="places__sorting" action="#" method="get">
+                    <span className="places__sorting-caption">Sort by</span>
+                    <Sorter options={sortOptions}/>
+                  </form>
+                  <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
+                </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map selectedOffer={currentOffer} currentCity={currentCity} coordinates={coordinates}/>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </main>
+          : <MainEmpty selectedCity={currentCity}/>
+      }
+    </Fragment>
   );
 };
 

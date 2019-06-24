@@ -1,5 +1,5 @@
 const Constants = {
-  CITIES: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
+  CITIES: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`, `Kiev`],
   DEFAULT_CITY: `Amsterdam`,
   BASE_URL: `https://es31-server.appspot.com/six-cities`,
   HOTEL_PATH: `/hotels`,

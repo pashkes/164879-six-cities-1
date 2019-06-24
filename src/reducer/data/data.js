@@ -1,4 +1,4 @@
-import Constants from "./../../constants";
+import Constants, {TypeSort} from "./../../constants";
 import {toModelOffer, toModelReview} from "./adapter";
 
 const initialState = {
@@ -6,7 +6,7 @@ const initialState = {
   city: Constants.DEFAULT_CITY,
   comments: {},
   currentOfferId: false,
-  typeSort: `Popular`,
+  typeSort: TypeSort.POPULAR,
 };
 
 const ActionType = {
