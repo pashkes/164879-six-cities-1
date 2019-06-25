@@ -7,10 +7,10 @@ const withSelect = (Component) => {
   class WithSelect extends PureComponent {
     constructor(props) {
       super(props);
-      this.onClickOpenDropdown = this.onClickOpenDropdown.bind(this);
-      this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
-      this.onKeyDownEsc = this.onKeyDownEsc.bind(this);
-      this.onSelected = this.onSelected.bind(this);
+      this.handleButtonClick = this.handleButtonClick.bind(this);
+      this.handleClickDocumentOutside = this.handleClickDocumentOutside.bind(this);
+      this.handleDocumentKeyDownEsc = this.handleDocumentKeyDownEsc.bind(this);
+      this.onSelectOption = this.onSelectOption.bind(this);
       this.selectList = React.createRef();
       this.button = React.createRef();
       this.state = {
@@ -20,22 +20,22 @@ const withSelect = (Component) => {
       };
     }
 
-    onClickOpenDropdown(evt) {
+    handleButtonClick(evt) {
       evt.preventDefault();
       this.setState({isOpen: !this.state.isOpen});
     }
 
     componentDidMount() {
-      window.addEventListener(`click`, this.onClickOutsideHandler);
-      window.addEventListener(`keydown`, this.onKeyDownEsc);
+      window.addEventListener(`click`, this.handleClickDocumentOutside);
+      window.addEventListener(`keydown`, this.handleDocumentKeyDownEsc);
     }
 
     componentWillUnmount() {
-      window.removeEventListener(`click`, this.onClickOutsideHandler);
-      window.removeEventListener(`keydown`, this.onKeyDownEsc);
+      window.removeEventListener(`click`, this.handleClickDocumentOutside);
+      window.removeEventListener(`keydown`, this.handleDocumentKeyDownEsc);
     }
 
-    onClickOutsideHandler(evt) {
+    handleClickDocumentOutside(evt) {
       const dropdown = this.selectList.current.contains(evt.target);
       const button = this.button.current.contains(evt.target);
       if (this.state.isOpen && !dropdown && !button) {
@@ -43,13 +43,13 @@ const withSelect = (Component) => {
       }
     }
 
-    onKeyDownEsc(evt) {
+    handleDocumentKeyDownEsc(evt) {
       if (evt.keyCode === KeyCode.ESC) {
         this.setState({isOpen: false});
       }
     }
 
-    onSelected(value, name) {
+    onSelectOption(value, name) {
       this.setState((currentState) => ({
         isOpen: !currentState.isOpen,
         selected: value,
@@ -62,10 +62,10 @@ const withSelect = (Component) => {
         <Component
           {...this.props}
           selectedName={this.state.nameSelected}
-          onClickDropdown={this.onClickOpenDropdown}
-          onSelected={this.onSelected}
+          onClickDropdown={this.handleButtonClick}
+          onSelectOption={this.onSelectOption}
           button={this.button}
-          selectList={this.selectList}
+          dropdown={this.selectList}
           isOpen={this.state.isOpen}
           selected={this.state.selected}
         />

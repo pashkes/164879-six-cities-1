@@ -13,7 +13,7 @@ it(`Select renders correctly`, () => {
     selectedName={``}
     isOpen={false}
     options={[]}
-    selectList={{}}
+    dropdown={{}}
     button={{}}
   />);
   expect(option).toMatchSnapshot();

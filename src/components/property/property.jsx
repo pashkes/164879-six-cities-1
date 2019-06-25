@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {
   getOffers,
   getNearbyOffers,
-  getActiveCity,
+  getCurrentCity,
   getCurrentOffer
 } from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
@@ -217,7 +217,7 @@ const mapStateToProps = (state, ownProps) => {
     currentOffer: getCurrentOffer(state, ownProps.id),
     nearbyOffers,
     offersOnMap: nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [[0, 0]],
-    activeCity: getActiveCity(state),
+    activeCity: getCurrentCity(state),
   };
 };
 
