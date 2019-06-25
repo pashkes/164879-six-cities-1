@@ -22,13 +22,13 @@ const ActionCreators = {
     type: ActionType.LOAD_OFFERS,
     payload: offers,
   }),
-  setCity: (city) => ({
-    type: ActionType.SET_CITY,
-    payload: city,
-  }),
   getReviews: (reviews, id) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: {id, data: reviews},
+  }),
+  setCity: (city) => ({
+    type: ActionType.SET_CITY,
+    payload: city,
   }),
   setActiveIdOffer: (id) => ({
     type: ActionType.SET_CURRENT_OFFER,
@@ -78,8 +78,9 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {currentOfferId: action.payload});
     case ActionType.SET_SORT_TYPE:
       return Object.assign({}, state, {typeSort: action.payload});
+    default:
+      return state;
   }
-  return state;
 };
 
-export {ActionType, Operation, reducer, ActionCreators};
+export {initialState, ActionType, Operation, reducer, ActionCreators};
