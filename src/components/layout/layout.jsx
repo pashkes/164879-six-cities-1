@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import Header from "./../header/header.jsx";
 
 const Layout = (props) => {
@@ -26,4 +27,5 @@ Layout.propTypes = {
 Layout.defaultProps = {
   pageClasses: ``
 };
+
 export default Layout;

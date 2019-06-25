@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Option renders correctly 1`] = `
+<li
+  className="places__option--active places__option"
+  data-value=""
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  tabIndex="0"
+>
+  Popular
+</li>
+`;

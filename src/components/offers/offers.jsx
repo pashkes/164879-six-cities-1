@@ -1,32 +1,29 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import CardPlace from "../card-place/card-place.jsx";
 import {connect} from "react-redux";
 
-import {getFilteredOffers} from '../../reducer/data/selectors';
+import {ActionCreators} from "./../../reducer/data/data";
+import CardPlace from "../card-place/card-place.jsx";
 
 export class Offers extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      current: null
-    };
     this.onSelected = this.onSelected.bind(this);
   }
 
   onSelected(id) {
-    this.setState({current: id});
+    this.props.setActiveOffer(id);
   }
 
   render() {
-    const offers = this.props.offers;
-    return <div className="cities__places-list places__list tabs__content">
+    const {offers, classModOffers = [], classModCard} = this.props;
+    return <div className={`${classModOffers.join(` `)} places__list`}>
       {offers.map((offer) => {
         return <CardPlace
           key={offer.id}
           {...offer}
           onSelected={this.onSelected}
-          selected={this.state.current === offer.id}
+          classMod={classModCard}
         />;
       })}
     </div>;
@@ -44,11 +41,13 @@ Offers.propTypes = {
     price: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
   })).isRequired,
+  classModOffers: PropTypes.array,
+  classModCard: PropTypes.string,
+  setActiveOffer: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offers: getFilteredOffers(state)
+const mapDispatchToProps = (dispatch) => ({
+  setActiveOffer: (id) => dispatch(ActionCreators.idActiveOffer(id)),
 });
 
-export {mapStateToProps};
-export default connect(mapStateToProps)(Offers);
+export default connect(null, mapDispatchToProps)(Offers);

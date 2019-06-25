@@ -34,4 +34,23 @@ describe(`Reducer works correctly`, () => {
       });
   });
 
+  it(`Should make a correctly API load reviews`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+    const apiMock = new MockAdapter(api);
+    const hotelsLoader = Operation.loadReviews(1);
+
+    apiMock
+      .onGet(`${Constants.COMMENTS_PATH}/1`)
+      .reply(Constants.STATUS_OK, [{fake: true}]);
+
+    return hotelsLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: {data: [{fake: true}], id: 1},
+        });
+      });
+  });
 });

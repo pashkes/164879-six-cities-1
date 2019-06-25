@@ -1,117 +1,153 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`catalog renders correctly 1`] = `
-<main
-  className="page__main page__main--index"
->
-  <h1
-    className="visually-hidden"
+<Fragment>
+  <main
+    className="page__main page__main--index"
   >
-    Cities
-  </h1>
-  <div
-    className="cities tabs"
-  >
-    <ConnectFunction
-      cities={
-        Array [
-          "Paris",
-          "Cologne",
-          "Brussels",
-          "Amsterdam",
-          "Hamburg",
-          "Dusseldorf",
-        ]
-      }
-    />
-  </div>
-  <div
-    className="cities__places-wrapper"
-  >
-    <div
-      className="cities__places-container container"
+    <h1
+      className="visually-hidden"
     >
-      <section
-        className="cities__places places"
-      >
-        <h2
-          className="visually-hidden"
-        >
-          Places
-        </h2>
-        <b
-          className="places__found"
-        >
-          2
-           places to stay in 
-          Amsterdam
-        </b>
-        <form
-          action="#"
-          className="places__sorting"
-          method="get"
-        >
-          <span
-            className="places__sorting-caption"
-          >
-            Sort by
-          </span>
-          <span
-            className="places__sorting-type"
-            tabIndex="0"
-          >
-            Popular
-            <svg
-              className="places__sorting-arrow"
-              height="4"
-              width="7"
-            >
-              <use
-                xlinkHref="#icon-arrow-select"
-              />
-            </svg>
-          </span>
-          <ul
-            className="places__options places__options--custom places__options--opened"
-          >
-            <li
-              className="places__option places__option--active"
-              tabIndex="0"
-            >
-              Popular
-            </li>
-            <li
-              className="places__option"
-              tabIndex="0"
-            >
-              Price: low to high
-            </li>
-            <li
-              className="places__option"
-              tabIndex="0"
-            >
-              Price: high to low
-            </li>
-            <li
-              className="places__option"
-              tabIndex="0"
-            >
-              Top rated first
-            </li>
-          </ul>
-        </form>
-        <ConnectFunction />
-      </section>
+      Cities
+    </h1>
+    <div
+      className="cities tabs"
+    >
+      <ConnectFunction
+        cities={
+          Array [
+            "Paris",
+            "Cologne",
+            "Brussels",
+            "Amsterdam",
+            "Hamburg",
+            "Dusseldorf",
+            "Kiev",
+          ]
+        }
+      />
+    </div>
+    <div
+      className="cities__places-wrapper"
+    >
       <div
-        className="cities__right-section"
+        className="cities__places-container container"
       >
         <section
-          className="cities__map map"
+          className="cities__places places"
         >
-          <ConnectFunction />
+          <h2
+            className="visually-hidden"
+          >
+            Places
+          </h2>
+          <b
+            className="places__found"
+          >
+            2
+             places to stay in 
+          </b>
+          <form
+            action="#"
+            className="places__sorting"
+            method="get"
+          >
+            <span
+              className="places__sorting-caption"
+            >
+              Sort by
+            </span>
+            <WithSelect
+              options={
+                Array [
+                  Object {
+                    "name": "Popular",
+                    "selected": true,
+                    "value": "popular",
+                  },
+                  Object {
+                    "name": "Price: low to high",
+                    "selected": false,
+                    "value": "to-high",
+                  },
+                  Object {
+                    "name": "Price: high to low",
+                    "selected": false,
+                    "value": "to-low",
+                  },
+                  Object {
+                    "name": "Top rated first",
+                    "selected": false,
+                    "value": "top-rated",
+                  },
+                ]
+              }
+            />
+          </form>
+          <ConnectFunction
+            classModCard="cities__place-card"
+            classModOffers={
+              Array [
+                "cities__places-list",
+                "tabs__content",
+              ]
+            }
+            offers={
+              Array [
+                Object {
+                  "city": "Amsterdam",
+                  "coordinates": Array [
+                    0,
+                    0,
+                  ],
+                  "id": 0,
+                  "isFavorite": false,
+                  "isPremium": false,
+                  "previewPhoto": "",
+                  "price": 0,
+                  "rating": 0,
+                  "title": "",
+                  "type": "",
+                },
+                Object {
+                  "city": "Berlin",
+                  "coordinates": Array [
+                    0,
+                    0,
+                  ],
+                  "id": 1,
+                  "isFavorite": false,
+                  "isPremium": false,
+                  "previewPhoto": "",
+                  "price": 0,
+                  "rating": 0,
+                  "title": "",
+                  "type": "",
+                },
+              ]
+            }
+          />
         </section>
+        <div
+          className="cities__right-section"
+        >
+          <section
+            className="cities__map map"
+          >
+            <Map
+              coordinates={
+                Array [
+                  0,
+                  0,
+                ]
+              }
+              currentCity=""
+              selectedOffer={Array []}
+            />
+          </section>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</Fragment>
 `;

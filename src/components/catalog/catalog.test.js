@@ -8,10 +8,10 @@ configure({adapter: new Adapter()});
 
 const inputOffers = [
   {
-    id: ``,
+    id: 0,
     city: `Amsterdam`,
     title: ``,
-    photoURL: ``,
+    previewPhoto: ``,
     isPremium: false,
     isFavorite: false,
     price: 0,
@@ -20,10 +20,10 @@ const inputOffers = [
     coordinates: [0, 0]
   },
   {
-    id: ``,
+    id: 1,
     city: `Berlin`,
     title: ``,
-    photoURL: ``,
+    previewPhoto: ``,
     isPremium: false,
     isFavorite: false,
     price: 0,
@@ -36,8 +36,9 @@ const inputOffers = [
 it(`catalog renders correctly`, () => {
   const catalog = shallow(
       <Catalog
+        coordinates={[0, 0]}
         offers={inputOffers}
-        currentCity={`Amsterdam`}
+        currentCity={``}
       />
   );
   expect(catalog).toMatchSnapshot();

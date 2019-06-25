@@ -1,14 +1,23 @@
 import React from "react";
+import PropType from "prop-types";
 import {connect} from "react-redux";
 
-import Layout from "./../layout/layout.jsx";
-import PropType from "prop-types";
-import Gallery from "./../gallery/gallery.jsx";
-import Goods from "./../goods/goods.jsx";
-import {getOffers} from "./../../reducer/data/selectors";
+import {
+  getOffers,
+  getNearbyOffers,
+  getActiveCity,
+  getCurrentOffer
+} from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation} from "../../reducer/data/data";
-import Constants from "../../constants";
+import {toPercentRating} from "./../../utils";
+
+import Layout from "./../layout/layout.jsx";
+import Gallery from "./../gallery/gallery.jsx";
+import Goods from "./../goods/goods.jsx";
+import Reviews from "./../reviews/reviews.jsx";
+import Map from "./../map/map.jsx";
+import Offers from "./../offers/offers.jsx";
 
 export const Property = (props) => {
   const {
@@ -28,9 +37,14 @@ export const Property = (props) => {
     maxAdults,
     bedrooms,
     type,
-  } = props.targetOffer;
-  const convertRating = (value, maxRating) => (value / 100 * maxRating).toFixed(1);
-
+    location: {latitude, longitude},
+  } = props.currentOffer;
+  const {
+    id,
+    activeCity,
+    offersOnMap,
+    nearbyOffers,
+  } = props;
   return (
     <Layout pageClasses={[`page`]}>
       <main className="page__main page__main--property">
@@ -62,15 +76,11 @@ export const Property = (props) => {
                   <span style={{width: `${rating}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{convertRating(rating, Constants.MAX_RATING)}</span>
+                <span className="property__rating-value rating__value">{toPercentRating(rating)}</span>
               </div>
               <ul className="property__features">
-                <li className="property__feature property__feature--entire">
-                  {type}
-                </li>
-                <li className="property__feature property__feature--bedrooms">
-                  {bedrooms} Bedrooms
-                </li>
+                <li className="property__feature property__feature--entire">{type}</li>
+                <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
                 <li className="property__feature property__feature--adults">{maxAdults}</li>
               </ul>
               <div className="property__price">
@@ -87,49 +97,15 @@ export const Property = (props) => {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img className="property__avatar user__avatar" src={avatarURL} width="74" height="74" alt={name}/>
                   </div>
-                  <span className="property__user-name">
-                    {name}
-                  </span>
-                  {
-                    isPro &&
-                    <span className="property__user-status">
-                      Pro
-                    </span>
-                  }
+                  <span className="property__user-name">{name}</span>
+                  {isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    {description}
-                  </p>
+                  <p className="property__text">{description}</p>
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: `94%`}}/>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-                        The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
+                <Reviews id={id}/>
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">Your review</label>
                   <div className="reviews__rating-form form__rating">
@@ -180,108 +156,22 @@ export const Property = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map
+              selectedOffer={[latitude, longitude]}
+              currentCity={activeCity}
+              coordinates={offersOnMap}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;80</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"/>
-                      </svg>
-                      <span className="visually-hidden">In bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}}/>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
-                  </h2>
-                  <p className="place-card__type">Private room</p>
-                </div>
-              </article>
-
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image"/>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;132</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"/>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `80%`}}/>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Canal View Prinsengracht</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-
-              <article className="near-places__card place-card">
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image"/>
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;180</b>
-                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                        <use xlinkHref="#icon-bookmark"/>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{width: `100%`}}/>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-            </div>
+            <Offers
+              offers={nearbyOffers}
+              classModOffers={[`near-places__list`]}
+              classModCard={`near-places__card`}
+            />
           </section>
         </div>
       </main>
@@ -291,7 +181,7 @@ export const Property = (props) => {
 
 Property.propTypes = {
   id: PropType.string.isRequired,
-  targetOffer: PropType.shape({
+  currentOffer: PropType.shape({
     images: PropType.array.isRequired,
     isPremium: PropType.bool.isRequired,
     title: PropType.string.isRequired,
@@ -308,14 +198,26 @@ Property.propTypes = {
     maxAdults: PropType.number.isRequired,
     bedrooms: PropType.number.isRequired,
     type: PropType.string.isRequired,
+    location: PropType.shape({
+      latitude: PropType.number.isRequired,
+      longitude: PropType.number.isRequired,
+    }).isRequired
   }).isRequired,
+  nearbyOffers: PropType.array.isRequired,
+  activeCity: PropType.string.isRequired,
+  offersOnMap: PropType.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const nearbyOffers = getNearbyOffers(state, ownProps.id);
   const offers = getOffers(state);
+
   return {
     isLoading: offers.length !== 0,
-    targetOffer: offers.find((item) => item.id === Number(ownProps.id)),
+    currentOffer: getCurrentOffer(state, ownProps.id),
+    nearbyOffers,
+    offersOnMap: nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [[0, 0]],
+    activeCity: getActiveCity(state),
   };
 };
 

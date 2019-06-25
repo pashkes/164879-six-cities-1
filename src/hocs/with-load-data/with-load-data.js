@@ -9,7 +9,12 @@ const withLoadData = (Component) => {
     }
 
     componentDidMount() {
-      if (this.props.isLoading) {
+      if (!this.props.isLoading) {
+        this.props.loadData();
+      }
+    }
+    componentDidUpdate() {
+      if (!this.props.isLoading) {
         this.props.loadData();
       }
     }

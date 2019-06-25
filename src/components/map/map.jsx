@@ -1,57 +1,76 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 import leaflet from "leaflet";
 
 import CitiesCoordinates from "./../../mock/coordinatesCities";
-import {getCoordinatesOfCurrentCity, getActiveCity} from "../../reducer/data/selectors";
 
-export class Map extends PureComponent {
+
+class Map extends PureComponent {
   constructor(props) {
     super(props);
-    this._zoom = 12;
-    this._marker = {
+    this.zoom = 12;
+    this.icon = leaflet.icon({
       iconUrl: `img/marker.svg`,
       iconSize: [30, 30]
-    };
-    this._group = null;
+    });
+    this.activeIcon = leaflet.icon({
+      iconUrl: `img/active-marker.svg`,
+      iconSize: [30, 30]
+    });
+    this.group = null;
   }
 
-  _addMarkers() {
-    this._group = leaflet.layerGroup().addTo(this._map);
-    for (let item of this.props.coordinates) {
-      leaflet.marker(item, this._marker)
-        .addTo(this._group);
+  addMarkers() {
+    const {selectedOffer, coordinates} = this.props;
+    const activeOffer = selectedOffer.length !== 0;
+    this.group = leaflet.layerGroup().addTo(this.map);
+    for (let item of coordinates) {
+      leaflet.marker(item, {icon: this.icon})
+        .addTo(this.group);
+    }
+    if (activeOffer) {
+      leaflet.marker(selectedOffer, {icon: this.activeIcon})
+        .addTo(this.group);
     }
   }
 
-  _initMap() {
+  initMap() {
     const city = CitiesCoordinates.get(this.props.currentCity);
-    this._map = leaflet.map(`map`, {
+    this.map = leaflet.map(`map`, {
       center: city,
-      zoom: this._zoom,
+      zoom: this.zoom,
       zoomControl: false,
-      marker: true
+      marker: true,
+      scrollWheelZoom: false,
     });
-    this._map.setView(city, this._zoom);
+    this.map.setView(city, this.zoom);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(this._map);
-    this._addMarkers();
+      .addTo(this.map);
+    this.addMarkers();
   }
 
   componentDidMount() {
-    this._initMap();
+    this.initMap();
   }
 
   componentDidUpdate() {
-    this._group.clearLayers();
-    this._map.setView(CitiesCoordinates.get(this.props.currentCity), this._zoom);
-    for (let item of this.props.coordinates) {
-      leaflet.marker(item, this._marker)
-        .addTo(this._group);
+    const {currentCity, coordinates, selectedOffer} = this.props;
+    const activeOffer = selectedOffer.length !== 0;
+
+    this.group.clearLayers();
+    this.map.setView(CitiesCoordinates.get(currentCity), this.zoom);
+
+    for (let item of coordinates) {
+      leaflet.marker(item, {icon: this.icon})
+        .addTo(this.group);
+    }
+
+    if (activeOffer) {
+      leaflet.marker(selectedOffer, {icon: this.activeIcon})
+        .addTo(this.group);
     }
   }
 
@@ -64,13 +83,12 @@ export class Map extends PureComponent {
 
 Map.propTypes = {
   coordinates: PropTypes.array.isRequired,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  selectedOffer: PropTypes.array,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: getActiveCity(state),
-  coordinates: getCoordinatesOfCurrentCity(state),
-});
+Map.defaultProps = {
+  selectedOffer: []
+};
 
-export {mapStateToProps};
-export default connect(mapStateToProps)(Map);
+export default Map;
