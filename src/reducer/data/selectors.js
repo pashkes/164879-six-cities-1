@@ -4,7 +4,7 @@ import NameSpace from "../name-spaces";
 
 const NAME_SPACE = NameSpace.DATA;
 
-export const getActiveCity = (state) => state[NAME_SPACE].city;
+export const getCurrentCity = (state) => state[NAME_SPACE].city;
 
 export const getOffers = (state) => state[NAME_SPACE].offers;
 
@@ -14,7 +14,7 @@ export const getTypeSort = (state) => state[NAME_SPACE].typeSort;
 
 export const getFilteredOffers = createSelector(
     getOffers,
-    getActiveCity,
+    getCurrentCity,
     (offers, city) => offers.filter((offer) => offer.city.name === city)
 );
 
@@ -26,13 +26,14 @@ export const getCurrentOffer = (state, id) => {
 export const getNearbyOffers = (state, id) => {
   const filterOffers = getFilteredOffers(state);
   const currentOffer = getCurrentOffer(state, id);
+
   if (filterOffers.length > 0 && currentOffer) {
-    return filterOffers.map((it) => {
-      it.dist = calcDistance(currentOffer.location.longitude, currentOffer.location.latitude, it.location.longitude, it.location.latitude);
-      return it;
+    return filterOffers.map((offer) => {
+      offer.dist = calcDistance(currentOffer.location.longitude, currentOffer.location.latitude, offer.location.longitude, offer.location.latitude);
+      return offer;
     })
-      .sort((first, second) => {
-        return first.dist - second.dist;
+      .sort((current, next) => {
+        return current.dist - next.dist;
       })
       .slice(1, 4);
   } else {
@@ -40,7 +41,7 @@ export const getNearbyOffers = (state, id) => {
   }
 };
 
-export const getComments = (state, id) => state[NAME_SPACE].comments[id] ? state[NAME_SPACE].comments[id] : [];
+export const getComments = (state, id) => state[NAME_SPACE].reviews[id] ? state[NAME_SPACE].reviews[id] : [];
 
 const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
 

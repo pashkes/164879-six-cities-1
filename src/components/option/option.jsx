@@ -8,20 +8,20 @@ import {KeyCode} from "./../../constants";
 export class Option extends PureComponent {
   constructor(props) {
     super(props);
-    this.onClickHandler = this.onClickHandler.bind(this);
-    this.onKeydownHandler = this.onKeydownHandler.bind(this);
+    this.handleOptionClick = this.handleOptionClick.bind(this);
+    this.handleOptionKeyDownEnter = this.handleOptionKeyDownEnter.bind(this);
   }
 
-  onClickHandler() {
-    this.props.onSelected(this.props.value, this.props.name);
+  handleOptionClick() {
+    this.props.onSelectOption(this.props.value, this.props.name);
     this.props.typeSort(this.props.value);
     this.props.button.current.focus();
   }
 
-  onKeydownHandler(evt) {
+  handleOptionKeyDownEnter(evt) {
     if (evt.keyCode === KeyCode.ENTER) {
       this.props.button.current.focus();
-      this.props.onSelected(this.props.value, this.props.name);
+      this.props.onSelectOption(this.props.value, this.props.name);
       this.props.typeSort(this.props.value);
     }
   }
@@ -29,13 +29,13 @@ export class Option extends PureComponent {
   render() {
     const {isSelected, value, name} = this.props;
     return (
-      <li className={`${isSelected ? `places__option--active` : ``} places__option`} onKeyDown={this.onKeydownHandler} onClick={this.onClickHandler} tabIndex="0" data-value={value}>{name}</li>
+      <li className={`${isSelected ? `places__option--active` : ``} places__option`} onKeyDown={this.handleOptionKeyDownEnter} onClick={this.handleOptionClick} tabIndex="0" data-value={value}>{name}</li>
     );
   }
 }
 
 Option.propTypes = {
-  onSelected: PropTypes.func.isRequired,
+  onSelectOption: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,
   typeSort: PropTypes.func.isRequired,
@@ -44,7 +44,7 @@ Option.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  typeSort: (value) => dispatch(ActionCreators.changeSortType(value)),
+  typeSort: (value) => dispatch(ActionCreators.setSortType(value)),
 });
 
 export default connect(null, mapDispatchToProps)(Option);

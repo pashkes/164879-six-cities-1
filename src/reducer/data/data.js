@@ -4,38 +4,38 @@ import {toModelOffer, toModelReview} from "./adapter";
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
-  comments: {},
+  reviews: {},
   currentOfferId: false,
   typeSort: TypeSort.POPULAR,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
-  CHANGE_CITY: `CHANGE_CITY`,
+  SET_CITY: `SET_CITY`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
-  ACTIVE_OFFER: `ACTIVE_OFFER`,
-  SORT_TYPE: `SORT_TYPE`,
+  SET_CURRENT_OFFER: `SET_CURRENT_OFFER`,
+  SET_SORT_TYPE: `SET_SORT_TYPE`,
 };
 
 const ActionCreators = {
-  loadOffers: (hotels) => ({
+  loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
-    payload: hotels,
+    payload: offers,
   }),
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
+  setCity: (city) => ({
+    type: ActionType.SET_CITY,
     payload: city,
   }),
-  getReviews: (comments, id) => ({
+  getReviews: (reviews, id) => ({
     type: ActionType.LOAD_REVIEWS,
-    payload: {id, data: comments},
+    payload: {id, data: reviews},
   }),
-  idActiveOffer: (id) => ({
-    type: ActionType.ACTIVE_OFFER,
+  setActiveIdOffer: (id) => ({
+    type: ActionType.SET_CURRENT_OFFER,
     payload: id,
   }),
-  changeSortType: (type) => ({
-    type: ActionType.SORT_TYPE,
+  setSortType: (type) => ({
+    type: ActionType.SET_SORT_TYPE,
     payload: {type}
   }),
 };
@@ -63,20 +63,20 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
       return Object.assign({}, state, {offers: toModelOffer(action.payload)});
-    case ActionType.CHANGE_CITY:
+    case ActionType.SET_CITY:
       return Object.assign({}, state, {city: action.payload});
     case ActionType.LOAD_REVIEWS:
-      const comments = Object.assign(
+      const reviews = Object.assign(
           {},
-          state.comments,
+          state.reviews,
           toModelReview(action.payload)
       );
       return Object.assign({}, state, {
-        comments
+        reviews
       });
-    case ActionType.ACTIVE_OFFER:
+    case ActionType.SET_CURRENT_OFFER:
       return Object.assign({}, state, {currentOfferId: action.payload});
-    case ActionType.SORT_TYPE:
+    case ActionType.SET_SORT_TYPE:
       return Object.assign({}, state, {typeSort: action.payload});
   }
   return state;

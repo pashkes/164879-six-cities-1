@@ -8,15 +8,15 @@ export const withLoginForm = (Component) => {
         email: ``,
         password: ``,
       };
-      this.changeEmailHandler = this.changeEmailHandler.bind(this);
-      this.changePasswordHandler = this.changePasswordHandler.bind(this);
+      this.handleEmailChange = this.handleEmailChange.bind(this);
+      this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    changeEmailHandler(evt) {
+    handleEmailChange(evt) {
       this.setState({email: evt.target.value});
     }
 
-    changePasswordHandler(evt) {
+    handlePasswordChange(evt) {
       this.setState({password: evt.target.value});
     }
 
@@ -24,8 +24,8 @@ export const withLoginForm = (Component) => {
       const {props} = this;
       return <Component
         {...props}
-        onChangeEmail={this.changeEmailHandler}
-        onChangePassword={this.changePasswordHandler}
+        onChangeEmail={this.handleEmailChange}
+        onChangePassword={this.handlePasswordChange}
         emailValue={this.state.email}
         passwordValue={this.state.password}
       />;

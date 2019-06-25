@@ -8,10 +8,10 @@ import CardPlace from "../card-place/card-place.jsx";
 export class Offers extends PureComponent {
   constructor(props) {
     super(props);
-    this.onSelected = this.onSelected.bind(this);
+    this.onSelectOffer = this.onSelectOffer.bind(this);
   }
 
-  onSelected(id) {
+  onSelectOffer(id) {
     this.props.setActiveOffer(id);
   }
 
@@ -22,7 +22,7 @@ export class Offers extends PureComponent {
         return <CardPlace
           key={offer.id}
           {...offer}
-          onSelected={this.onSelected}
+          onSelected={this.onSelectOffer}
           classMod={classModCard}
         />;
       })}
@@ -47,7 +47,7 @@ Offers.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setActiveOffer: (id) => dispatch(ActionCreators.idActiveOffer(id)),
+  setActiveOffer: (id) => dispatch(ActionCreators.setActiveIdOffer(id)),
 });
 
 export default connect(null, mapDispatchToProps)(Offers);

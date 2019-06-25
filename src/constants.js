@@ -4,7 +4,7 @@ const Constants = {
   BASE_URL: `https://es31-server.appspot.com/six-cities`,
   HOTEL_PATH: `/hotels`,
   LOGIN_PATH: `/login`,
-  COMMENTS_PATH: `comments`,
+  COMMENTS_PATH: `/comments`,
   ACCESS_DENIED: 403,
   STATUS_OK: 200,
   TIMEOUT: 5000,

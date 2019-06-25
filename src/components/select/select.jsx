@@ -9,9 +9,9 @@ export const Select = (props) => {
     onClickDropdown,
     isOpen,
     selected,
-    onSelected,
+    onSelectOption,
     button,
-    selectList,
+    dropdown,
     options,
     selectedName,
   } = props;
@@ -32,12 +32,12 @@ export const Select = (props) => {
         </svg>
       </button>
       <ul
-        ref={selectList}
+        ref={dropdown}
         aria-labelledby="sorter"
         className={`${isOpen ? `places__options--opened` : ``} places__options places__options--custom`}>
         {options.map((option, i) => {
           return <Option
-            onSelected={onSelected}
+            onSelectOption={onSelectOption}
             isSelected={selected === option.value}
             value={option.value}
             name={option.name}
@@ -55,11 +55,11 @@ export const Select = (props) => {
 
 Select.propTypes = {
   onClickDropdown: PropTypes.func.isRequired,
-  onSelected: PropTypes.func.isRequired,
+  onSelectOption: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   selected: PropTypes.string.isRequired,
   button: PropTypes.object.isRequired,
-  selectList: PropTypes.object.isRequired,
+  dropdown: PropTypes.object.isRequired,
   selectedName: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,

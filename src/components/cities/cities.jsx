@@ -8,10 +8,10 @@ import City from "../city-link/city-link.jsx";
 export class Cities extends PureComponent {
   constructor(props) {
     super(props);
-    this.changeCity = this.changeCity.bind(this);
+    this.setCity = this.setCity.bind(this);
   }
 
-  changeCity(city) {
+  setCity(city) {
     this.props.changeCurrentCity(city);
   }
 
@@ -23,7 +23,7 @@ export class Cities extends PureComponent {
           {cities.map((city, i) => <City
             key={i}
             city={city}
-            changeCity={this.changeCity}
+            changeCity={this.setCity}
           />)}
         </ul>
       </section>
@@ -37,7 +37,7 @@ Cities.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCurrentCity: (city) => dispatch(ActionCreators.changeCity(city)),
+  changeCurrentCity: (city) => dispatch(ActionCreators.setCity(city)),
 });
 
 export default connect(null, mapDispatchToProps)(Cities);

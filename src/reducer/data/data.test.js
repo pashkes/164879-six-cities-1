@@ -9,7 +9,7 @@ describe(`Reducer works correctly`, () => {
   it(`Should change active city`, () => {
     const reducerDone = reducer(
         {city: `Dusseldorf`},
-        ActionCreators.changeCity(`Amsterdam`)
+        ActionCreators.setCity(`Amsterdam`)
     );
     expect(reducerDone).toEqual({city: `Amsterdam`});
   });

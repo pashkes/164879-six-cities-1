@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 
 import Constants, {TypeSort} from "../../constants";
 import {
-  getActiveCity,
+  getCurrentCity,
   getFilteredOffers,
   getSelectedOffer,
   getTypeSort,
@@ -104,7 +104,7 @@ const mapStateToProps = (state) => {
   const offers = getFilteredOffers(state);
   const typeSort = getTypeSort(state);
   return {
-    currentCity: getActiveCity(state),
+    currentCity: getCurrentCity(state),
     offers: sortOffers(offers, typeSort),
     coordinates: offers.map((it) => [it.location.latitude, it.location.longitude]),
     currentOffer: getSelectedOffer(state),
