@@ -1,18 +1,10 @@
 import MockAdapter from "axios-mock-adapter";
 
 import createApi from './../../api';
-import {Operation, ActionType, reducer, ActionCreators} from './data';
-import Constants from "./../../constants";
+import {initialState, Operation, ActionType, reducer, ActionCreators} from './data';
+import Constants, {TypeSort} from "./../../constants";
 
 describe(`Reducer works correctly`, () => {
-
-  it(`Should change active city`, () => {
-    const reducerDone = reducer(
-        {city: `Dusseldorf`},
-        ActionCreators.setCity(`Amsterdam`)
-    );
-    expect(reducerDone).toEqual({city: `Amsterdam`});
-  });
 
   it(`Should make a correctly API load hotels`, () => {
     const dispatch = jest.fn();
@@ -52,5 +44,161 @@ describe(`Reducer works correctly`, () => {
           payload: {data: [{fake: true}], id: 1},
         });
       });
+  });
+
+  it(`Should add loaded reviews correctly`, () => {
+    const reviewsFromServer = [{
+      id: 0,
+      comment: ``,
+      date: `2019-06-01T10:38:39.844Z`,
+      rating: 1,
+      user: {
+        name: ``,
+        [`avatar_url`]: ``,
+        [`is_pro`]: false,
+      },
+    }];
+    const expectReviewsAfterConvert = [{
+      id: 0,
+      comment: ``,
+      date: `June 2019`,
+      machineDate: `2019-06-06`,
+      rating: 1,
+      name: ``,
+      avatar: ``,
+      isPro: false,
+    }];
+    const reducerDone = reducer(
+        {
+          reviews: {}
+        },
+        ActionCreators.getReviews(reviewsFromServer, 0)
+    );
+    expect(reducerDone).toEqual({
+      reviews: {
+        0: expectReviewsAfterConvert,
+      },
+    });
+
+  });
+
+  it(`Should add loaded offers correctly`, () => {
+    const offersFromServer = [{
+      id: 0,
+      city: {
+        name: ``,
+        location: {
+          latitude: 0,
+          longitude: 0,
+          zoom: 1,
+        }
+      },
+      price: 0,
+      rating: 1,
+      title: ``,
+      type: ``,
+      description: ``,
+      goods: [``],
+      bedrooms: ``,
+      [`is_favorite`]: false,
+      [`is_premium`]: false,
+      [`preview_image`]: ``,
+      [`max_adults`]: ``,
+      images: [``],
+      host: {
+        [`avatar_url`]: ``,
+        id: 0,
+        [`is_pro`]: false,
+        name: ``,
+      },
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 1,
+      },
+    }];
+
+    const expectOfferAfterConvert = [{
+      id: 0,
+      city: {
+        name: ``,
+        location: {
+          latitude: 0,
+          longitude: 0,
+          zoom: 1,
+        }
+      },
+      price: 0,
+      rating: 20,
+      title: ``,
+      type: ``,
+      description: ``,
+      goods: [``],
+      bedrooms: ``,
+      isFavorite: false,
+      isPremium: false,
+      previewPhoto: ``,
+      maxAdults: ``,
+      images: [``],
+      host: {
+        avatarURL: ``,
+        id: 0,
+        isPro: false,
+        name: ``,
+      },
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 1,
+      },
+    }];
+    const reducerDone = reducer(
+        {offers: []},
+        ActionCreators.loadOffers(offersFromServer)
+    );
+    expect(reducerDone).toEqual({
+      offers: expectOfferAfterConvert,
+    });
+  });
+
+  it(`Should set current city`, () => {
+    const reducerDone = reducer(
+        {city: `Dusseldorf`},
+        ActionCreators.setCity(`Amsterdam`)
+    );
+    expect(reducerDone).toEqual({
+      city: `Amsterdam`
+    });
+  });
+
+  it(`Should set current id of Offer`, () => {
+    const reducerDone = reducer(
+        {currentOfferId: 0},
+        ActionCreators.setActiveIdOffer(1)
+    );
+    expect(reducerDone).toEqual({
+      currentOfferId: 1
+    });
+  });
+
+  it(`Should set sort type`, () => {
+    const reducerDone = reducer(
+        {typeSort: TypeSort.POPULAR},
+        ActionCreators.setSortType(TypeSort.TOP_RATED)
+    );
+    expect(reducerDone).toEqual({
+      typeSort: {type: TypeSort.TOP_RATED}
+    });
+  });
+
+  it(`should return default state`, () => {
+    const reducerDone = reducer(
+        initialState,
+        {
+          type: `UNKNOWN_TYPE`,
+          payload: {unknownField: ``}
+        }
+    );
+    expect(reducerDone).toEqual(initialState);
   });
 });
