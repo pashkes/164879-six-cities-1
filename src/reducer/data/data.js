@@ -75,24 +75,18 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
-      return Object.assign({}, state, {offers: toModelOffer(action.payload)});
+      return {...state, ...{offers: toModelOffer(action.payload)}};
     case ActionType.SET_CITY:
-      return Object.assign({}, state, {city: action.payload});
+      return {...state, ...{city: action.payload}};
     case ActionType.LOAD_REVIEWS:
-      const reviews = Object.assign(
-          {},
-          state.reviews,
-          toModelReview(action.payload)
-      );
-      return Object.assign({}, state, {
-        reviews
-      });
+      const reviews = {...state.reviews, ...toModelReview(action.payload)};
+      return {...state, ...{reviews}};
     case ActionType.SET_CURRENT_OFFER:
-      return Object.assign({}, state, {currentOfferId: action.payload});
+      return {...state, ...{currentOfferId: action.payload}};
     case ActionType.SET_SORT_TYPE:
-      return Object.assign({}, state, {typeSort: action.payload});
+      return {...state, ...{typeSort: action.payload}};
     case ActionType.SEND_REVIEW:
-      return Object.assign({}, state);
+      return {...state};
     default:
       return state;
   }
