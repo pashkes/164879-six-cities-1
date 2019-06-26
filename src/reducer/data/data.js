@@ -1,21 +1,26 @@
 import Constants, {TypeSort} from "./../../constants";
 import {toModelOffer, toModelReview} from "./adapter";
-
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
   reviews: {},
   currentOfferId: false,
   typeSort: TypeSort.POPULAR,
+  isReviewSending: false,
+  isReviewSent: false,
+  error: ``,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   SET_CITY: `SET_CITY`,
-  LOAD_REVIEWS: `LOAD_REVIEWS`,
   SET_CURRENT_OFFER: `SET_CURRENT_OFFER`,
   SET_SORT_TYPE: `SET_SORT_TYPE`,
-  SEND_REVIEW: `SEND_REVIEW`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
+  POST_REVIEW: `POST_REVIEW`,
+  LOCK_FORM: `LOCK_FORM`,
+  CLEAN_FORM: `CLEAN_FORM`,
+  SHOW_ERROR: `SHOW_ERROR`,
 };
 
 const ActionCreators = {
@@ -39,9 +44,21 @@ const ActionCreators = {
     type: ActionType.SET_SORT_TYPE,
     payload: {type}
   }),
-  sendReview: (review) => ({
-    type: ActionType.SEND_REVIEW,
+  postReview: (review) => ({
+    type: ActionType.POST_REVIEW,
     payload: review,
+  }),
+  lockForm: (isLock) => ({
+    type: ActionType.LOCK_FORM,
+    payload: isLock,
+  }),
+  cleanForm: (isSent) => ({
+    type: ActionType.CLEAN_FORM,
+    payload: isSent,
+  }),
+  showError: (error) => ({
+    type: ActionType.SHOW_ERROR,
+    payload: error,
   }),
 };
 
@@ -62,11 +79,18 @@ const Operation = {
         });
     };
   },
-  uploadReview: (offerId, dataOffer) => {
+  postReview: (offerId, dataOffer) => {
     return (dispatch, _getState, api) => {
       return api.post(`${Constants.COMMENTS_PATH}/${offerId}`, dataOffer)
-        .then(({data}) => {
-          dispatch(ActionCreators.sendReview(data, offerId));
+        .then((response) => {
+          dispatch(ActionCreators.postReview(response.data, offerId));
+          dispatch(ActionCreators.lockForm(false));
+          dispatch(ActionCreators.cleanForm(true));
+          dispatch(ActionCreators.showError(``));
+        })
+        .catch(() => {
+          dispatch(ActionCreators.lockForm(false));
+          dispatch(ActionCreators.showError(`Something went wrong 😥😥😥`));
         });
     };
   },
@@ -85,8 +109,14 @@ const reducer = (state = initialState, action) => {
       return {...state, ...{currentOfferId: action.payload}};
     case ActionType.SET_SORT_TYPE:
       return {...state, ...{typeSort: action.payload}};
-    case ActionType.SEND_REVIEW:
+    case ActionType.POST_REVIEW:
       return {...state};
+    case ActionType.LOCK_FORM:
+      return {...state, ...{isReviewSending: action.payload}};
+    case ActionType.CLEAN_FORM:
+      return {...state, ...{isReviewSent: action.payload}};
+    case ActionType.SHOW_ERROR:
+      return {...state, ...{error: action.payload}};
     default:
       return state;
   }

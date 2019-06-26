@@ -13,29 +13,23 @@ const withReviewForm = (Component) => {
       this.state = {
         rating: 0,
         comment: ``,
+        isValidate: false,
       };
     }
 
     handlerTextMessage(evt) {
       this.setState({comment: evt.target.value});
-      const isMessageFilled = this.messageBlock.current.value.length >= CommentLength.MIN;
-      const isButtonDisabled = this.submitButton.current.disabled;
-      const isRatingSelected = this.state.rating > 0;
-      const isMessageEmpty = this.messageBlock.current.value.length < CommentLength.MIN;
-      if (isMessageFilled && isButtonDisabled && isRatingSelected) {
-        this.submitButton.current.disabled = !isButtonDisabled;
-      }
-      if (isMessageEmpty) {
-        this.submitButton.current.disabled = true;
-      }
     }
+
+    componentDidUpdate() {
+      const value = this.messageBlock.current.value;
+      const isMessageFilled = value.length >= CommentLength.MIN && value.length <= CommentLength.MAX;
+      const isRatingSelected = this.state.rating > 0;
+      this.setState({isValidate: isMessageFilled && isRatingSelected});
+    }
+
     setRating(value) {
       this.setState({rating: value});
-      const isMessageFilled = this.messageBlock.current.value.length >= CommentLength.MIN;
-      const isButtonDisabled = this.submitButton.current.disabled;
-      if (isButtonDisabled && isMessageFilled) {
-        this.submitButton.current.disabled = false;
-      }
     }
 
     render() {
@@ -48,6 +42,7 @@ const withReviewForm = (Component) => {
           rating={this.state.rating}
           submitButton={this.submitButton}
           textarea={this.messageBlock}
+          isFormValid={this.state.isValidate}
         />
       );
     }

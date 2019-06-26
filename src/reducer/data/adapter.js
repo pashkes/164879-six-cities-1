@@ -39,10 +39,10 @@ export const toModelOffer = (data) => {
 
 const toFormatMachineDate = (date) => {
   const toDate = new Date(date);
-  const getYear = toDate.getFullYear().toString();
-  const getDay = (toDate.getDay()).toString().padStart(2, `0`);
-  const getMonth = (toDate.getMonth() + 1).toString().padStart(2, `0`);
-  return `${getYear}-${getMonth}-${getDay}`;
+  const year = toDate.getFullYear().toString();
+  const day = (toDate.getDay()).toString().padStart(2, `0`);
+  const month = (toDate.getMonth() + 1).toString().padStart(2, `0`);
+  return `${year}-${month}-${day}`;
 };
 
 const toFormatPostDate = (date) => new Intl.DateTimeFormat(`en-US`, {
@@ -64,7 +64,7 @@ export const toModelReview = (reviews) => {
         isPro: item.user[`is_pro`],
       };
     })
-      .sort((current, next) => new Date(next.machineDate) - new Date(current.machineDate))
+      .sort((current, next) => new Date(current.machineDate) - new Date(next.machineDate))
       : null
   };
 };

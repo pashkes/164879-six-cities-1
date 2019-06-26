@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 
 import createApi from "./../../api";
-import {Operation, ActionType, reducer, ActionCreators} from "./user";
+import {initialState, Operation, ActionType, reducer, ActionCreators} from "./user";
 import Constants from "./../../constants";
 
 describe(`Reducer works correctly`, () => {
@@ -69,6 +69,18 @@ describe(`Reducer works correctly`, () => {
           payload: true,
         });
       });
+  });
+
+  it(`Should return default state`, () => {
+    const reducerDone = reducer(
+        initialState,
+        {
+          type: `Unknown_ACTION`,
+          payload: `some data`
+        }
+    );
+
+    expect(reducerDone).toEqual(initialState);
   });
 
 });

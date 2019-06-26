@@ -26,7 +26,6 @@ exports[`Review form renders correctly 1`] = `
     onChange={[MockFunction]}
     onFocus={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
-    value=""
   />
   <div
     className="reviews__button-wrapper"

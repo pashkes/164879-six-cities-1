@@ -12,6 +12,12 @@ export const getSelectedIdOffer = (state) => state[NAME_SPACE].currentOfferId;
 
 export const getTypeSort = (state) => state[NAME_SPACE].typeSort;
 
+export const getStatusSendingReview = (state) => state[NAME_SPACE].isReviewSending;
+
+export const getStatusIsSentReview = (state) => state[NAME_SPACE].isReviewSent;
+
+export const getError = (state) => state[NAME_SPACE].error;
+
 export const getFilteredOffers = createSelector(
     getOffers,
     getCurrentCity,

@@ -15,6 +15,10 @@ it(`Review form renders correctly`, () => {
     sendComment={jest.fn()}
     submitButton={{}}
     textarea={{}}
+    updateForm={jest.fn()}
+    isReviewSending={false}
+    isReviewSent={false}
+    error={``}
   />);
   expect(reviewForm).toMatchSnapshot();
 });

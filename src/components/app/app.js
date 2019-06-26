@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
@@ -38,6 +38,7 @@ export class App extends PureComponent {
         <Route path={Page.LOGIN} exact component={SignInPrivate} />
         <Route path={Page.FAVORITES} exact component={FavoritesPrivate} />
         <Route path={`${Page.OFFER}/:id`} exact render={({match}) => <Property id={match.params.id} />} />
+        <Redirect from='*' to='/' />
       </Switch>
     );
   }
