@@ -18,6 +18,7 @@ it(`Review form renders correctly`, () => {
     updateForm={jest.fn()}
     isReviewSending={false}
     isReviewSent={false}
+    isFormValid={true}
     error={``}
   />);
   expect(reviewForm).toMatchSnapshot();

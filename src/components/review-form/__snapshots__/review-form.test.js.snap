@@ -50,7 +50,7 @@ exports[`Review form renders correctly 1`] = `
     </p>
     <button
       className="reviews__submit form__submit button"
-      disabled={true}
+      disabled={false}
       type="submit"
     >
       Submit
