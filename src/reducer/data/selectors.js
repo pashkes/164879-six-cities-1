@@ -41,7 +41,9 @@ export const getNearbyOffers = (state, id) => {
   }
 };
 
-export const getComments = (state, id) => state[NAME_SPACE].reviews[id] ? state[NAME_SPACE].reviews[id] : [];
+export const getComments = (state, id) => {
+  return state[NAME_SPACE].reviews[id] ? state[NAME_SPACE].reviews[id] : [];
+};
 
 const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
 

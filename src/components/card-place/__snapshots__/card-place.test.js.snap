@@ -15,6 +15,7 @@ exports[`renders correctly if the card is favorite 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
+        loading="lazy"
         src=""
         width="260"
       />
@@ -118,6 +119,7 @@ exports[`renders correctly if the card is premium 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
+        loading="lazy"
         src=""
         width="260"
       />
@@ -214,6 +216,7 @@ exports[`renders correctly in the default state 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
+        loading="lazy"
         src=""
         width="260"
       />

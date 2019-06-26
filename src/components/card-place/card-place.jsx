@@ -29,7 +29,7 @@ class CardPlace extends PureComponent {
       {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
       <div className="place-card__image-wrapper">
         <a href="#" onClick={this.handleImageClick}>
-          <img className="place-card__image" src={previewPhoto} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewPhoto} width="260" height="200" loading="lazy" alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">

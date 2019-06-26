@@ -15,6 +15,7 @@ const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SET_CURRENT_OFFER: `SET_CURRENT_OFFER`,
   SET_SORT_TYPE: `SET_SORT_TYPE`,
+  SEND_REVIEW: `SEND_REVIEW`,
 };
 
 const ActionCreators = {
@@ -38,6 +39,10 @@ const ActionCreators = {
     type: ActionType.SET_SORT_TYPE,
     payload: {type}
   }),
+  sendReview: (review) => ({
+    type: ActionType.SEND_REVIEW,
+    payload: review,
+  }),
 };
 
 const Operation = {
@@ -54,6 +59,14 @@ const Operation = {
       return api.get(`${Constants.COMMENTS_PATH}/${id}`)
         .then(({data}) => {
           dispatch(ActionCreators.getReviews(data, id));
+        });
+    };
+  },
+  uploadReview: (offerId, dataOffer) => {
+    return (dispatch, _getState, api) => {
+      return api.post(`${Constants.COMMENTS_PATH}/${offerId}`, dataOffer)
+        .then(({data}) => {
+          dispatch(ActionCreators.sendReview(data, offerId));
         });
     };
   },
@@ -78,6 +91,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {currentOfferId: action.payload});
     case ActionType.SET_SORT_TYPE:
       return Object.assign({}, state, {typeSort: action.payload});
+    case ActionType.SEND_REVIEW:
+      return Object.assign({}, state);
     default:
       return state;
   }

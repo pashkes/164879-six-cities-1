@@ -29,4 +29,9 @@ export const KeyCode = {
   ENTER: 13,
 };
 
+export const CommentLength = {
+  MIN: 50,
+  MAX: 300,
+};
+
 export default Constants;

@@ -10,6 +10,7 @@ it(`Select renders correctly`, () => {
     onSelected={jest.fn()}
     selected={``}
     onClickDropdown={jest.fn()}
+    onSelectOption={jest.fn()}
     selectedName={``}
     isOpen={false}
     options={[]}

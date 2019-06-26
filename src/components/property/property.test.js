@@ -28,6 +28,7 @@ const propertyProps = {
 
 it(`Property page renders correctly`, () => {
   const propertyPage = shallow(<Property
+    isAuthorization={true}
     offersOnMap={[]}
     nearbyOffers={[]}
     activeCity={``}
