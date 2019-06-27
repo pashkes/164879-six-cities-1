@@ -10,10 +10,14 @@ import reducer from "./reducer/reducer";
 import App from "./components/app/app";
 import createAPI from "./api.js";
 import history from "./history.js";
-import Constants from "./constants";
+import {ActionCreators} from "./reducer/user/user";
 
 const initApp = () => {
-  const api = createAPI(() => history.push(Constants.LOGIN_PATH));
+  const api = createAPI(() => {
+    history.push(`/login`);
+    store.dispatch(ActionCreators.requireAuthorization(false));
+    store.dispatch(ActionCreators.authorization({}));
+  });
   const store = createStore(
       reducer,
       compose(
@@ -21,6 +25,7 @@ const initApp = () => {
           window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       )
   );
+
   ReactDOM.render(
       <Provider store={store}>
         <BrowserRouter>

@@ -1,5 +1,6 @@
 import Constants, {TypeSort} from "./../../constants";
 import {toModelOffer, toModelReview} from "./adapter";
+
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
@@ -44,9 +45,9 @@ const ActionCreators = {
     type: ActionType.SET_SORT_TYPE,
     payload: {type}
   }),
-  postReview: (review) => ({
+  postReview: (review, id) => ({
     type: ActionType.POST_REVIEW,
-    payload: review,
+    payload: {id, data: review},
   }),
   lockForm: (isLock) => ({
     type: ActionType.LOCK_FORM,
@@ -110,7 +111,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_SORT_TYPE:
       return {...state, ...{typeSort: action.payload}};
     case ActionType.POST_REVIEW:
-      return {...state};
+      const newReviews = {...state.reviews, ...toModelReview(action.payload)};
+      return {...state, ...{reviews: newReviews}};
     case ActionType.LOCK_FORM:
       return {...state, ...{isReviewSending: action.payload}};
     case ActionType.CLEAN_FORM:

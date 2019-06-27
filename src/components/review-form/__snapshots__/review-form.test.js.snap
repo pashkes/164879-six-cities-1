@@ -27,6 +27,10 @@ exports[`Review form renders correctly 1`] = `
     onFocus={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
   />
+  <span
+    aria-live="assertive"
+    role="alert"
+  />
   <div
     className="reviews__button-wrapper"
   >

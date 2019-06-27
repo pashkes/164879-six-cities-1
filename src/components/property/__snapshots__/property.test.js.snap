@@ -175,9 +175,6 @@ exports[`Property page renders correctly 1`] = `
             <ConnectFunction
               id="0"
             />
-            <ConnectFunction
-              idCurrentOffer="0"
-            />
           </section>
         </div>
       </div>

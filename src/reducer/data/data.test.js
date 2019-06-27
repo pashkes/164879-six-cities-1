@@ -61,7 +61,7 @@ describe(`Reducer works correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.POST_REVIEW,
-          payload: {fake: true},
+          payload: {data: {fake: true}, id: 1},
         });
       });
   });

@@ -1,10 +1,13 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {compose} from "recompose";
 
 import Rating from "../rating/rating.jsx";
 import withReviewForm from "./../../hocs/with-review-form/with-review-form";
+
 import {Operation, ActionCreators} from "../../reducer/data/data";
+import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
 
 import {
   getStatusSendingReview,
@@ -46,7 +49,8 @@ export class ReviewForm extends PureComponent {
   }
 
   componentDidUpdate() {
-    if (this.props.isReviewSent) {
+    const {isReviewSent} = this.props;
+    if (isReviewSent) {
       this.props.updateForm();
       this.form.current.reset();
     }
@@ -83,7 +87,7 @@ export class ReviewForm extends PureComponent {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"/>
-        {error ? error : ``}
+        <span role="alert" aria-live="assertive">{error ? error : ``}</span>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -94,7 +98,7 @@ export class ReviewForm extends PureComponent {
             className="reviews__submit form__submit button"
             type="submit"
             disabled={isFormValid ? isReviewSending : true}
-          >Submit
+          >{isReviewSending ? `Sending...` : `Submit`}
           </button>
         </div>
       </form>
@@ -122,6 +126,8 @@ const mapStateToProps = (state) => ({
   isReviewSending: getStatusSendingReview(state),
   isReviewSent: getStatusIsSentReview(state),
   error: getError(state),
+  isAuthentication: getAuthorizationStatus(state),
+  userData: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -132,4 +138,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateForm: () => dispatch(ActionCreators.cleanForm(false)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withReviewForm(ReviewForm));
+const reviewForm = compose(
+    withReviewForm,
+    connect(mapStateToProps, mapDispatchToProps),
+);
+export default reviewForm(ReviewForm);

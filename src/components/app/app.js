@@ -21,10 +21,8 @@ export class App extends PureComponent {
   }
 
   componentDidMount() {
-    const {loadOffers, checkAuth, offers} = this.props;
-    if (offers.length === 0) {
-      loadOffers();
-    }
+    const {loadOffers, checkAuth} = this.props;
+    loadOffers();
     checkAuth();
   }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import PropType from "prop-types";
 import {connect} from "react-redux";
+import compose from 'recompose/compose';
 
 import {
   getOffers,
@@ -46,7 +47,7 @@ export const Property = (props) => {
     activeCity,
     offersOnMap,
     nearbyOffers,
-    isAuthorization,
+    isAuthentication,
   } = props;
   return (
     <Layout pageClasses={[`page`]}>
@@ -109,7 +110,7 @@ export const Property = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <Reviews id={id}/>
-                {isAuthorization && <ReviewForm idCurrentOffer={id} />}
+                {isAuthentication && <ReviewForm idCurrentOffer={id} />}
               </section>
             </div>
           </div>
@@ -163,7 +164,7 @@ Property.propTypes = {
   nearbyOffers: PropType.array.isRequired,
   activeCity: PropType.string.isRequired,
   offersOnMap: PropType.array.isRequired,
-  isAuthorization: PropType.bool.isRequired,
+  isAuthentication: PropType.bool.isRequired,
 };
 
 
@@ -177,7 +178,7 @@ const mapStateToProps = (state, ownProps) => {
     nearbyOffers,
     offersOnMap: nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [0, 0],
     activeCity: getCurrentCity(state),
-    isAuthorization: getAuthorizationStatus(state),
+    isAuthentication: getAuthorizationStatus(state),
   };
 };
 
@@ -185,6 +186,9 @@ const mapDispatchToProps = (dispatch) => ({
   loadData: () => dispatch(DataOperation.loadOffers()),
 });
 
-const PropertyWithLoader = withLoadData(Property);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyWithLoader);
+const property = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadData
+);
+export default property(Property);
