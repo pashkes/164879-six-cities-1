@@ -29,15 +29,15 @@ export class Reviews extends PureComponent {
 }
 
 Reviews.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const reviewList = getComments(state, ownProps.id);
   return {
-    reviews: reviewList,
-    isLoading: reviewList.length !== 0,
+    reviews: reviewList || [],
+    isLoading: Boolean(reviewList)
   };
 };
 

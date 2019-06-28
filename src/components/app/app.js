@@ -36,7 +36,7 @@ export class App extends PureComponent {
         <Route path="/" exact component={MainPage} />
         <Route path={Page.LOGIN} exact component={SignInPrivate} />
         <Route path={Page.FAVORITES} exact component={FavoritesPrivate} />
-        <Route path={`${Page.OFFER}/:id`} exact render={({match}) => <Property id={match.params.id} />} />
+        <Route path={`${Page.OFFER}/:id`} exact render={({match}) => <Property id={Number(match.params.id)} />} />
         <Redirect from='*' to='/' />
       </Switch>
     );

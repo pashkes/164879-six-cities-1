@@ -21,6 +21,7 @@ import Reviews from "./../reviews/reviews.jsx";
 import Map from "./../map/map.jsx";
 import Offers from "./../offers/offers.jsx";
 import ReviewForm from "./../review-form/review-form.jsx";
+import FavoriteButton from "./../favorite-button/favorite-button.jsx";
 
 export const Property = (props) => {
   const {
@@ -68,12 +69,13 @@ export const Property = (props) => {
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">{isFavorite ? `In bookmarks` : `To bookmarks`}</span>
-                </button>
+                <FavoriteButton
+                  id={id}
+                  isFavorite={isFavorite}
+                  prefixClass={`property`}
+                  width={`31`}
+                  height={`33`}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -138,7 +140,7 @@ export const Property = (props) => {
 };
 
 Property.propTypes = {
-  id: PropType.string.isRequired,
+  id: PropType.number.isRequired,
   currentOffer: PropType.shape({
     images: PropType.array.isRequired,
     isPremium: PropType.bool.isRequired,
@@ -176,7 +178,7 @@ const mapStateToProps = (state, ownProps) => {
     isLoading: offers.length !== 0,
     currentOffer: getCurrentOffer(state, ownProps.id),
     nearbyOffers,
-    offersOnMap: nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [0, 0],
+    offersOnMap: nearbyOffers.length ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [0, 0],
     activeCity: getCurrentCity(state),
     isAuthentication: getAuthorizationStatus(state),
   };

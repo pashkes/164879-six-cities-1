@@ -109,7 +109,7 @@ export class ReviewForm extends PureComponent {
 ReviewForm.propTypes = {
   onChangeMessage: PropTypes.func.isRequired,
   onChangeRating: PropTypes.func.isRequired,
-  idCurrentOffer: PropTypes.string.isRequired,
+  idCurrentOffer: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
   sendComment: PropTypes.func.isRequired,

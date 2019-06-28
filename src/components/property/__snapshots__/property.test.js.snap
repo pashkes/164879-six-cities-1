@@ -41,25 +41,13 @@ exports[`Property page renders correctly 1`] = `
             <h1
               className="property__name"
             />
-            <button
-              className="property__bookmark-button button"
-              type="button"
-            >
-              <svg
-                className="property__bookmark-icon"
-                height="33"
-                width="31"
-              >
-                <use
-                  xlinkHref="#icon-bookmark"
-                />
-              </svg>
-              <span
-                className="visually-hidden"
-              >
-                To bookmarks
-              </span>
-            </button>
+            <ConnectFunction
+              height="33"
+              id="0"
+              isFavorite={false}
+              prefixClass="property"
+              width="31"
+            />
           </div>
           <div
             className="property__rating rating"
