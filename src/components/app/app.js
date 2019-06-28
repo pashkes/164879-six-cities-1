@@ -28,9 +28,9 @@ export class App extends PureComponent {
   }
 
   render() {
-    const {isAuthorization} = this.props;
-    const FavoritesPrivate = withPrivateRoute(Favorites, isAuthorization, Constants.LOGIN_PATH);
-    const SignInPrivate = withPrivateRoute(SignIn, !isAuthorization);
+    const {isAuthorizationRequired} = this.props;
+    const FavoritesPrivate = withPrivateRoute(Favorites, isAuthorizationRequired, Constants.LOGIN_PATH);
+    const SignInPrivate = withPrivateRoute(SignIn, !isAuthorizationRequired);
     return (
       <Switch>
         <Route path="/" exact component={MainPage} />
@@ -44,7 +44,7 @@ export class App extends PureComponent {
 }
 
 App.propTypes = {
-  isAuthorization: PropTypes.bool.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
   loadData: PropTypes.func.isRequired,
   checkAuth: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired
@@ -56,10 +56,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  isAuthorization: getAuthorizationStatus(state),
+  isAuthorizationRequired: getAuthorizationStatus(state),
   offers: getOffers(state),
   isLoading: (getOffers(state)).length !== 0,
 });
+
 const _App = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData

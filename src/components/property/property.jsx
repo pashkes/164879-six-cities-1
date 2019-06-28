@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropType from "prop-types";
 import {connect} from "react-redux";
 import compose from 'recompose/compose';
@@ -7,10 +7,10 @@ import {
   getOffers,
   getNearbyOffers,
   getCurrentCity,
-  getCurrentOffer
+  getCurrentOffer,
 } from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
-import {Operation as DataOperation} from "../../reducer/data/data";
+import {Operation as DataOperation, ActionCreators} from "../../reducer/data/data";
 import {toPercentRating} from "./../../utils";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
@@ -23,121 +23,133 @@ import Offers from "./../offers/offers.jsx";
 import ReviewForm from "./../review-form/review-form.jsx";
 import FavoriteButton from "./../favorite-button/favorite-button.jsx";
 
-export const Property = (props) => {
-  const {
-    images,
-    isPremium,
-    title,
-    isFavorite,
-    rating,
-    price,
-    host: {
-      avatarURL,
-      isPro,
-      name,
-    },
-    goods,
-    description,
-    maxAdults,
-    bedrooms,
-    type,
-    location: {latitude, longitude},
-  } = props.currentOffer;
-  const {
-    id,
-    activeCity,
-    offersOnMap,
-    nearbyOffers,
-    isAuthentication,
-  } = props;
-  return (
-    <Layout pageClasses={[`page`]}>
-      <main className="page__main page__main--property">
-        <section className="property">
-          <div className="property__gallery-container container">
-            <div className="property__gallery">
-              <Gallery photos={images}/>
+export class Property extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    const {setCurrentCity, currentOffer} = this.props;
+    setCurrentCity(currentOffer.city.name);
+  }
+
+  render() {
+    const {
+      id,
+      activeCity,
+      offersOnMap,
+      nearbyOffers,
+      isAuthorizationRequired,
+      currentOffer
+    } = this.props;
+    const {
+      images,
+      isPremium,
+      title,
+      isFavorite,
+      rating,
+      price,
+      host: {
+        avatarURL,
+        isPro,
+        name,
+      },
+      goods,
+      description,
+      maxAdults,
+      bedrooms,
+      type,
+      location: {latitude, longitude},
+    } = currentOffer;
+
+    return (
+      <Layout pageClasses={[`page`]}>
+        <main className="page__main page__main--property">
+          <section className="property">
+            <div className="property__gallery-container container">
+              <div className="property__gallery">
+                <Gallery photos={images}/>
+              </div>
             </div>
-          </div>
-          <div className="property__container container">
-            <div className="property__wrapper">
-              {
-                isPremium &&
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div>
-              }
-              <div className="property__name-wrapper">
-                <h1 className="property__name">{title}</h1>
-                <FavoriteButton
-                  id={id}
-                  isFavorite={isFavorite}
-                  prefixClass={`property`}
-                  width={`31`}
-                  height={`33`}
-                />
-              </div>
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{width: `${rating}%`}}/>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">{toPercentRating(rating)}</span>
-              </div>
-              <ul className="property__features">
-                <li className="property__feature property__feature--entire">{type}</li>
-                <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
-                <li className="property__feature property__feature--adults">{maxAdults}</li>
-              </ul>
-              <div className="property__price">
-                <b className="property__price-value">&euro;{price}</b>
-                <span className="property__price-text">&nbsp;night</span>
-              </div>
-              <div className="property__inside">
-                <h2 className="property__inside-title">What&apos;s inside</h2>
-                <Goods list={goods}/>
-              </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={avatarURL} width="74" height="74" alt={name}/>
+            <div className="property__container container">
+              <div className="property__wrapper">
+                {
+                  isPremium &&
+                  <div className="property__mark">
+                    <span>Premium</span>
                   </div>
-                  <span className="property__user-name">{name}</span>
-                  {isPro && <span className="property__user-status">Pro</span>}
+                }
+                <div className="property__name-wrapper">
+                  <h1 className="property__name">{title}</h1>
+                  <FavoriteButton
+                    id={id}
+                    isFavorite={isFavorite}
+                    prefixClass={`property`}
+                    width={`31`}
+                    height={`33`}
+                  />
                 </div>
-                <div className="property__description">
-                  <p className="property__text">{description}</p>
+                <div className="property__rating rating">
+                  <div className="property__stars rating__stars">
+                    <span style={{width: `${rating}%`}}/>
+                    <span className="visually-hidden">Rating</span>
+                  </div>
+                  <span className="property__rating-value rating__value">{toPercentRating(rating)}</span>
                 </div>
+                <ul className="property__features">
+                  <li className="property__feature property__feature--entire">{type}</li>
+                  <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
+                  <li className="property__feature property__feature--adults">{maxAdults}</li>
+                </ul>
+                <div className="property__price">
+                  <b className="property__price-value">&euro;{price}</b>
+                  <span className="property__price-text">&nbsp;night</span>
+                </div>
+                <div className="property__inside">
+                  <h2 className="property__inside-title">What&apos;s inside</h2>
+                  <Goods list={goods}/>
+                </div>
+                <div className="property__host">
+                  <h2 className="property__host-title">Meet the host</h2>
+                  <div className="property__host-user user">
+                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                      <img className="property__avatar user__avatar" src={avatarURL} width="74" height="74" alt={name}/>
+                    </div>
+                    <span className="property__user-name">{name}</span>
+                    {isPro && <span className="property__user-status">Pro</span>}
+                  </div>
+                  <div className="property__description">
+                    <p className="property__text">{description}</p>
+                  </div>
+                </div>
+                <section className="property__reviews reviews">
+                  <Reviews id={id}/>
+                  {!isAuthorizationRequired && <ReviewForm idCurrentOffer={id} />}
+                </section>
               </div>
-              <section className="property__reviews reviews">
-                <Reviews id={id}/>
-                {isAuthentication && <ReviewForm idCurrentOffer={id} />}
-              </section>
             </div>
+            <section className="property__map map">
+              <Map
+                selectedOffer={[latitude, longitude]}
+                currentCity={activeCity}
+                coordinates={offersOnMap}
+              />
+            </section>
+          </section>
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <Offers
+                offers={nearbyOffers}
+                classModOffers={[`near-places__list`]}
+                classModCard={`near-places__card`}
+              />
+            </section>
           </div>
-          <section className="property__map map">
-            <Map
-              selectedOffer={[latitude, longitude]}
-              currentCity={activeCity}
-              coordinates={offersOnMap}
-            />
-          </section>
-        </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <Offers
-              offers={nearbyOffers}
-              classModOffers={[`near-places__list`]}
-              classModCard={`near-places__card`}
-            />
-          </section>
-        </div>
-      </main>
-    </Layout>
-  );
-};
+        </main>
+      </Layout>
+    );
+  }
+}
 
 Property.propTypes = {
   id: PropType.number.isRequired,
@@ -166,7 +178,9 @@ Property.propTypes = {
   nearbyOffers: PropType.array.isRequired,
   activeCity: PropType.string.isRequired,
   offersOnMap: PropType.array.isRequired,
-  isAuthentication: PropType.bool.isRequired,
+  isAuthorizationRequired: PropType.bool.isRequired,
+  setCurrentCity: PropType.func.isRequired,
+  currentOfferCoordinates: PropType.array,
 };
 
 
@@ -180,12 +194,13 @@ const mapStateToProps = (state, ownProps) => {
     nearbyOffers,
     offersOnMap: nearbyOffers.length ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [0, 0],
     activeCity: getCurrentCity(state),
-    isAuthentication: getAuthorizationStatus(state),
+    isAuthorizationRequired: getAuthorizationStatus(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   loadData: () => dispatch(DataOperation.loadData()),
+  setCurrentCity: (city) => dispatch(ActionCreators.setCity(city)),
 });
 
 
@@ -193,4 +208,5 @@ const property = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
+
 export default property(Property);

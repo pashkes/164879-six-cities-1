@@ -3,7 +3,7 @@ import React from "react";
 
 const withPrivateRoute = (Component, isLogIn, URL = `/`) => {
   const WithPrivateRoute = (props) => {
-    return isLogIn ? <Component {...props}/> : <Redirect to={URL} />;
+    return isLogIn ? <Redirect to={URL} /> : <Component {...props}/>;
   };
 
   return WithPrivateRoute;

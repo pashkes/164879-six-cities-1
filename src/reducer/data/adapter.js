@@ -65,6 +65,9 @@ export const toModelReview = (reviews) => {
         isPro: item.user[`is_pro`],
       };
     })
-      .sort((current, next) => new Date(current.machineDate) < new Date(next.machineDate) ? 1 : -1).slice(0, Constants.MAX_SHOWN_REVIEWS)
+      .sort((current, next) => {
+        return new Date(current.machineDate) < new Date(next.machineDate) ? 1 : -1;
+      })
+      .slice(0, Constants.MAX_SHOWN_REVIEWS)
   };
 };

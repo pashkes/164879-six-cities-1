@@ -13,16 +13,30 @@ export class Option extends PureComponent {
   }
 
   handleOptionClick() {
-    this.props.onSelectOption(this.props.value, this.props.name);
-    this.props.typeSort(this.props.value);
-    this.props.button.current.focus();
+    const {
+      onSelectOption,
+      value,
+      name,
+      typeSort,
+      button
+    } = this.props;
+    onSelectOption(value, name);
+    typeSort(value);
+    button.current.focus();
   }
 
   handleOptionKeyDownEnter(evt) {
+    const {
+      button,
+      onSelectOption,
+      name,
+      typeSort,
+      value,
+    } = this.props;
     if (evt.keyCode === KeyCode.ENTER) {
-      this.props.button.current.focus();
-      this.props.onSelectOption(this.props.value, this.props.name);
-      this.props.typeSort(this.props.value);
+      button.current.focus();
+      onSelectOption(value, name);
+      typeSort(value);
     }
   }
 

@@ -7,7 +7,6 @@ import Rating from "../rating/rating.jsx";
 import withReviewForm from "./../../hocs/with-review-form/with-review-form";
 
 import {Operation, ActionCreators} from "../../reducer/data/data";
-import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
 
 import {
   getStatusSendingReview,
@@ -37,9 +36,14 @@ export class ReviewForm extends PureComponent {
     document.addEventListener(`keydown`, this.handleMessageKeyDown);
   }
 
-  handleMessageKeyDown(evt) {
-    const {sendComment, rating, comment, isFormValid} = this.props;
-    if (isFormValid && evt.ctrlKey && evt.keyCode === KeyCode.ENTER) {
+  handleMessageKeyDown({ctrlKey, keyCode}) {
+    const {
+      sendComment,
+      rating,
+      comment,
+      isFormValid,
+    } = this.props;
+    if (isFormValid && ctrlKey && keyCode === KeyCode.ENTER) {
       sendComment({rating, comment});
     }
   }
@@ -49,9 +53,9 @@ export class ReviewForm extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {isReviewSent} = this.props;
+    const {isReviewSent, updateForm} = this.props;
     if (isReviewSent) {
-      this.props.updateForm();
+      updateForm();
       this.form.current.reset();
     }
   }
@@ -126,8 +130,6 @@ const mapStateToProps = (state) => ({
   isReviewSending: getStatusSendingReview(state),
   isReviewSent: getStatusIsSentReview(state),
   error: getError(state),
-  isAuthentication: getAuthorizationStatus(state),
-  userData: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

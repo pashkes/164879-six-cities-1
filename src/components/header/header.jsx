@@ -7,7 +7,7 @@ import Constants, {Page} from "./../../constants";
 import {getUserData, getAuthorizationStatus} from "./../../reducer/user/selectors";
 
 export const Header = (props) => {
-  const {isAuthorization, userData} = props;
+  const {isAuthorizationRequired, userData} = props;
   return (
     <header className="header">
       <div className="container">
@@ -20,12 +20,12 @@ export const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link to={isAuthorization ? Page.FAVORITES : Page.LOGIN} className="header__nav-link header__nav-link--profile">
+                <Link to={isAuthorizationRequired ? Page.LOGIN : Page.FAVORITES} className="header__nav-link header__nav-link--profile">
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
-                    style={isAuthorization ? {backgroundImage: `url(${Constants.BASE_URL}${userData.avatar})`} : {}}>
+                    style={isAuthorizationRequired ? {} : {backgroundImage: `url(${Constants.BASE_URL}${userData.avatar})`}}>
                   </div>
-                  <span className="header__user-name user__name">{isAuthorization ? userData.email : `Sign In`}</span>
+                  <span className="header__user-name user__name">{isAuthorizationRequired ? `Sign In` : userData.email}</span>
                 </Link>
               </li>
             </ul>
@@ -38,14 +38,14 @@ export const Header = (props) => {
 ;
 
 Header.propTypes = {
-  isAuthorization: PropTypes.bool.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   userData: getUserData(state),
-  isAuthorization: getAuthorizationStatus(state)
+  isAuthorizationRequired: getAuthorizationStatus(state)
 });
 
 export default connect(mapStateToProps)(Header);

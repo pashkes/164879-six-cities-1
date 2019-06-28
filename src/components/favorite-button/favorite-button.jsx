@@ -1,7 +1,8 @@
-import React, {Fragment, PureComponent} from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import {compose} from "recompose";
 
 import {Operation} from "../../reducer/user/user";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
@@ -11,15 +12,21 @@ class FavoriteButton extends PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      isRedirect: false,
-    };
   }
 
   handleClick() {
-    const {isFavorite, addToFavorites, id, removeFromFavorite, isAuthorization} = this.props;
-    if (!isAuthorization) {
-      this.setState({isRedirect: true});
+    const {
+      isFavorite,
+      addToFavorites,
+      id,
+      removeFromFavorite,
+      isAuthorizationRequired,
+      history,
+    } = this.props;
+
+    if (isAuthorizationRequired) {
+      history.push(Constants.LOGIN_PATH);
+      return;
     }
     if (isFavorite) {
       removeFromFavorite(id);
@@ -30,25 +37,18 @@ class FavoriteButton extends PureComponent {
 
   render() {
     const {isFavorite, prefixClass, width = 18, height = 19} = this.props;
-    const {isRedirect} = this.state;
     return (
-      <Fragment>
-        {
-          !isRedirect ?
-            <button
-              onClick={this.handleClick}
-              type="button"
-              className={`${prefixClass}__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
-              aria-pressed={isFavorite ? `true` : `false`}
-            >
-              <svg className={`place-card__bookmark-icon`} width={width} height={height}>
-                <use xlinkHref="#icon-bookmark"/>
-              </svg>
-              <span className="visually-hidden">{isFavorite ? `In` : `To`} bookmarks</span>
-            </button>
-            : <Redirect to={Constants.LOGIN_PATH} />
-        }
-      </Fragment>
+      <button
+        onClick={this.handleClick}
+        type="button"
+        className={`${prefixClass}__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
+        aria-pressed={isFavorite ? `true` : `false`}
+      >
+        <svg className={`place-card__bookmark-icon`} width={width} height={height}>
+          <use xlinkHref="#icon-bookmark"/>
+        </svg>
+        <span className="visually-hidden">{isFavorite ? `In` : `To`} bookmarks</span>
+      </button>
     );
   }
 }
@@ -61,11 +61,12 @@ FavoriteButton.propTypes = {
   prefixClass: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
-  isAuthorization: PropTypes.bool.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthorization: getAuthorizationStatus(state),
+  isAuthorizationRequired: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -73,4 +74,9 @@ const mapDispatchToProps = (dispatch) => ({
   removeFromFavorite: (id) => dispatch(Operation.removeFromFavorite(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);
+const favoriteButton = compose(
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
+);
+
+export default favoriteButton(FavoriteButton);

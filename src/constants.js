@@ -11,6 +11,7 @@ const Constants = {
   TIMEOUT: 5000,
   MAX_RATING: 5,
   MAX_SHOWN_REVIEWS: 10,
+  AMOUNT_NEARBY_OFFERS: 3,
 };
 
 export const Page = {

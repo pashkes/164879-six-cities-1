@@ -2,7 +2,7 @@ import Constants from "./../../constants";
 import toModelUserDate from "./adapter";
 
 const initialState = {
-  isAuthorizationRequired: false,
+  isAuthorizationRequired: true,
   authorization: {},
 };
 
@@ -37,7 +37,7 @@ const Operation = {
     return api.post(Constants.LOGIN_PATH, {email, password})
       .then(({status, data}) => {
         if (status === Constants.STATUS_OK) {
-          dispatch(ActionCreators.requireAuthorization(true));
+          dispatch(ActionCreators.requireAuthorization(false));
           dispatch(ActionCreators.authorization(toModelUserDate(data)));
         }
       });
@@ -48,7 +48,7 @@ const Operation = {
         .get(Constants.LOGIN_PATH)
         .then(({status, data}) => {
           if (status === Constants.STATUS_OK) {
-            dispatch(ActionCreators.requireAuthorization(true));
+            dispatch(ActionCreators.requireAuthorization(false));
             dispatch(ActionCreators.authorization(toModelUserDate(data)));
           }
         });

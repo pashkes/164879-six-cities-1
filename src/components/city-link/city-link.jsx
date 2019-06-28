@@ -11,8 +11,9 @@ export class CityLink extends PureComponent {
   }
 
   handleLinkClick(evt) {
+    const {changeCity, city} = this.props;
     evt.preventDefault();
-    this.props.changeCity(this.props.city);
+    changeCity(city);
   }
 
   render() {
