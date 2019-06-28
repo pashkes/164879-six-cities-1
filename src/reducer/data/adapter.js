@@ -1,4 +1,5 @@
 import {toRelatedRating} from "../../utils";
+import Constants from "../../constants";
 
 export const toModelOffer = (data) => {
   return data.map((offer) => ({
@@ -39,10 +40,10 @@ export const toModelOffer = (data) => {
 
 const toFormatMachineDate = (date) => {
   const toDate = new Date(date);
-  const getYear = toDate.getFullYear().toString();
-  const getDay = (toDate.getDay()).toString().padStart(2, `0`);
-  const getMonth = (toDate.getMonth() + 1).toString().padStart(2, `0`);
-  return `${getYear}-${getMonth}-${getDay}`;
+  const year = toDate.getFullYear().toString();
+  const day = (toDate.getDay()).toString().padStart(2, `0`);
+  const month = (toDate.getMonth() + 1).toString().padStart(2, `0`);
+  return `${year}-${month}-${day}`;
 };
 
 const toFormatPostDate = (date) => new Intl.DateTimeFormat(`en-US`, {
@@ -50,17 +51,20 @@ const toFormatPostDate = (date) => new Intl.DateTimeFormat(`en-US`, {
   month: `long`
 }).format(new Date(date));
 
-export const toModelReview = (reviews) => ({
-  [reviews.id]: reviews.data.map((item) => {
-    return {
-      id: item.id,
-      comment: item.comment,
-      date: toFormatPostDate(item.date),
-      machineDate: toFormatMachineDate(item.date),
-      rating: item.rating,
-      name: item.user.name,
-      avatar: item.user[`avatar_url`],
-      isPro: item.user[`is_pro`],
-    };
-  })
-});
+export const toModelReview = (reviews) => {
+  return {
+    [reviews.id]: reviews.data.map((item) => {
+      return {
+        id: item.id,
+        comment: item.comment,
+        date: toFormatPostDate(item.date),
+        machineDate: toFormatMachineDate(item.date),
+        rating: item.rating,
+        name: item.user.name,
+        avatar: item.user[`avatar_url`],
+        isPro: item.user[`is_pro`],
+      };
+    })
+      .sort((current, next) => new Date(current.machineDate) < new Date(next.machineDate) ? 1 : -1).slice(0, Constants.MAX_SHOWN_REVIEWS)
+  };
+};

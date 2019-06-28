@@ -6,42 +6,82 @@ import Constants, {TypeSort} from "./../../constants";
 
 describe(`Reducer works correctly`, () => {
 
-  it(`Should make a correctly API load hotels`, () => {
+  it(`Should make a correctly API load offers`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
-    const hotelsLoader = Operation.loadOffers();
+    const offers = Operation.loadData();
 
     apiMock
       .onGet(Constants.HOTEL_PATH)
-      .reply(Constants.STATUS_OK, [{fake: true}]);
+      .reply(Constants.STATUS_OK, {fake: true});
 
-    return hotelsLoader(dispatch, jest.fn(), api)
+    return offers(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS,
-          payload: [{fake: true}],
+          payload: {fake: true},
         });
       });
   });
 
-  it(`Should make a correctly API load reviews`, () => {
+  it(`Should make a correctly API for load reviews`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
-    const hotelsLoader = Operation.loadReviews(1);
+    const reviews = Operation.loadReviews(1);
 
     apiMock
       .onGet(`${Constants.COMMENTS_PATH}/1`)
-      .reply(Constants.STATUS_OK, [{fake: true}]);
+      .reply(Constants.STATUS_OK, {fake: true});
 
-    return hotelsLoader(dispatch, jest.fn(), api)
+    return reviews(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_REVIEWS,
-          payload: {data: [{fake: true}], id: 1},
+          payload: {data: {fake: true}, id: 1},
+        });
+      });
+  });
+
+  it(`Should make a correctly API for post review`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+    const apiMock = new MockAdapter(api);
+    const postReview = Operation.postReview(1);
+
+    apiMock
+      .onPost(`${Constants.COMMENTS_PATH}/1`)
+      .reply(Constants.STATUS_OK, {fake: true});
+
+    return postReview(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.POST_REVIEW,
+          payload: {data: {fake: true}, id: 1},
+        });
+      });
+  });
+
+  it(`Should make a correctly API for post review and return error when something went wrong`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+    const apiMock = new MockAdapter(api);
+    const postReview = Operation.postReview(1);
+
+    apiMock
+      .onPost(`${Constants.COMMENTS_PATH}/1`)
+      .networkError();
+
+    return postReview(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOCK_FORM,
+          payload: false,
         });
       });
   });
@@ -154,7 +194,7 @@ describe(`Reducer works correctly`, () => {
     }];
     const reducerDone = reducer(
         {offers: []},
-        ActionCreators.loadOffers(offersFromServer)
+        ActionCreators.loadData(offersFromServer)
     );
     expect(reducerDone).toEqual({
       offers: expectOfferAfterConvert,
@@ -200,5 +240,41 @@ describe(`Reducer works correctly`, () => {
         }
     );
     expect(reducerDone).toEqual(initialState);
+  });
+
+  it(`should set status sending review`, () => {
+    const reducerDone = reducer(
+        {isReviewSending: false},
+        ActionCreators.lockForm(true)
+    );
+    expect(reducerDone).toEqual(
+        {
+          isReviewSending: true,
+        }
+    );
+  });
+
+  it(`should set status whether sent review`, () => {
+    const reducerDone = reducer(
+        {isReviewSent: false},
+        ActionCreators.cleanForm(true)
+    );
+    expect(reducerDone).toEqual(
+        {
+          isReviewSent: true,
+        }
+    );
+  });
+
+  it(`should send error message`, () => {
+    const reducerDone = reducer(
+        {error: ``},
+        ActionCreators.showError(`Something went wrong`)
+    );
+    expect(reducerDone).toEqual(
+        {
+          error: `Something went wrong`,
+        }
+    );
   });
 });

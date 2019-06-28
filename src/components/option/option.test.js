@@ -6,6 +6,14 @@ import {Option} from './option.jsx';
 configure({adapter: new Adapter()});
 
 it(`Option renders correctly`, () => {
-  const option = shallow(<Option button={{}} name={`Popular`} typeSort={jest.fn()} onSelect={jest.fn()} value={``} isSelected={true} />);
+  const option = shallow(<Option
+    button={{}}
+    name={`Popular`}
+    typeSort={jest.fn()}
+    onSelect={jest.fn()}
+    value={``}
+    isSelected={true}
+    onSelectOption={jest.fn()}
+  />);
   expect(option).toMatchSnapshot();
 });

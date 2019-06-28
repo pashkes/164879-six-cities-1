@@ -5,10 +5,12 @@ const Constants = {
   HOTEL_PATH: `/hotels`,
   LOGIN_PATH: `/login`,
   COMMENTS_PATH: `/comments`,
+  TO_FAVORITE_PATH: `/favorite`,
   ACCESS_DENIED: 403,
   STATUS_OK: 200,
   TIMEOUT: 5000,
   MAX_RATING: 5,
+  MAX_SHOWN_REVIEWS: 10,
 };
 
 export const Page = {
@@ -27,6 +29,11 @@ export const TypeSort = {
 export const KeyCode = {
   ESC: 27,
   ENTER: 13,
+};
+
+export const CommentLength = {
+  MIN: 50,
+  MAX: 300,
 };
 
 export default Constants;

@@ -1,6 +1,7 @@
 import React from "react";
 import PropType from "prop-types";
 import {connect} from "react-redux";
+import compose from 'recompose/compose';
 
 import {
   getOffers,
@@ -11,6 +12,7 @@ import {
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import {toPercentRating} from "./../../utils";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
 import Layout from "./../layout/layout.jsx";
 import Gallery from "./../gallery/gallery.jsx";
@@ -18,6 +20,8 @@ import Goods from "./../goods/goods.jsx";
 import Reviews from "./../reviews/reviews.jsx";
 import Map from "./../map/map.jsx";
 import Offers from "./../offers/offers.jsx";
+import ReviewForm from "./../review-form/review-form.jsx";
+import FavoriteButton from "./../favorite-button/favorite-button.jsx";
 
 export const Property = (props) => {
   const {
@@ -44,6 +48,7 @@ export const Property = (props) => {
     activeCity,
     offersOnMap,
     nearbyOffers,
+    isAuthentication,
   } = props;
   return (
     <Layout pageClasses={[`page`]}>
@@ -64,12 +69,13 @@ export const Property = (props) => {
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">{isFavorite ? `In bookmarks` : `To bookmarks`}</span>
-                </button>
+                <FavoriteButton
+                  id={id}
+                  isFavorite={isFavorite}
+                  prefixClass={`property`}
+                  width={`31`}
+                  height={`33`}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -106,53 +112,7 @@ export const Property = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <Reviews id={id}/>
-                <form className="reviews__form form" action="#" method="post">
-                  <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                  <div className="reviews__rating-form form__rating">
-                    <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
-                    <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"/>
-                    <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
-                    <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"/>
-                    <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"/>
-                    <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-                  </div>
-                  <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"/>
-                  <div className="reviews__button-wrapper">
-                    <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and
-                      describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                    </p>
-                    <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
-                  </div>
-                </form>
+                {isAuthentication && <ReviewForm idCurrentOffer={id} />}
               </section>
             </div>
           </div>
@@ -180,7 +140,7 @@ export const Property = (props) => {
 };
 
 Property.propTypes = {
-  id: PropType.string.isRequired,
+  id: PropType.number.isRequired,
   currentOffer: PropType.shape({
     images: PropType.array.isRequired,
     isPremium: PropType.bool.isRequired,
@@ -206,7 +166,9 @@ Property.propTypes = {
   nearbyOffers: PropType.array.isRequired,
   activeCity: PropType.string.isRequired,
   offersOnMap: PropType.array.isRequired,
+  isAuthentication: PropType.bool.isRequired,
 };
+
 
 const mapStateToProps = (state, ownProps) => {
   const nearbyOffers = getNearbyOffers(state, ownProps.id);
@@ -216,15 +178,19 @@ const mapStateToProps = (state, ownProps) => {
     isLoading: offers.length !== 0,
     currentOffer: getCurrentOffer(state, ownProps.id),
     nearbyOffers,
-    offersOnMap: nearbyOffers ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [[0, 0]],
+    offersOnMap: nearbyOffers.length ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [0, 0],
     activeCity: getCurrentCity(state),
+    isAuthentication: getAuthorizationStatus(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(DataOperation.loadOffers()),
+  loadData: () => dispatch(DataOperation.loadData()),
 });
 
-const PropertyWithLoader = withLoadData(Property);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyWithLoader);
+const property = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadData
+);
+export default property(Property);

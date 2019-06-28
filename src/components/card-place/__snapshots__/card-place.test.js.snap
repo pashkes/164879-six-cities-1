@@ -15,6 +15,7 @@ exports[`renders correctly if the card is favorite 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
+        loading="lazy"
         src=""
         width="260"
       />
@@ -41,26 +42,11 @@ exports[`renders correctly if the card is favorite 1`] = `
           / night
         </span>
       </div>
-      <button
-        className="place-card__bookmark-button place-card__bookmark-button--active button"
-        type="button"
-      >
-        <svg
-          className="place-card__bookmark-icon"
-          height="19"
-          width="18"
-        >
-          <use
-            xlinkHref="#icon-bookmark"
-          />
-        </svg>
-        <span
-          className="visually-hidden"
-        >
-          In
-           bookmarks
-        </span>
-      </button>
+      <ConnectFunction
+        id={414}
+        isFavorite={true}
+        prefixClass="place-card"
+      />
     </div>
     <div
       className="place-card__rating rating"
@@ -118,6 +104,7 @@ exports[`renders correctly if the card is premium 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
+        loading="lazy"
         src=""
         width="260"
       />
@@ -144,26 +131,11 @@ exports[`renders correctly if the card is premium 1`] = `
           / night
         </span>
       </div>
-      <button
-        className="place-card__bookmark-button  button"
-        type="button"
-      >
-        <svg
-          className="place-card__bookmark-icon"
-          height="19"
-          width="18"
-        >
-          <use
-            xlinkHref="#icon-bookmark"
-          />
-        </svg>
-        <span
-          className="visually-hidden"
-        >
-          To
-           bookmarks
-        </span>
-      </button>
+      <ConnectFunction
+        id={454554}
+        isFavorite={false}
+        prefixClass="place-card"
+      />
     </div>
     <div
       className="place-card__rating rating"
@@ -214,6 +186,7 @@ exports[`renders correctly in the default state 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
+        loading="lazy"
         src=""
         width="260"
       />
@@ -240,26 +213,11 @@ exports[`renders correctly in the default state 1`] = `
           / night
         </span>
       </div>
-      <button
-        className="place-card__bookmark-button  button"
-        type="button"
-      >
-        <svg
-          className="place-card__bookmark-icon"
-          height="19"
-          width="18"
-        >
-          <use
-            xlinkHref="#icon-bookmark"
-          />
-        </svg>
-        <span
-          className="visually-hidden"
-        >
-          To
-           bookmarks
-        </span>
-      </button>
+      <ConnectFunction
+        id={525}
+        isFavorite={false}
+        prefixClass="place-card"
+      />
     </div>
     <div
       className="place-card__rating rating"

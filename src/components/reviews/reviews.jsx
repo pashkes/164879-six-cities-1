@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import compose from 'recompose/compose';
 
 import {Operation} from "./../../reducer/data/data";
 import {getComments} from "../../reducer/data/selectors";
@@ -16,9 +17,9 @@ export class Reviews extends PureComponent {
     const {reviews} = this.props;
     return (
       <React.Fragment>
-        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews ? reviews.length : 0}</span></h2>
         <ul className="reviews__list">
-          {reviews.map((review) => {
+          {reviews && reviews.map((review) => {
             return <Review {...review} key={review.id}/>;
           })}
         </ul>
@@ -28,21 +29,23 @@ export class Reviews extends PureComponent {
 }
 
 Reviews.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const reviewList = getComments(state, ownProps.id);
   return {
-    reviews: reviewList,
-    isLoading: reviewList.length !== 0,
+    reviews: reviewList || [],
+    isLoading: Boolean(reviewList)
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   loadData: () => dispatch(Operation.loadReviews(ownProps.id)),
 });
-const ReviewsWithLoader = withLoadData(Reviews);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsWithLoader);
+const review = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadData
+);
+export default review(Reviews);
