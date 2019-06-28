@@ -3,12 +3,14 @@ import toModelUserDate from "./adapter";
 
 const initialState = {
   isAuthorizationRequired: false,
-  authorization: {}
+  authorization: {},
+  favorites: null
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  AUTHORIZATION: `AUTHORIZATION`
+  AUTHORIZATION: `AUTHORIZATION`,
+  ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
 };
 
 const ActionCreators = {
@@ -19,7 +21,11 @@ const ActionCreators = {
   authorization: (userData) => ({
     type: ActionType.AUTHORIZATION,
     payload: userData
-  })
+  }),
+  addToFavorites: (id) => ({
+    type: ActionType.ADD_TO_FAVORITE,
+    payload: id
+  }),
 };
 
 const Operation = {
@@ -44,6 +50,13 @@ const Operation = {
         });
     };
   },
+  addToFavorites: (id) => (dispatch, _getState, api) => {
+    return api
+      .post(`${Constants.TO_FAVORITE_PATH}/${id}/0`)
+      .then(({data}) => {
+        dispatch(ActionCreators.addToFavorites(data));
+      });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +65,8 @@ const reducer = (state = initialState, action) => {
       return {...state, ...{isAuthorizationRequired: action.payload}};
     case ActionType.AUTHORIZATION:
       return {...state, ...{authorization: action.payload}};
+    case ActionType.ADD_TO_FAVORITE:
+      return {...state, ...{favorites: action.payload}};
     default:
       return state;
   }

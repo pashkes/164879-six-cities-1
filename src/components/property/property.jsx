@@ -183,7 +183,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(DataOperation.loadOffers()),
+  loadData: () => dispatch(DataOperation.loadData()),
 });
 
 

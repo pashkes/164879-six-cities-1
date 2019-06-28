@@ -25,7 +25,7 @@ const ActionType = {
 };
 
 const ActionCreators = {
-  loadOffers: (offers) => ({
+  loadData: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
   }),
@@ -64,11 +64,11 @@ const ActionCreators = {
 };
 
 const Operation = {
-  loadOffers: () => {
+  loadData: () => {
     return (dispatch, _getState, api) => {
       return api.get(Constants.HOTEL_PATH)
         .then(({data}) => {
-          dispatch(ActionCreators.loadOffers(data));
+          dispatch(ActionCreators.loadData(data));
         });
     };
   },

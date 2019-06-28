@@ -1,4 +1,5 @@
 import {toRelatedRating} from "../../utils";
+import Constants from "../../constants";
 
 export const toModelOffer = (data) => {
   return data.map((offer) => ({
@@ -52,7 +53,7 @@ const toFormatPostDate = (date) => new Intl.DateTimeFormat(`en-US`, {
 
 export const toModelReview = (reviews) => {
   return {
-    [reviews.id]: reviews.data.length !== 0 ? reviews.data.map((item) => {
+    [reviews.id]: reviews.data ? reviews.data.map((item) => {
       return {
         id: item.id,
         comment: item.comment,
@@ -64,7 +65,7 @@ export const toModelReview = (reviews) => {
         isPro: item.user[`is_pro`],
       };
     })
-      .sort((current, next) => new Date(current.machineDate) - new Date(next.machineDate))
+      .sort((current, next) => new Date(current.machineDate) < new Date(next.machineDate) ? 1 : -1).slice(0, Constants.MAX_SHOWN_REVIEWS)
       : null
   };
 };

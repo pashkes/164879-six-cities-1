@@ -26,6 +26,9 @@ const withReviewForm = (Component) => {
       const isMessageFilled = value.length >= CommentLength.MIN && value.length <= CommentLength.MAX;
       const isRatingSelected = this.state.rating > 0;
       this.setState({isValidate: isMessageFilled && isRatingSelected});
+      if (this.props.isReviewSent) {
+        this.setState({isValidate: false, rating: 0, comment: ``});
+      }
     }
 
     setRating(value) {

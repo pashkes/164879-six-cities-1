@@ -97,7 +97,7 @@ export class ReviewForm extends PureComponent {
             ref={submitButton}
             className="reviews__submit form__submit button"
             type="submit"
-            disabled={isFormValid ? isReviewSending : true}
+            disabled={!(isFormValid && !isReviewSending)}
           >{isReviewSending ? `Sending...` : `Submit`}
           </button>
         </div>
@@ -139,7 +139,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 const reviewForm = compose(
-    withReviewForm,
     connect(mapStateToProps, mapDispatchToProps),
+    withReviewForm,
 );
 export default reviewForm(ReviewForm);

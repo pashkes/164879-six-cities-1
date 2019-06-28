@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {compose} from "recompose";
 
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {getOffers} from "../../reducer/data/selectors";
@@ -9,6 +10,7 @@ import {Operation as DataOperation} from "./../../reducer/data/data";
 import {Operation as UserOperation} from "./../../reducer/user/user";
 import Constants, {Page} from "../../constants";
 import withPrivateRoute from "./../../hocs/with-private-route/with-private-route";
+import withLoadData from "./../../hocs/with-load-data/with-load-data";
 
 import MainPage from "../main-page/main-page.jsx";
 import SignIn from "./../sign-in/sign-in.jsx";
@@ -21,8 +23,7 @@ export class App extends PureComponent {
   }
 
   componentDidMount() {
-    const {loadOffers, checkAuth} = this.props;
-    loadOffers();
+    const {checkAuth} = this.props;
     checkAuth();
   }
 
@@ -44,19 +45,23 @@ export class App extends PureComponent {
 
 App.propTypes = {
   isAuthorization: PropTypes.bool.isRequired,
-  loadOffers: PropTypes.func.isRequired,
+  loadData: PropTypes.func.isRequired,
   checkAuth: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadOffers: () => dispatch(DataOperation.loadOffers()),
+  loadData: () => dispatch(DataOperation.loadData()),
   checkAuth: () => dispatch(UserOperation.checkAuth()),
 });
 
 const mapStateToProps = (state) => ({
   isAuthorization: getAuthorizationStatus(state),
   offers: getOffers(state),
+  isLoading: (getOffers(state)).length !== 0,
 });
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const _App = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withLoadData
+);
+export default _App(App);
