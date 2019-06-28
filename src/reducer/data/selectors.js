@@ -25,16 +25,16 @@ export const getFilteredOffers = createSelector(
 );
 
 export const getCurrentOffer = (state, id) => {
-  const offers = getFilteredOffers(state);
+  const offers = getOffers(state);
   return offers.find((item) => item.id === Number(id));
 };
 
 export const getNearbyOffers = (state, id) => {
-  const filterOffers = getFilteredOffers(state);
+  const offers = getOffers(state);
   const currentOffer = getCurrentOffer(state, id);
 
-  if (filterOffers.length > 0 && currentOffer) {
-    return filterOffers.map((offer) => {
+  if (offers.length > 0 && currentOffer) {
+    return offers.map((offer) => {
       offer.dist = calcDistance(currentOffer.location.longitude, currentOffer.location.latitude, offer.location.longitude, offer.location.latitude);
       return offer;
     })
@@ -55,11 +55,7 @@ const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math
 
 export const getSelectedOffer = (state) => {
   const currentOfferId = getSelectedIdOffer(state);
-  const offers = getFilteredOffers(state);
-  if (currentOfferId) {
-    const currentOffer = offers.find((item) => item.id === currentOfferId);
-    return currentOffer ? [currentOffer.location.latitude, currentOffer.location.longitude] : [0, 0];
-  } else {
-    return [0, 0];
-  }
+  const offers = getOffers(state);
+  const currentOffer = offers.find((item) => item.id === currentOfferId);
+  return currentOffer ? [currentOffer.location.latitude, currentOffer.location.longitude] : [0, 0];
 };
