@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {compose} from "recompose";
 
-import {Operation} from "../../reducer/user/user";
+import {Operation} from "../../reducer/data/data";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import Constants from "./../../constants";
 

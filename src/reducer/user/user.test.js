@@ -39,14 +39,14 @@ describe(`Reducer works correctly`, () => {
 
     apiMock
       .onPost(Constants.LOGIN_PATH)
-      .reply(Constants.STATUS_OK, true);
+      .reply(Constants.STATUS_OK, false);
 
     return authorization(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: true,
+          payload: false,
         });
       });
   });
@@ -59,14 +59,14 @@ describe(`Reducer works correctly`, () => {
 
     apiMock
       .onGet(Constants.LOGIN_PATH)
-      .reply(Constants.STATUS_OK, true);
+      .reply(Constants.STATUS_OK, false);
 
     return authorization(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: true,
+          payload: false,
         });
       });
   });

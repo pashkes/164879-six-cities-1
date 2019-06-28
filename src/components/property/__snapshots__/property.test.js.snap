@@ -41,9 +41,9 @@ exports[`Property page renders correctly 1`] = `
             <h1
               className="property__name"
             />
-            <ConnectFunction
+            <withRouter(Connect(FavoriteButton))
               height="33"
-              id="0"
+              id={0}
               isFavorite={false}
               prefixClass="property"
               width="31"
@@ -161,7 +161,7 @@ exports[`Property page renders correctly 1`] = `
             className="property__reviews reviews"
           >
             <ConnectFunction
-              id="0"
+              id={0}
             />
           </section>
         </div>

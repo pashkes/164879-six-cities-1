@@ -9,8 +9,6 @@ const initialState = {
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   AUTHORIZATION: `AUTHORIZATION`,
-  ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
-  REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`,
 };
 
 const ActionCreators = {
@@ -21,14 +19,6 @@ const ActionCreators = {
   authorization: (userData) => ({
     type: ActionType.AUTHORIZATION,
     payload: userData
-  }),
-  addToFavorites: (id) => ({
-    type: ActionType.ADD_TO_FAVORITE,
-    payload: id
-  }),
-  removeFromFavorite: (id) =>({
-    type: ActionType.REMOVE_FROM_FAVORITE,
-    payload: id,
   }),
 };
 
@@ -54,20 +44,6 @@ const Operation = {
         });
     };
   },
-  addToFavorites: (id) => (dispatch, _getState, api) => {
-    return api
-      .post(`${Constants.TO_FAVORITE_PATH}/${id}/1`)
-      .then(({data}) => {
-        dispatch(ActionCreators.addToFavorites(data));
-      });
-  },
-  removeFromFavorite: (id) => (dispatch, _getState, api) => {
-    return api
-      .post(`${Constants.TO_FAVORITE_PATH}/${id}/0`)
-      .then(({data}) => {
-        dispatch(ActionCreators.addToFavorites(data));
-      });
-  }
 };
 
 const reducer = (state = initialState, action) => {
