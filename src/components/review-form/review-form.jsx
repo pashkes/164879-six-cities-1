@@ -87,7 +87,7 @@ export class ReviewForm extends PureComponent {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"/>
-        <span role="alert" aria-live="assertive">{error ? error : ``}</span>
+        <span role="status" aria-live="assertive">{error ? error : ``}</span>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and
