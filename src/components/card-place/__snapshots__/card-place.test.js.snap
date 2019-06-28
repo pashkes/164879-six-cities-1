@@ -42,7 +42,7 @@ exports[`renders correctly if the card is favorite 1`] = `
           / night
         </span>
       </div>
-      <ConnectFunction
+      <withRouter(Connect(FavoriteButton))
         id={414}
         isFavorite={true}
         prefixClass="place-card"
@@ -131,7 +131,7 @@ exports[`renders correctly if the card is premium 1`] = `
           / night
         </span>
       </div>
-      <ConnectFunction
+      <withRouter(Connect(FavoriteButton))
         id={454554}
         isFavorite={false}
         prefixClass="place-card"
@@ -213,7 +213,7 @@ exports[`renders correctly in the default state 1`] = `
           / night
         </span>
       </div>
-      <ConnectFunction
+      <withRouter(Connect(FavoriteButton))
         id={525}
         isFavorite={false}
         prefixClass="place-card"

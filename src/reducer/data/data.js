@@ -1,5 +1,5 @@
 import Constants, {TypeSort} from "./../../constants";
-import {toModelOffer, toModelReview} from "./adapter";
+import {toModelOffers, toModelReview, toModelOffer} from "./adapter";
 
 const initialState = {
   offers: [],
@@ -22,6 +22,8 @@ const ActionType = {
   LOCK_FORM: `LOCK_FORM`,
   CLEAN_FORM: `CLEAN_FORM`,
   SHOW_ERROR: `SHOW_ERROR`,
+  ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
+  REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`,
 };
 
 const ActionCreators = {
@@ -61,6 +63,14 @@ const ActionCreators = {
     type: ActionType.SHOW_ERROR,
     payload: error,
   }),
+  addToFavorites: (id) => ({
+    type: ActionType.ADD_TO_FAVORITE,
+    payload: id
+  }),
+  removeFromFavorite: (id) =>({
+    type: ActionType.REMOVE_FROM_FAVORITE,
+    payload: id,
+  }),
 };
 
 const Operation = {
@@ -95,12 +105,32 @@ const Operation = {
         });
     };
   },
+  addToFavorites: (id) => (dispatch, _getState, api) => {
+    return api
+      .post(`${Constants.TO_FAVORITE_PATH}/${id}/1`)
+      .then(({data}) => {
+        dispatch(ActionCreators.addToFavorites(data));
+      });
+  },
+  removeFromFavorite: (id) => (dispatch, _getState, api) => {
+    return api
+      .post(`${Constants.TO_FAVORITE_PATH}/${id}/0`)
+      .then(({data}) => {
+        dispatch(ActionCreators.addToFavorites(data));
+      });
+  }
+};
+
+const replaceOfferFromOffers = (offers, offer) => {
+  return offers.map((item) => {
+    return item.id === offer.id ? {...item, ...offer} : item;
+  });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS:
-      return {...state, ...{offers: toModelOffer(action.payload)}};
+      return {...state, ...{offers: toModelOffers(action.payload)}};
     case ActionType.SET_CITY:
       return {...state, ...{city: action.payload}};
     case ActionType.LOAD_REVIEWS:
@@ -119,6 +149,14 @@ const reducer = (state = initialState, action) => {
       return {...state, ...{isReviewSent: action.payload}};
     case ActionType.SHOW_ERROR:
       return {...state, ...{error: action.payload}};
+    case ActionType.ADD_TO_FAVORITE:
+      return {...state, ...{
+        offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload))}
+      };
+    case ActionType.REMOVE_FROM_FAVORITE:
+      return {...state, ...{
+        offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload))}
+      };
     default:
       return state;
   }

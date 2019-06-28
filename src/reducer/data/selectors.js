@@ -1,6 +1,7 @@
 import {createSelector} from "reselect";
 
 import NameSpace from "../name-spaces";
+import Constants from "./../../constants";
 
 const NAME_SPACE = NameSpace.DATA;
 
@@ -41,7 +42,7 @@ export const getNearbyOffers = (state, id) => {
       .sort((current, next) => {
         return current.dist - next.dist;
       })
-      .slice(1, 4);
+      .slice(1, Constants.AMOUNT_NEARBY_OFFERS + 1);
   } else {
     return false;
   }

@@ -1,8 +1,12 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import {compose} from "recompose";
 
-import {Operation} from "../../reducer/user/user";
+import {Operation} from "../../reducer/data/data";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
+import Constants from "./../../constants";
 
 class FavoriteButton extends PureComponent {
   constructor(props) {
@@ -11,7 +15,19 @@ class FavoriteButton extends PureComponent {
   }
 
   handleClick() {
-    const {isFavorite, addToFavorites, id, removeFromFavorite} = this.props;
+    const {
+      isFavorite,
+      addToFavorites,
+      id,
+      removeFromFavorite,
+      isAuthorizationRequired,
+      history,
+    } = this.props;
+
+    if (isAuthorizationRequired) {
+      history.push(Constants.LOGIN_PATH);
+      return;
+    }
     if (isFavorite) {
       removeFromFavorite(id);
     } else {
@@ -24,8 +40,10 @@ class FavoriteButton extends PureComponent {
     return (
       <button
         onClick={this.handleClick}
+        type="button"
         className={`${prefixClass}__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
-        type="button">
+        aria-pressed={isFavorite ? `true` : `false`}
+      >
         <svg className={`place-card__bookmark-icon`} width={width} height={height}>
           <use xlinkHref="#icon-bookmark"/>
         </svg>
@@ -43,11 +61,22 @@ FavoriteButton.propTypes = {
   prefixClass: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
+  history: PropTypes.object,
 };
+
+const mapStateToProps = (state) => ({
+  isAuthorizationRequired: getAuthorizationStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavorites: (id) => dispatch(Operation.addToFavorites(id)),
   removeFromFavorite: (id) => dispatch(Operation.removeFromFavorite(id)),
 });
 
-export default connect(null, mapDispatchToProps)(FavoriteButton);
+const favoriteButton = compose(
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
+);
+
+export default favoriteButton(FavoriteButton);

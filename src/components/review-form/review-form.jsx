@@ -7,7 +7,6 @@ import Rating from "../rating/rating.jsx";
 import withReviewForm from "./../../hocs/with-review-form/with-review-form";
 
 import {Operation, ActionCreators} from "../../reducer/data/data";
-import {getAuthorizationStatus, getUserData} from "../../reducer/user/selectors";
 
 import {
   getStatusSendingReview,
@@ -37,9 +36,14 @@ export class ReviewForm extends PureComponent {
     document.addEventListener(`keydown`, this.handleMessageKeyDown);
   }
 
-  handleMessageKeyDown(evt) {
-    const {sendComment, rating, comment, isFormValid} = this.props;
-    if (isFormValid && evt.ctrlKey && evt.keyCode === KeyCode.ENTER) {
+  handleMessageKeyDown({ctrlKey, keyCode}) {
+    const {
+      sendComment,
+      rating,
+      comment,
+      isFormValid,
+    } = this.props;
+    if (isFormValid && ctrlKey && keyCode === KeyCode.ENTER) {
       sendComment({rating, comment});
     }
   }
@@ -49,9 +53,9 @@ export class ReviewForm extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {isReviewSent} = this.props;
+    const {isReviewSent, updateForm} = this.props;
     if (isReviewSent) {
-      this.props.updateForm();
+      updateForm();
       this.form.current.reset();
     }
   }
@@ -87,7 +91,7 @@ export class ReviewForm extends PureComponent {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"/>
-        <span role="alert" aria-live="assertive">{error ? error : ``}</span>
+        <span role="status" aria-live="assertive">{error ? error : ``}</span>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -126,8 +130,6 @@ const mapStateToProps = (state) => ({
   isReviewSending: getStatusSendingReview(state),
   isReviewSent: getStatusIsSentReview(state),
   error: getError(state),
-  isAuthentication: getAuthorizationStatus(state),
-  userData: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

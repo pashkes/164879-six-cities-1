@@ -44,8 +44,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
   loadData: () => dispatch(Operation.loadReviews(ownProps.id)),
 });
+
 const review = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
+
 export default review(Reviews);

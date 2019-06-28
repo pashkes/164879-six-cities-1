@@ -11,8 +11,9 @@ class CardPlace extends PureComponent {
   }
 
   handleImageClick(evt) {
+    const {onSelected, id} = this.props;
     evt.preventDefault();
-    this.props.onSelected(this.props.id);
+    onSelected(id);
   }
 
   render() {

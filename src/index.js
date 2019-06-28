@@ -10,11 +10,12 @@ import reducer from "./reducer/reducer";
 import App from "./components/app/app";
 import createAPI from "./api.js";
 import {ActionCreators as UserActionCreators} from "./reducer/user/user";
+
 const initApp = () => {
   let store;
 
   const api = createAPI(() => {
-    store.dispatch(UserActionCreators.requireAuthorization(false));
+    store.dispatch(UserActionCreators.requireAuthorization(true));
   });
   store = createStore(
       reducer,

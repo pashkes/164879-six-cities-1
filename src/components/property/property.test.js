@@ -14,6 +14,9 @@ const propertyProps = {
   rating: 0,
   goods: [``],
   price: 0,
+  city: {
+    name: ``,
+  },
   host: {
     avatarURL: ``,
     name: ``,
@@ -28,11 +31,14 @@ const propertyProps = {
 
 it(`Property page renders correctly`, () => {
   const propertyPage = shallow(<Property
+    setCurrentCity={jest.fn()}
+    currentOfferCoordinates={[[0, 0]]}
+    isAuthorizationRequired={true}
     isAuthorization={true}
     offersOnMap={[]}
     nearbyOffers={[]}
     activeCity={``}
-    id={`0`}
+    id={0}
     currentOffer={propertyProps}
   />);
   expect(propertyPage).toMatchSnapshot();

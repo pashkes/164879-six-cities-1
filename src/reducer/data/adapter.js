@@ -1,8 +1,8 @@
 import {toRelatedRating} from "../../utils";
 import Constants from "../../constants";
 
-export const toModelOffer = (data) => {
-  return data.map((offer) => ({
+export const toModelOffer = (offer) => {
+  const result = {
     id: offer.id,
     city: {
       name: offer.city.name,
@@ -35,8 +35,11 @@ export const toModelOffer = (data) => {
       longitude: offer.location.longitude,
       zoom: offer.location.zoom,
     },
-  }));
+  };
+  return result;
 };
+
+export const toModelOffers = (data) => data.map((offer) => toModelOffer(offer));
 
 const toFormatMachineDate = (date) => {
   const toDate = new Date(date);
@@ -65,6 +68,9 @@ export const toModelReview = (reviews) => {
         isPro: item.user[`is_pro`],
       };
     })
-      .sort((current, next) => new Date(current.machineDate) < new Date(next.machineDate) ? 1 : -1).slice(0, Constants.MAX_SHOWN_REVIEWS)
+      .sort((current, next) => {
+        return new Date(current.machineDate) < new Date(next.machineDate) ? 1 : -1;
+      })
+      .slice(0, Constants.MAX_SHOWN_REVIEWS)
   };
 };

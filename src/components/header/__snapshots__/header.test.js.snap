@@ -37,17 +37,19 @@ exports[`Header renders correctly 1`] = `
           >
             <Link
               className="header__nav-link header__nav-link--profile"
-              to="/login"
+              to="/favorites"
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
-                style={Object {}}
+                style={
+                  Object {
+                    "backgroundImage": "url(https://es31-server.appspot.com/six-cities)",
+                  }
+                }
               />
               <span
                 className="header__user-name user__name"
-              >
-                Sign In
-              </span>
+              />
             </Link>
           </li>
         </ul>
