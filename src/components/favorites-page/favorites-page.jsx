@@ -20,7 +20,7 @@ export class FavoritesPage extends PureComponent {
     return (
       <Layout>
         {
-          favorites ? <main className="page__main page__main--favorites">
+          favorites.length !== 0 ? <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
@@ -63,7 +63,7 @@ FavoritesPage.propTypes = {
 const mapStateToProps = (state) => {
   const favorites = groupingFavoritesForCities(state);
   return {
-    cities: favorites ? Object.keys(favorites) : [],
+    cities: Object.keys(favorites),
     favorites: favorites || {},
     isLoading: Boolean(favorites),
   };
