@@ -13,7 +13,6 @@ import {ActionCreators as UserActionCreators} from "./reducer/user/user";
 
 const initApp = () => {
   let store;
-
   const api = createAPI(() => {
     store.dispatch(UserActionCreators.requireAuthorization(true));
   });
@@ -32,6 +31,4 @@ const initApp = () => {
   );
 };
 
-
 initApp();
-

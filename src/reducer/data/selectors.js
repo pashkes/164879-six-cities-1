@@ -19,6 +19,10 @@ export const getStatusIsSentReview = (state) => state[NAME_SPACE].isReviewSent;
 
 export const getError = (state) => state[NAME_SPACE].error;
 
+export const getComments = (state, id) => state[NAME_SPACE].reviews[id];
+
+export const getFavorites = (state) => state[NAME_SPACE].favorites;
+
 export const getFilteredOffers = createSelector(
     getOffers,
     getCurrentCity,
@@ -33,26 +37,34 @@ export const getCurrentOffer = (state, id) => {
 export const getNearbyOffers = (state, id) => {
   const offers = getOffers(state);
   const currentOffer = getCurrentOffer(state, id);
-
-  if (offers.length > 0 && currentOffer) {
-    return offers.map((offer) => {
-      offer.dist = calcDistance(currentOffer.location.longitude, currentOffer.location.latitude, offer.location.longitude, offer.location.latitude);
-      return offer;
+  return offers.map((offer) => {
+    offer.dist = calcDistance(currentOffer.location.longitude, currentOffer.location.latitude, offer.location.longitude, offer.location.latitude);
+    return offer;
+  })
+    .sort((current, next) => {
+      return current.dist - next.dist;
     })
-      .sort((current, next) => {
-        return current.dist - next.dist;
-      })
-      .slice(1, Constants.AMOUNT_NEARBY_OFFERS + 1);
-  } else {
-    return false;
-  }
-};
-
-export const getComments = (state, id) => {
-  return state[NAME_SPACE].reviews[id];
+    .slice(1, Constants.AMOUNT_NEARBY_OFFERS + 1);
 };
 
 const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+
+export const groupingFavoritesForCities = (state) => {
+  const favorites = getFavorites(state);
+  if (favorites.length === 0) {
+    return false;
+  }
+  const citiesKeys = [...new Set([...favorites.map((item) => item.city.name)])];
+  const group = {};
+  citiesKeys.forEach((item) => {
+    group[item] = [];
+  });
+  favorites.forEach((item) => {
+    group[item.city.name].push(item);
+  });
+
+  return group;
+};
 
 export const getSelectedOffer = (state) => {
   const currentOfferId = getSelectedIdOffer(state);

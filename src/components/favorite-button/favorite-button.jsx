@@ -19,7 +19,7 @@ class FavoriteButton extends PureComponent {
       isFavorite,
       addToFavorites,
       id,
-      removeFromFavorite,
+      removeFromFavorites,
       isAuthorizationRequired,
       history,
     } = this.props;
@@ -29,7 +29,7 @@ class FavoriteButton extends PureComponent {
       return;
     }
     if (isFavorite) {
-      removeFromFavorite(id);
+      removeFromFavorites(id);
     } else {
       addToFavorites(id);
     }
@@ -44,7 +44,7 @@ class FavoriteButton extends PureComponent {
         className={`${prefixClass}__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
         aria-pressed={isFavorite ? `true` : `false`}
       >
-        <svg className={`place-card__bookmark-icon`} width={width} height={height}>
+        <svg className={`place-card__bookmark-icon`} aria-hidden="true" width={width} height={height}>
           <use xlinkHref="#icon-bookmark"/>
         </svg>
         <span className="visually-hidden">{isFavorite ? `In` : `To`} bookmarks</span>
@@ -56,7 +56,7 @@ class FavoriteButton extends PureComponent {
 FavoriteButton.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   addToFavorites: PropTypes.func.isRequired,
-  removeFromFavorite: PropTypes.func.isRequired,
+  removeFromFavorites: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   prefixClass: PropTypes.string.isRequired,
   width: PropTypes.string,
@@ -71,7 +71,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavorites: (id) => dispatch(Operation.addToFavorites(id)),
-  removeFromFavorite: (id) => dispatch(Operation.removeFromFavorite(id)),
+  removeFromFavorites: (id) => dispatch(Operation.removeFromFavorites(id)),
 });
 
 const favoriteButton = compose(

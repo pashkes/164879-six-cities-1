@@ -1,15 +1,16 @@
 import Constants, {TypeSort} from "./../../constants";
-import {toModelOffers, toModelReview, toModelOffer} from "./adapter";
+import {toModelOffers, toModelOffer, toModelReview} from "./adapter";
 
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
   reviews: {},
-  currentOfferId: false,
+  currentOfferId: null,
   typeSort: TypeSort.POPULAR,
   isReviewSending: false,
   isReviewSent: false,
   error: ``,
+  favorites: [],
 };
 
 const ActionType = {
@@ -24,10 +25,13 @@ const ActionType = {
   SHOW_ERROR: `SHOW_ERROR`,
   ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
   REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`,
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
+  PUSH_TO_FAVORITES: `PUSH_TO_FAVORITES`,
+  POP_FROM_FAVORITES: `POP_FROM_FAVORITE`,
 };
 
 const ActionCreators = {
-  loadData: (offers) => ({
+  loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
   }),
@@ -67,18 +71,30 @@ const ActionCreators = {
     type: ActionType.ADD_TO_FAVORITE,
     payload: id
   }),
-  removeFromFavorite: (id) =>({
+  removeFromFavorites: (id) => ({
     type: ActionType.REMOVE_FROM_FAVORITE,
     payload: id,
+  }),
+  loadFavorites: (list) => ({
+    type: ActionType.LOAD_FAVORITES,
+    payload: list,
+  }),
+  pushToFavorites: (offer) => ({
+    type: ActionType.PUSH_TO_FAVORITES,
+    payload: offer,
+  }),
+  popFromFavorites: (offer) => ({
+    type: ActionType.POP_FROM_FAVORITES,
+    payload: offer,
   }),
 };
 
 const Operation = {
-  loadData: () => {
+  loadOffers: () => {
     return (dispatch, _getState, api) => {
       return api.get(Constants.HOTEL_PATH)
         .then(({data}) => {
-          dispatch(ActionCreators.loadData(data));
+          dispatch(ActionCreators.loadOffers(data));
         });
     };
   },
@@ -107,23 +123,39 @@ const Operation = {
   },
   addToFavorites: (id) => (dispatch, _getState, api) => {
     return api
-      .post(`${Constants.TO_FAVORITE_PATH}/${id}/1`)
+      .post(`${Constants.FAVORITE_PATH}/${id}/1`)
       .then(({data}) => {
         dispatch(ActionCreators.addToFavorites(data));
+        dispatch(ActionCreators.pushToFavorites(data));
       });
   },
-  removeFromFavorite: (id) => (dispatch, _getState, api) => {
+  removeFromFavorites: (id) => (dispatch, _getState, api) => {
     return api
-      .post(`${Constants.TO_FAVORITE_PATH}/${id}/0`)
+      .post(`${Constants.FAVORITE_PATH}/${id}/0`)
       .then(({data}) => {
-        dispatch(ActionCreators.addToFavorites(data));
+        dispatch(ActionCreators.removeFromFavorites(data));
+        dispatch(ActionCreators.popFromFavorites(data));
       });
+  },
+  loadFavorites: () => {
+    return (dispatch, _getState, api) => {
+      return api.get(Constants.FAVORITE_PATH)
+        .then(({data}) => {
+          dispatch(ActionCreators.loadFavorites(data));
+        });
+    };
   }
 };
 
 const replaceOfferFromOffers = (offers, offer) => {
   return offers.map((item) => {
     return item.id === offer.id ? {...item, ...offer} : item;
+  });
+};
+
+const removeObjectFromArray = (data, targetElement) => {
+  return data.filter((item) => {
+    return item.id !== targetElement.id;
   });
 };
 
@@ -150,13 +182,24 @@ const reducer = (state = initialState, action) => {
     case ActionType.SHOW_ERROR:
       return {...state, ...{error: action.payload}};
     case ActionType.ADD_TO_FAVORITE:
-      return {...state, ...{
-        offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload))}
+      return {
+        ...state, ...{
+          offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload)),
+        },
       };
     case ActionType.REMOVE_FROM_FAVORITE:
-      return {...state, ...{
-        offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload))}
+      return {
+        ...state, ...{
+          offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload)),
+        }
       };
+    case ActionType.LOAD_FAVORITES:
+      return {...state, ...{favorites: toModelOffers(action.payload)}};
+    case ActionType.PUSH_TO_FAVORITES:
+      return {...state, ...{favorites: [...state.favorites, toModelOffer(action.payload)]}};
+    case ActionType.POP_FROM_FAVORITES:
+      const updatedOffer = removeObjectFromArray(state.favorites, toModelOffer(action.payload));
+      return {...state, ...{favorites: updatedOffer}};
     default:
       return state;
   }

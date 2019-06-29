@@ -22,7 +22,8 @@ const withSelect = (Component) => {
 
     handleButtonClick(evt) {
       evt.preventDefault();
-      this.setState({isOpen: !this.state.isOpen});
+      const {isOpen} = this.state;
+      this.setState({isOpen: !isOpen});
     }
 
     componentDidMount() {
@@ -58,16 +59,17 @@ const withSelect = (Component) => {
     }
 
     render() {
+      const {isOpen, selected, nameSelected} = this.state;
       return (
         <Component
           {...this.props}
-          selectedName={this.state.nameSelected}
+          selectedName={nameSelected}
           onClickDropdown={this.handleButtonClick}
           onSelectOption={this.onSelectOption}
           button={this.button}
           dropdown={this.selectList}
-          isOpen={this.state.isOpen}
-          selected={this.state.selected}
+          isOpen={isOpen}
+          selected={selected}
         />
       );
     }

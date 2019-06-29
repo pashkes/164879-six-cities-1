@@ -42,7 +42,9 @@ exports[`catalog renders correctly 1`] = `
             Places
           </h2>
           <b
+            aria-live="polite"
             className="places__found"
+            role="status"
           >
             2
              places to stay in 
@@ -85,7 +87,6 @@ exports[`catalog renders correctly 1`] = `
             />
           </form>
           <ConnectFunction
-            classModCard="cities__place-card"
             classModOffers={
               Array [
                 "cities__places-list",

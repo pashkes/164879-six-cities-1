@@ -10,7 +10,7 @@ describe(`Reducer works correctly`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
-    const offers = Operation.loadData();
+    const offers = Operation.loadOffers();
 
     apiMock
       .onGet(Constants.HOTEL_PATH)
@@ -194,7 +194,7 @@ describe(`Reducer works correctly`, () => {
     }];
     const reducerDone = reducer(
         {offers: []},
-        ActionCreators.loadData(offersFromServer)
+        ActionCreators.loadOffers(offersFromServer)
     );
     expect(reducerDone).toEqual({
       offers: expectOfferAfterConvert,

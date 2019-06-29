@@ -26,16 +26,17 @@ class CardPlace extends PureComponent {
       title,
       type,
       id,
-      classMod = ``,
+      mainClassMod = ``,
+      classModPrefix = ``,
     } = this.props;
-    return <article className={`${classMod} place-card`}>
+    return <article className={`${mainClassMod} place-card`}>
       {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
-      <div className="place-card__image-wrapper">
+      <div className={`${classModPrefix}__image-wrapper place-card__image-wrapper`}>
         <a href="#" onClick={this.handleImageClick}>
           <img className="place-card__image" src={previewPhoto} width="260" height="200" loading="lazy" alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${classModPrefix}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -72,7 +73,8 @@ CardPlace.propTypes = {
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   onSelected: PropTypes.func,
-  classMod: PropTypes.string,
+  classModPrefix: PropTypes.string,
+  mainClassMod: PropTypes.string,
 };
 
 export default CardPlace;

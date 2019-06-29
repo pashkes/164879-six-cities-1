@@ -36,12 +36,12 @@ export const Catalog = (props) => {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.length} places to stay in {currentCity}</b>
+                  <b className="places__found" role="status" aria-live="polite">{offers.length} places to stay in {currentCity}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <Sorter options={sortOptions}/>
                   </form>
-                  <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
+                  <Offers offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">

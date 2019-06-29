@@ -29,7 +29,7 @@ exports[`Review form renders correctly 1`] = `
   />
   <span
     aria-live="assertive"
-    role="status"
+    role="alert"
   />
   <div
     className="reviews__button-wrapper"

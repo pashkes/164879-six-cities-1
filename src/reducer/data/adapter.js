@@ -23,7 +23,7 @@ export const toModelOffer = (offer) => {
     isPremium: offer[`is_premium`],
     previewPhoto: offer[`preview_image`],
     maxAdults: offer[`max_adults`],
-    images: offer.images,
+    images: offer.images.slice(0, Constants.MAX_AMOUNT_PHOTO),
     host: {
       avatarURL: offer.host[`avatar_url`],
       id: offer.host.id,

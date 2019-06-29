@@ -1,9 +1,9 @@
 import {Redirect} from "react-router-dom";
 import React from "react";
 
-const withPrivateRoute = (Component, isLogIn, URL = `/`) => {
+const withPrivateRoute = (isRequireAuthorization, URL = `/`) => (Component) => {
   const WithPrivateRoute = (props) => {
-    return isLogIn ? <Redirect to={URL} /> : <Component {...props}/>;
+    return isRequireAuthorization ? <Redirect to={URL} /> : <Component {...props}/>;
   };
 
   return WithPrivateRoute;
