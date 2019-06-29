@@ -78,15 +78,7 @@ const ActionCreators = {
   loadFavorites: (list) => ({
     type: ActionType.LOAD_FAVORITES,
     payload: list,
-  }),
-  pushToFavorites: (offer) => ({
-    type: ActionType.PUSH_TO_FAVORITES,
-    payload: offer,
-  }),
-  popFromFavorites: (offer) => ({
-    type: ActionType.POP_FROM_FAVORITES,
-    payload: offer,
-  }),
+  })
 };
 
 const Operation = {
@@ -126,7 +118,6 @@ const Operation = {
       .post(`${Constants.FAVORITE_PATH}/${id}/1`)
       .then(({data}) => {
         dispatch(ActionCreators.addToFavorites(data));
-        dispatch(ActionCreators.pushToFavorites(data));
       });
   },
   removeFromFavorites: (id) => (dispatch, _getState, api) => {
@@ -134,7 +125,6 @@ const Operation = {
       .post(`${Constants.FAVORITE_PATH}/${id}/0`)
       .then(({data}) => {
         dispatch(ActionCreators.removeFromFavorites(data));
-        dispatch(ActionCreators.popFromFavorites(data));
       });
   },
   loadFavorites: () => {
@@ -150,12 +140,6 @@ const Operation = {
 const replaceOfferFromOffers = (offers, offer) => {
   return offers.map((item) => {
     return item.id === offer.id ? {...item, ...offer} : item;
-  });
-};
-
-const removeObjectFromArray = (data, targetElement) => {
-  return data.filter((item) => {
-    return item.id !== targetElement.id;
   });
 };
 
@@ -195,11 +179,6 @@ const reducer = (state = initialState, action) => {
       };
     case ActionType.LOAD_FAVORITES:
       return {...state, ...{favorites: toModelOffers(action.payload)}};
-    case ActionType.PUSH_TO_FAVORITES:
-      return {...state, ...{favorites: [...state.favorites, toModelOffer(action.payload)]}};
-    case ActionType.POP_FROM_FAVORITES:
-      const updatedOffer = removeObjectFromArray(state.favorites, toModelOffer(action.payload));
-      return {...state, ...{favorites: updatedOffer}};
     default:
       return state;
   }

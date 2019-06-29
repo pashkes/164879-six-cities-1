@@ -7,7 +7,7 @@ configure({adapter: new Adapter()});
 
 it(`Header renders correctly`, () => {
   const cards = shallow(<Header
-    isAuthorization={false}
+    isAuthorizationRequired={true}
     userData={{
       avatar: ``,
       email: ``,

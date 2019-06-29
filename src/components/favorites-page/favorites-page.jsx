@@ -5,7 +5,6 @@ import {compose} from "recompose";
 import {connect} from "react-redux";
 
 import Layout from "../layout/layout.jsx";
-import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation} from "../../reducer/data/data";
 import {groupingFavoritesForCities} from "../../reducer/data/selectors";
 import Favorites from "./../favorites/favorites.jsx";
@@ -14,13 +13,17 @@ export class FavoritesPage extends PureComponent {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    const {loadData} = this.props;
+    loadData();
+  }
 
   render() {
     const {favorites, cities} = this.props;
     return (
       <Layout>
         {
-          favorites.length !== 0 ? <main className="page__main page__main--favorites">
+          cities.length !== 0 ? <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
@@ -55,7 +58,6 @@ export class FavoritesPage extends PureComponent {
 
 FavoritesPage.propTypes = {
   favorites: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   loadData: PropTypes.func.isRequired,
   cities: PropTypes.array.isRequired,
 };
@@ -65,7 +67,6 @@ const mapStateToProps = (state) => {
   return {
     cities: Object.keys(favorites),
     favorites: favorites || {},
-    isLoading: Boolean(favorites),
   };
 };
 
@@ -75,7 +76,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const _favorites = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withLoadData
 );
 
 export default _favorites(FavoritesPage);

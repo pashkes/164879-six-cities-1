@@ -171,6 +171,7 @@ exports[`Property page renders correctly 1`] = `
       >
         <Map
           coordinates={Array []}
+          currentCity=""
           selectedOffer={
             Array [
               0,

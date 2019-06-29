@@ -1,43 +1,71 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import CardPlace from "../card-place/card-place.jsx";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
+import {compose} from "recompose";
+import {ActionCreators} from "../../reducer/data/data";
 
-const Favorites = ({favorites, cities}) => {
-  return (
-    <ul className="favorites__list" aria-live="polite" role="status">
-      {
-        cities.map((group) => {
-          return <li key={group} className="favorites__locations-items">
-            <div className="favorites__locations locations locations--current">
-              <div className="locations__item">
-                <Link to="/" className="locations__item-link">
-                  <span>{group}</span>
-                </Link>
+class Favorites extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.handelLinkClick = this.handelLinkClick.bind(this);
+  }
+
+  handelLinkClick(evt) {
+    evt.preventDefault();
+    const {changeCity, history} = this.props;
+    const city = evt.currentTarget.getAttribute(`data-city`);
+    changeCity(city);
+    history.push(city);
+  }
+
+  render() {
+    const {favorites, cities} = this.props;
+    return (
+      <ul className="favorites__list" aria-live="polite" role="status">
+        {
+          cities.map((group) => {
+            return <li key={group} className="favorites__locations-items">
+              <div className="favorites__locations locations locations--current">
+                <div className="locations__item">
+                  <a href="#" type="button" onClick={this.handelLinkClick} data-city={group} className="locations__item-link">
+                    <span>{group}</span>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div className="favorites__places" aria-live="polite" role="status">
-              {favorites[group].map((offer) => {
-                return <CardPlace
-                  onSelected={() => {
-                  }}
-                  classModPrefix={`favorites`}
-                  mainClassMod={`favorites__card`}
-                  key={offer.id}
-                  {...offer}
-                />;
-              })}
-            </div>
-          </li>;
-        })
-      }
-    </ul>
-  );
-};
+              <div className="favorites__places" aria-live="polite" role="status">
+                {favorites[group].map((offer) => {
+                  return <CardPlace
+                    onSelected={() => {
+                    }}
+                    classModPrefix={`favorites`}
+                    mainClassMod={`favorites__card`}
+                    key={offer.id}
+                    {...offer}
+                  />;
+                })}
+              </div>
+            </li>;
+          })
+        }
+      </ul>
+    );
+  }
+}
 
 Favorites.propTypes = {
   favorites: PropTypes.object.isRequired,
   cities: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired,
+  changeCity: PropTypes.func.isRequired,
 };
 
-export default Favorites;
+const mapDispatchToProps = (dispatch) => ({
+  changeCity: (city) => dispatch(ActionCreators.setCity(city)),
+});
+const _favorites = compose(
+    withRouter,
+    connect(null, mapDispatchToProps)
+);
+export default _favorites(Favorites);

@@ -1,36 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`favorites is renders correctly 1`] = `
-<ul
-  aria-live="polite"
-  className="favorites__list"
-  role="status"
->
-  <li
-    className="favorites__locations-items"
-    key="Amsterdam"
-  >
-    <div
-      className="favorites__locations locations locations--current"
-    >
-      <div
-        className="locations__item"
-      >
-        <a
-          className="locations__item-link"
-          href="#"
-        >
-          <span>
-            Amsterdam
-          </span>
-        </a>
-      </div>
-    </div>
-    <div
-      aria-live="polite"
-      className="favorites__places"
-      role="status"
-    />
-  </li>
-</ul>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;

@@ -31,6 +31,7 @@ const propertyProps = {
 
 it(`Property page renders correctly`, () => {
   const propertyPage = shallow(<Property
+    currentCity={``}
     setCurrentCity={jest.fn()}
     currentOfferCoordinates={[[0, 0]]}
     isAuthorizationRequired={true}
