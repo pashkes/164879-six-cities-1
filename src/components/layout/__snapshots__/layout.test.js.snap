@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render is correctly 1`] = `
+<div
+  className=""
+>
+  <ConnectFunction />
+</div>
+`;

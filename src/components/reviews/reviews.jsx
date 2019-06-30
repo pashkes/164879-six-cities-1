@@ -17,9 +17,9 @@ export class Reviews extends PureComponent {
     const {reviews} = this.props;
     return (
       <React.Fragment>
-        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews ? reviews.length : 0}</span></h2>
+        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
         <ul className="reviews__list" role="status" aria-live="polite">
-          {reviews && reviews.map((review) => {
+          {reviews.map((review) => {
             return <Review {...review} key={review.id}/>;
           })}
         </ul>

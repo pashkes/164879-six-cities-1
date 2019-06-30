@@ -206,3 +206,420 @@ exports[`Property page renders correctly 1`] = `
   </main>
 </Layout>
 `;
+
+exports[`Property page renders correctly if user already authorized 1`] = `
+<Layout
+  pageClasses={
+    Array [
+      "page",
+    ]
+  }
+>
+  <main
+    className="page__main page__main--property"
+  >
+    <section
+      className="property"
+    >
+      <div
+        className="property__gallery-container container"
+      >
+        <div
+          className="property__gallery"
+        >
+          <Gallery
+            photos={
+              Array [
+                "",
+              ]
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="property__container container"
+      >
+        <div
+          className="property__wrapper"
+        >
+          <div
+            className="property__name-wrapper"
+          >
+            <h1
+              className="property__name"
+            />
+            <withRouter(Connect(FavoriteButton))
+              height="33"
+              id={0}
+              isFavorite={false}
+              prefixClass="property"
+              width="31"
+            />
+          </div>
+          <div
+            className="property__rating rating"
+          >
+            <div
+              className="property__stars rating__stars"
+            >
+              <span
+                style={
+                  Object {
+                    "width": "0%",
+                  }
+                }
+              />
+              <span
+                className="visually-hidden"
+              >
+                Rating
+              </span>
+            </div>
+            <span
+              className="property__rating-value rating__value"
+            >
+              0.0
+            </span>
+          </div>
+          <ul
+            className="property__features"
+          >
+            <li
+              className="property__feature property__feature--entire"
+            />
+            <li
+              className="property__feature property__feature--bedrooms"
+            >
+              1
+               Bedrooms
+            </li>
+            <li
+              className="property__feature property__feature--adults"
+            >
+              1
+            </li>
+          </ul>
+          <div
+            className="property__price"
+          >
+            <b
+              className="property__price-value"
+            >
+              €
+              0
+            </b>
+            <span
+              className="property__price-text"
+            >
+               night
+            </span>
+          </div>
+          <div
+            className="property__inside"
+          >
+            <h2
+              className="property__inside-title"
+            >
+              What's inside
+            </h2>
+            <Goods
+              list={
+                Array [
+                  "",
+                ]
+              }
+            />
+          </div>
+          <div
+            className="property__host"
+          >
+            <h2
+              className="property__host-title"
+            >
+              Meet the host
+            </h2>
+            <div
+              className="property__host-user user"
+            >
+              <div
+                className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+              >
+                <img
+                  alt=""
+                  className="property__avatar user__avatar"
+                  height="74"
+                  src=""
+                  width="74"
+                />
+              </div>
+              <span
+                className="property__user-name"
+              />
+            </div>
+            <div
+              className="property__description"
+            >
+              <p
+                className="property__text"
+              />
+            </div>
+          </div>
+          <section
+            className="property__reviews reviews"
+          >
+            <ConnectFunction
+              id={0}
+            />
+            <ConnectFunction
+              idCurrentOffer={0}
+            />
+          </section>
+        </div>
+      </div>
+      <section
+        className="property__map map"
+      >
+        <Map
+          coordinates={Array []}
+          currentCity=""
+          selectedOffer={
+            Array [
+              0,
+              0,
+            ]
+          }
+        />
+      </section>
+    </section>
+    <div
+      className="container"
+    >
+      <section
+        className="near-places places"
+      >
+        <h2
+          className="near-places__title"
+        >
+          Other places in the neighbourhood
+        </h2>
+        <ConnectFunction
+          classModCard="near-places__card"
+          classModOffers={
+            Array [
+              "near-places__list",
+            ]
+          }
+          offers={Array []}
+        />
+      </section>
+    </div>
+  </main>
+</Layout>
+`;
+
+exports[`Property page renders correctly if user require authorization 1`] = `
+<Layout
+  pageClasses={
+    Array [
+      "page",
+    ]
+  }
+>
+  <main
+    className="page__main page__main--property"
+  >
+    <section
+      className="property"
+    >
+      <div
+        className="property__gallery-container container"
+      >
+        <div
+          className="property__gallery"
+        >
+          <Gallery
+            photos={
+              Array [
+                "",
+              ]
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="property__container container"
+      >
+        <div
+          className="property__wrapper"
+        >
+          <div
+            className="property__name-wrapper"
+          >
+            <h1
+              className="property__name"
+            />
+            <withRouter(Connect(FavoriteButton))
+              height="33"
+              id={0}
+              isFavorite={false}
+              prefixClass="property"
+              width="31"
+            />
+          </div>
+          <div
+            className="property__rating rating"
+          >
+            <div
+              className="property__stars rating__stars"
+            >
+              <span
+                style={
+                  Object {
+                    "width": "0%",
+                  }
+                }
+              />
+              <span
+                className="visually-hidden"
+              >
+                Rating
+              </span>
+            </div>
+            <span
+              className="property__rating-value rating__value"
+            >
+              0.0
+            </span>
+          </div>
+          <ul
+            className="property__features"
+          >
+            <li
+              className="property__feature property__feature--entire"
+            />
+            <li
+              className="property__feature property__feature--bedrooms"
+            >
+              1
+               Bedrooms
+            </li>
+            <li
+              className="property__feature property__feature--adults"
+            >
+              1
+            </li>
+          </ul>
+          <div
+            className="property__price"
+          >
+            <b
+              className="property__price-value"
+            >
+              €
+              0
+            </b>
+            <span
+              className="property__price-text"
+            >
+               night
+            </span>
+          </div>
+          <div
+            className="property__inside"
+          >
+            <h2
+              className="property__inside-title"
+            >
+              What's inside
+            </h2>
+            <Goods
+              list={
+                Array [
+                  "",
+                ]
+              }
+            />
+          </div>
+          <div
+            className="property__host"
+          >
+            <h2
+              className="property__host-title"
+            >
+              Meet the host
+            </h2>
+            <div
+              className="property__host-user user"
+            >
+              <div
+                className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+              >
+                <img
+                  alt=""
+                  className="property__avatar user__avatar"
+                  height="74"
+                  src=""
+                  width="74"
+                />
+              </div>
+              <span
+                className="property__user-name"
+              />
+            </div>
+            <div
+              className="property__description"
+            >
+              <p
+                className="property__text"
+              />
+            </div>
+          </div>
+          <section
+            className="property__reviews reviews"
+          >
+            <ConnectFunction
+              id={0}
+            />
+          </section>
+        </div>
+      </div>
+      <section
+        className="property__map map"
+      >
+        <Map
+          coordinates={Array []}
+          currentCity=""
+          selectedOffer={
+            Array [
+              0,
+              0,
+            ]
+          }
+        />
+      </section>
+    </section>
+    <div
+      className="container"
+    >
+      <section
+        className="near-places places"
+      >
+        <h2
+          className="near-places__title"
+        >
+          Other places in the neighbourhood
+        </h2>
+        <ConnectFunction
+          classModCard="near-places__card"
+          classModOffers={
+            Array [
+              "near-places__list",
+            ]
+          }
+          offers={Array []}
+        />
+      </section>
+    </div>
+  </main>
+</Layout>
+`;

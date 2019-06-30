@@ -6,16 +6,18 @@ import {CityLink} from "./city-link.jsx";
 
 configure({adapter: new Adapter()});
 
-const handlerOnClick = jest.fn();
+const handleClick = jest.fn();
 
-it(`handler function is called after click to the city`, () => {
+it(`Should call callback function after click to the city`, () => {
+  const cityName = `Amsterdam`;
   const city = shallow(<CityLink
-    city={`Amsterdam`}
+    city={cityName}
     currentCity={`Paris`}
-    changeCity={handlerOnClick}
+    changeCity={handleClick}
     changeCurrentCity={jest.fn()}
   />);
   const link = city.find(`a`);
   link.simulate(`click`, {preventDefault() {}});
-  expect(handlerOnClick).toHaveBeenCalled();
+  expect(handleClick).toHaveBeenCalled();
+  expect(handleClick).toBeCalledWith(cityName);
 });

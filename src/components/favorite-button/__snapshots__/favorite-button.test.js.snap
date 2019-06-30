@@ -1,7 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`favorite button is renders correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+exports[`the button should correctly  is rendered  if the button is favorite 1`] = `
+<button
+  aria-pressed="true"
+  className="__bookmark-button place-card__bookmark-button--active button"
+  onClick={[Function]}
+  type="button"
+>
+  <svg
+    aria-hidden="true"
+    className="place-card__bookmark-icon"
+    height={19}
+    width={18}
+  >
+    <use
+      xlinkHref="#icon-bookmark"
+    />
+  </svg>
+  <span
+    className="visually-hidden"
+  >
+    In
+     bookmarks
+  </span>
+</button>
+`;
+
+exports[`the button should correctly  is rendered  if the button isn't favorite 1`] = `
+<button
+  aria-pressed="false"
+  className="__bookmark-button  button"
+  onClick={[Function]}
+  type="button"
+>
+  <svg
+    aria-hidden="true"
+    className="place-card__bookmark-icon"
+    height={19}
+    width={18}
+  >
+    <use
+      xlinkHref="#icon-bookmark"
+    />
+  </svg>
+  <span
+    className="visually-hidden"
+  >
+    To
+     bookmarks
+  </span>
+</button>
 `;

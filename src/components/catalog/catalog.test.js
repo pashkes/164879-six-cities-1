@@ -33,14 +33,29 @@ const inputOffers = [
   }
 ];
 
-it(`catalog renders correctly`, () => {
-  const catalog = shallow(
-      <Catalog
-        cities={[`Kiev`, `Amsterdam`]}
-        coordinates={[0, 0]}
-        offers={inputOffers}
-        currentCity={``}
-      />
-  );
-  expect(catalog).toMatchSnapshot();
+describe(`main page render is correctly`, () => {
+  it(`if have offers`, () => {
+    const catalog = shallow(
+        <Catalog
+          cities={[`Kiev`, `Amsterdam`]}
+          coordinates={[0, 0]}
+          offers={inputOffers}
+          currentCity={``}
+        />
+    );
+    expect(catalog).toMatchSnapshot();
+  });
+
+  it(`if don't have offers`, () => {
+    const catalog = shallow(
+        <Catalog
+          cities={[``]}
+          coordinates={[0, 0]}
+          offers={[]}
+          currentCity={``}
+        />
+    );
+    expect(catalog).toMatchSnapshot();
+  });
 });
+
