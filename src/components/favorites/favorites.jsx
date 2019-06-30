@@ -4,15 +4,16 @@ import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {compose} from "recompose";
+
 import {ActionCreators} from "../../reducer/data/data";
 
 class Favorites extends PureComponent {
   constructor(props) {
     super(props);
-    this.handelLinkClick = this.handelLinkClick.bind(this);
+    this.handelClickCity = this.handelClickCity.bind(this);
   }
 
-  handelLinkClick(evt) {
+  handelClickCity(evt) {
     evt.preventDefault();
     const {changeCity, history} = this.props;
     const city = evt.currentTarget.getAttribute(`data-city`);
@@ -29,7 +30,7 @@ class Favorites extends PureComponent {
             return <li key={group} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a href="#" type="button" onClick={this.handelLinkClick} data-city={group} className="locations__item-link">
+                  <a href="#" type="button" onClick={this.handelClickCity} data-city={group} className="locations__item-link">
                     <span>{group}</span>
                   </a>
                 </div>
@@ -64,8 +65,10 @@ Favorites.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   changeCity: (city) => dispatch(ActionCreators.setCity(city)),
 });
+
 const _favorites = compose(
     withRouter,
     connect(null, mapDispatchToProps)
 );
+
 export default _favorites(Favorites);

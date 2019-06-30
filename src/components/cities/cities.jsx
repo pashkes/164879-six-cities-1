@@ -8,10 +8,10 @@ import City from "../city-link/city-link.jsx";
 export class Cities extends PureComponent {
   constructor(props) {
     super(props);
-    this.setCity = this.setCity.bind(this);
+    this.onSetCity = this.onSetCity.bind(this);
   }
 
-  setCity(city) {
+  onSetCity(city) {
     this.props.changeCurrentCity(city);
   }
 
@@ -23,7 +23,7 @@ export class Cities extends PureComponent {
           {cities.map((city, i) => <City
             key={i}
             city={city}
-            changeCity={this.setCity}
+            changeCity={this.onSetCity}
           />)}
         </ul>
       </section>

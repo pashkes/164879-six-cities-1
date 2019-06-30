@@ -231,15 +231,34 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`should return default state`, () => {
+  it(`Should add new review`, () => {
+
     const reducerDone = reducer(
-        initialState,
-        {
-          type: `UNKNOWN_TYPE`,
-          payload: {unknownField: ``}
-        }
+        {reviews: {}},
+        ActionCreators.postReview([{
+          id: 1,
+          comment: ``,
+          date: `2019-06-01T10:38:39.844Z`,
+          rating: 1,
+          user: {
+            name: ``,
+            [`avatar_url`]: ``,
+            [`is_pro`]: false,
+          },
+        }], 1)
     );
-    expect(reducerDone).toEqual(initialState);
+    expect(reducerDone).toEqual({
+      reviews: {'1': [{
+        id: 1,
+        comment: ``,
+        date: `June 2019`,
+        machineDate: `2019-06-06`,
+        rating: 1,
+        name: ``,
+        avatar: ``,
+        isPro: false,
+      }]}
+    });
   });
 
   it(`should set status sending review`, () => {
@@ -276,5 +295,96 @@ describe(`Reducer works correctly`, () => {
           error: `Something went wrong`,
         }
     );
+  });
+
+  it(`should correct add loaded favorites`, () => {
+    const reducerDone = reducer(
+        {favorites: []},
+        ActionCreators.loadFavorites([
+          {
+            id: 0,
+            city: {
+              name: ``,
+              location: {
+                latitude: 0,
+                longitude: 0,
+                zoom: 1,
+              }
+            },
+            price: 0,
+            rating: 1,
+            title: ``,
+            type: ``,
+            description: ``,
+            goods: [``],
+            bedrooms: ``,
+            [`is_favorite`]: true,
+            [`is_premium`]: false,
+            [`preview_image`]: ``,
+            [`max_adults`]: ``,
+            images: [``],
+            host: {
+              [`avatar_url`]: ``,
+              id: 0,
+              [`is_pro`]: false,
+              name: ``,
+            },
+            location: {
+              latitude: 0,
+              longitude: 0,
+              zoom: 1,
+            },
+          }
+        ])
+    );
+    expect(reducerDone).toEqual({
+      favorites: [
+        {
+          id: 0,
+          city: {
+            name: ``,
+            location: {
+              latitude: 0,
+              longitude: 0,
+              zoom: 1,
+            }
+          },
+          price: 0,
+          rating: 20,
+          title: ``,
+          type: ``,
+          description: ``,
+          goods: [``],
+          bedrooms: ``,
+          isFavorite: true,
+          isPremium: false,
+          previewPhoto: ``,
+          maxAdults: ``,
+          images: [``],
+          host: {
+            avatarURL: ``,
+            id: 0,
+            isPro: false,
+            name: ``,
+          },
+          location: {
+            latitude: 0,
+            longitude: 0,
+            zoom: 1,
+          },
+        }
+      ]
+    });
+  });
+
+  it(`should return default state`, () => {
+    const reducerDone = reducer(
+        initialState,
+        {
+          type: `UNKNOWN_TYPE`,
+          payload: {unknownField: ``}
+        }
+    );
+    expect(reducerDone).toEqual(initialState);
   });
 });

@@ -26,6 +26,7 @@ export class Property extends PureComponent {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
     const {setCurrentCity, currentOffer} = this.props;
     setCurrentCity(currentOffer.city.name);

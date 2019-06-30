@@ -14,8 +14,8 @@ export class FavoritesPage extends PureComponent {
     super(props);
   }
   componentDidMount() {
-    const {loadData} = this.props;
-    loadData();
+    const {loadFavorites} = this.props;
+    loadFavorites();
   }
 
   render() {
@@ -58,7 +58,7 @@ export class FavoritesPage extends PureComponent {
 
 FavoritesPage.propTypes = {
   favorites: PropTypes.object.isRequired,
-  loadData: PropTypes.func.isRequired,
+  loadFavorites: PropTypes.func.isRequired,
   cities: PropTypes.array.isRequired,
 };
 
@@ -71,11 +71,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(Operation.loadFavorites()),
+  loadFavorites: () => dispatch(Operation.loadFavorites()),
 });
 
-const _favorites = compose(
-    connect(mapStateToProps, mapDispatchToProps),
-);
 
-export default _favorites(FavoritesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

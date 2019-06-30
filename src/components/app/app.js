@@ -65,4 +65,5 @@ const _App = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
+
 export default _App(App);

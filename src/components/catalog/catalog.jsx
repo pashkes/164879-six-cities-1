@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Constants, {TypeSort} from "../../constants";
+import Constants, {TypeSort, SortOptions, CITIES} from "../../constants";
 import {
   getCurrentCity,
   getFilteredOffers,
@@ -30,7 +30,7 @@ export const Catalog = (props) => {
           <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
             <div className="cities tabs">
-              <Cities cities={Constants.CITIES}/>
+              <Cities cities={[...CITIES.keys()]}/>
             </div>
             <div className="cities__places-wrapper">
               <div className="cities__places-container container">
@@ -39,7 +39,7 @@ export const Catalog = (props) => {
                   <b className="places__found" role="status" aria-live="polite">{offers.length} places to stay in {currentCity}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
-                    <Sorter options={sortOptions}/>
+                    <Sorter options={SortOptions}/>
                   </form>
                   <Offers offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
                 </section>
@@ -56,29 +56,6 @@ export const Catalog = (props) => {
     </Fragment>
   );
 };
-
-const sortOptions = [
-  {
-    name: `Popular`,
-    value: TypeSort.POPULAR,
-    selected: true,
-  },
-  {
-    name: `Price: low to high`,
-    value: TypeSort.TO_HIGH,
-    selected: false,
-  },
-  {
-    name: `Price: high to low`,
-    value: TypeSort.TO_LOW,
-    selected: false,
-  },
-  {
-    name: `Top rated first`,
-    value: TypeSort.TOP_RATED,
-    selected: false,
-  }
-];
 
 Catalog.propTypes = {
   currentCity: PropTypes.string.isRequired,

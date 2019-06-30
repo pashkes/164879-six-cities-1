@@ -1,43 +1,40 @@
 import {toRelatedRating} from "../../utils";
 import Constants from "../../constants";
 
-export const toModelOffer = (offer) => {
-  const result = {
-    id: offer.id,
-    city: {
-      name: offer.city.name,
-      location: {
-        latitude: offer.city.location.latitude,
-        longitude: offer.city.location.longitude,
-        zoom: offer.city.location.zoom,
-      }
-    },
-    price: offer.price,
-    rating: toRelatedRating(offer.rating),
-    title: offer.title,
-    type: offer.type,
-    description: offer.description,
-    goods: offer.goods,
-    bedrooms: offer.bedrooms,
-    isFavorite: offer[`is_favorite`],
-    isPremium: offer[`is_premium`],
-    previewPhoto: offer[`preview_image`],
-    maxAdults: offer[`max_adults`],
-    images: offer.images.slice(0, Constants.MAX_AMOUNT_PHOTO),
-    host: {
-      avatarURL: offer.host[`avatar_url`],
-      id: offer.host.id,
-      isPro: offer.host[`is_pro`],
-      name: offer.host.name,
-    },
+export const toModelOffer = (offer) => ({
+  id: offer.id,
+  city: {
+    name: offer.city.name,
     location: {
-      latitude: offer.location.latitude,
-      longitude: offer.location.longitude,
-      zoom: offer.location.zoom,
-    },
-  };
-  return result;
-};
+      latitude: offer.city.location.latitude,
+      longitude: offer.city.location.longitude,
+      zoom: offer.city.location.zoom,
+    }
+  },
+  price: offer.price,
+  rating: toRelatedRating(offer.rating),
+  title: offer.title,
+  type: offer.type,
+  description: offer.description,
+  goods: offer.goods,
+  bedrooms: offer.bedrooms,
+  isFavorite: offer[`is_favorite`],
+  isPremium: offer[`is_premium`],
+  previewPhoto: offer[`preview_image`],
+  maxAdults: offer[`max_adults`],
+  images: offer.images.slice(0, Constants.MAX_AMOUNT_PHOTO),
+  host: {
+    avatarURL: offer.host[`avatar_url`],
+    id: offer.host.id,
+    isPro: offer.host[`is_pro`],
+    name: offer.host.name,
+  },
+  location: {
+    latitude: offer.location.latitude,
+    longitude: offer.location.longitude,
+    zoom: offer.location.zoom,
+  },
+});
 
 export const toModelOffers = (data) => data.map((offer) => toModelOffer(offer));
 

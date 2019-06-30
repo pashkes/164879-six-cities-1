@@ -22,7 +22,6 @@ exports[`catalog renders correctly 1`] = `
             "Amsterdam",
             "Hamburg",
             "Dusseldorf",
-            "Kiev",
           ]
         }
       />
@@ -143,7 +142,6 @@ exports[`catalog renders correctly 1`] = `
                 ]
               }
               currentCity=""
-              selectedOffer={Array []}
             />
           </section>
         </div>

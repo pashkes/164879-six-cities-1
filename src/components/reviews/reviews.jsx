@@ -31,6 +31,8 @@ export class Reviews extends PureComponent {
 Reviews.propTypes = {
   id: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
+  loadData: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {

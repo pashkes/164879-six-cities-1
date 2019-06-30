@@ -7,6 +7,6 @@ import {FavoritesPage} from "./favorites-page.jsx";
 configure({adapter: new Adapter()});
 
 it(`favorites page is renders correctly`, () => {
-  const favorites = shallow(<FavoritesPage cities={[]} favorites={{}} isLoading={false} loadData={jest.fn()} />);
+  const favorites = shallow(<FavoritesPage cities={[]} favorites={{}} isLoading={false} loadFavorites={jest.fn()} />);
   expect(favorites).toMatchSnapshot();
 });

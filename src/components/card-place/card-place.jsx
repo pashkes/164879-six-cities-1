@@ -30,7 +30,7 @@ class CardPlace extends PureComponent {
       classModPrefix = ``,
     } = this.props;
     return <article className={`${mainClassMod} place-card`}>
-      {isPremium ? (<div className="place-card__mark"><span>Premium</span></div>) : null}
+      {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={`${classModPrefix}__image-wrapper place-card__image-wrapper`}>
         <a href="#" onClick={this.handleImageClick}>
           <img className="place-card__image" src={previewPhoto} width="260" height="200" loading="lazy" alt="Place image"/>

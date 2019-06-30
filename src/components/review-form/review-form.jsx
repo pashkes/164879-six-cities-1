@@ -19,14 +19,14 @@ import {CommentLength} from "../../constants";
 export class ReviewForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.handleMessageKeyDown = this.handleMessageKeyDown.bind(this);
     this.handleMessageOutside = this.handleMessageOutside.bind(this);
     this.form = React.createRef();
   }
 
-  handleSubmitForm(evt) {
+  handleSubmit(evt) {
     evt.preventDefault();
     const {sendComment, rating, comment} = this.props;
     sendComment({rating, comment});
@@ -73,7 +73,7 @@ export class ReviewForm extends PureComponent {
     return (
       <form
         className="reviews__form form"
-        onSubmit={this.handleSubmitForm}
+        onSubmit={this.handleSubmit}
         action="#"
         method="post"
         ref={this.form}
@@ -133,7 +133,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  sendComment: (data)=> {
+  sendComment: (data) => {
     dispatch(Operation.postReview(ownProps.idCurrentOffer, data));
     dispatch(ActionCreators.lockForm(true));
   },
