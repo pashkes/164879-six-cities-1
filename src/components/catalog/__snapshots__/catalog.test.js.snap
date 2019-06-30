@@ -13,18 +13,7 @@ exports[`catalog renders correctly 1`] = `
     <div
       className="cities tabs"
     >
-      <ConnectFunction
-        cities={
-          Array [
-            "Paris",
-            "Cologne",
-            "Brussels",
-            "Amsterdam",
-            "Hamburg",
-            "Dusseldorf",
-          ]
-        }
-      />
+      <ConnectFunction />
     </div>
     <div
       className="cities__places-wrapper"
