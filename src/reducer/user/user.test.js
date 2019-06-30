@@ -28,7 +28,7 @@ describe(`Reducer works correctly`, () => {
         ActionCreators.authorization(userData)
     );
 
-    expect(getUserData).toEqual({userData: userData});
+    expect(getUserData).toEqual({userData});
   });
 
   it(`Should make a correctly API post login`, () => {

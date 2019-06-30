@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import {Link} from 'react-router-dom';
 import PropTypes from "prop-types";
-import {compose} from "recompose";
 import {connect} from "react-redux";
 
 import Layout from "../layout/layout.jsx";

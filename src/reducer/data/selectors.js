@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
 
 import NameSpace from "../name-spaces";
-import Constants, {CITIES} from "./../../constants";
+import Constants from "./../../constants";
 
 const NAME_SPACE = NameSpace.DATA;
 

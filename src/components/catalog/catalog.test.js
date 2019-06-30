@@ -36,6 +36,7 @@ const inputOffers = [
 it(`catalog renders correctly`, () => {
   const catalog = shallow(
       <Catalog
+        cities={[`Kiev`, `Amsterdam`]}
         coordinates={[0, 0]}
         offers={inputOffers}
         currentCity={``}
