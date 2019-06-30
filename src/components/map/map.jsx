@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
+
 import {CITIES} from "./../../constants";
 
 const MapConfig = {

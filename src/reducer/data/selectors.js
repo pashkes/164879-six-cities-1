@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
 
 import NameSpace from "../name-spaces";
-import Constants from "./../../constants";
+import Constants, {CITIES} from "./../../constants";
 
 const NAME_SPACE = NameSpace.DATA;
 
@@ -22,6 +22,13 @@ export const getError = (state) => state[NAME_SPACE].error;
 export const getComments = (state, id) => state[NAME_SPACE].reviews[id];
 
 export const getFavorites = (state) => state[NAME_SPACE].favorites;
+
+export const getCitiesFromServer = createSelector(
+    getOffers,
+    (offers) => {
+      return [...new Set([...offers.map((item) => item.city.name)])];
+    }
+);
 
 export const getFilteredOffers = createSelector(
     getOffers,

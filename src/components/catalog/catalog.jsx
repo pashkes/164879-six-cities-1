@@ -2,12 +2,13 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Constants, {TypeSort, SortOptions, CITIES} from "../../constants";
+import {TypeSort, SortOptions} from "../../constants";
 import {
   getCurrentCity,
   getFilteredOffers,
   getSelectedOffer,
   getTypeSort,
+  getCitiesFromServer,
 } from "../../reducer/data/selectors";
 
 import Map from "../map/map.jsx";
@@ -22,6 +23,7 @@ export const Catalog = (props) => {
     offers,
     coordinates,
     currentOffer,
+    cities,
   } = props;
   return (
     <Fragment>
@@ -30,7 +32,7 @@ export const Catalog = (props) => {
           <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
             <div className="cities tabs">
-              <Cities cities={[...CITIES.keys()]}/>
+              <Cities cities={cities}/>
             </div>
             <div className="cities__places-wrapper">
               <div className="cities__places-container container">
@@ -62,6 +64,7 @@ Catalog.propTypes = {
   offers: PropTypes.array.isRequired,
   coordinates: PropTypes.array.isRequired,
   currentOffer: PropTypes.array,
+  cities: PropTypes.array.isRequired,
 };
 
 const sortOffers = (offers, sort) => {
@@ -85,6 +88,7 @@ const mapStateToProps = (state) => {
     offers: sortOffers(offers, typeSort),
     coordinates: offers.map((it) => [it.location.latitude, it.location.longitude]),
     currentOffer: getSelectedOffer(state),
+    cities: getCitiesFromServer(state),
   };
 };
 
