@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 import LoginForm from "./../login-form/login-form.jsx";
 import Layout from "../layout/layout.jsx";
 
@@ -11,9 +11,9 @@ const SignIn = () => {
           <LoginForm />
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link to="/" className="locations__item-link">
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

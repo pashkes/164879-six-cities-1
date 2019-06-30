@@ -2,12 +2,13 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Constants, {TypeSort} from "../../constants";
+import {TypeSort, SortOptions} from "../../constants";
 import {
   getCurrentCity,
   getFilteredOffers,
   getSelectedOffer,
   getTypeSort,
+  getCitiesFromServer,
 } from "../../reducer/data/selectors";
 
 import Map from "../map/map.jsx";
@@ -22,6 +23,7 @@ export const Catalog = (props) => {
     offers,
     coordinates,
     currentOffer,
+    cities,
   } = props;
   return (
     <Fragment>
@@ -30,18 +32,18 @@ export const Catalog = (props) => {
           <main className="page__main page__main--index">
             <h1 className="visually-hidden">Cities</h1>
             <div className="cities tabs">
-              <Cities cities={Constants.CITIES}/>
+              <Cities cities={cities}/>
             </div>
             <div className="cities__places-wrapper">
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.length} places to stay in {currentCity}</b>
+                  <b className="places__found" role="status" aria-live="polite">{offers.length} places to stay in {currentCity}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
-                    <Sorter options={sortOptions}/>
+                    <Sorter options={SortOptions}/>
                   </form>
-                  <Offers classModCard={`cities__place-card`} offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
+                  <Offers offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">
@@ -57,34 +59,12 @@ export const Catalog = (props) => {
   );
 };
 
-const sortOptions = [
-  {
-    name: `Popular`,
-    value: TypeSort.POPULAR,
-    selected: true,
-  },
-  {
-    name: `Price: low to high`,
-    value: TypeSort.TO_HIGH,
-    selected: false,
-  },
-  {
-    name: `Price: high to low`,
-    value: TypeSort.TO_LOW,
-    selected: false,
-  },
-  {
-    name: `Top rated first`,
-    value: TypeSort.TOP_RATED,
-    selected: false,
-  }
-];
-
 Catalog.propTypes = {
   currentCity: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired,
   coordinates: PropTypes.array.isRequired,
   currentOffer: PropTypes.array,
+  cities: PropTypes.array.isRequired,
 };
 
 const sortOffers = (offers, sort) => {
@@ -108,6 +88,7 @@ const mapStateToProps = (state) => {
     offers: sortOffers(offers, typeSort),
     coordinates: offers.map((it) => [it.location.latitude, it.location.longitude]),
     currentOffer: getSelectedOffer(state),
+    cities: getCitiesFromServer(state),
   };
 };
 

@@ -14,7 +14,7 @@ import withLoadData from "./../../hocs/with-load-data/with-load-data";
 
 import MainPage from "../main-page/main-page.jsx";
 import SignIn from "./../sign-in/sign-in.jsx";
-import Favorites from "./../favorites/favorite.jsx";
+import FavoritesPage from "../favorites-page/favorites-page.jsx";
 import Property from "./../property/property.jsx";
 
 export class App extends PureComponent {
@@ -29,8 +29,8 @@ export class App extends PureComponent {
 
   render() {
     const {isAuthorizationRequired} = this.props;
-    const FavoritesPrivate = withPrivateRoute(Favorites, isAuthorizationRequired, Constants.LOGIN_PATH);
-    const SignInPrivate = withPrivateRoute(SignIn, !isAuthorizationRequired);
+    const FavoritesPrivate = withPrivateRoute(isAuthorizationRequired, Constants.LOGIN_PATH)(FavoritesPage);
+    const SignInPrivate = withPrivateRoute(!isAuthorizationRequired)(SignIn);
     return (
       <Switch>
         <Route path="/" exact component={MainPage} />
@@ -51,7 +51,7 @@ App.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(DataOperation.loadData()),
+  loadData: () => dispatch(DataOperation.loadOffers()),
   checkAuth: () => dispatch(UserOperation.checkAuth()),
 });
 
@@ -65,4 +65,5 @@ const _App = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
+
 export default _App(App);

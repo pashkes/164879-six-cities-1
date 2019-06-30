@@ -16,13 +16,8 @@ exports[`catalog renders correctly 1`] = `
       <ConnectFunction
         cities={
           Array [
-            "Paris",
-            "Cologne",
-            "Brussels",
-            "Amsterdam",
-            "Hamburg",
-            "Dusseldorf",
             "Kiev",
+            "Amsterdam",
           ]
         }
       />
@@ -42,7 +37,9 @@ exports[`catalog renders correctly 1`] = `
             Places
           </h2>
           <b
+            aria-live="polite"
             className="places__found"
+            role="status"
           >
             2
              places to stay in 
@@ -85,7 +82,6 @@ exports[`catalog renders correctly 1`] = `
             />
           </form>
           <ConnectFunction
-            classModCard="cities__place-card"
             classModOffers={
               Array [
                 "cities__places-list",
@@ -142,7 +138,6 @@ exports[`catalog renders correctly 1`] = `
                 ]
               }
               currentCity=""
-              selectedOffer={Array []}
             />
           </section>
         </div>

@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import compose from 'recompose/compose';
 
 import {
-  getOffers,
   getNearbyOffers,
   getCurrentCity,
   getCurrentOffer,
@@ -27,6 +26,7 @@ export class Property extends PureComponent {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
     const {setCurrentCity, currentOffer} = this.props;
     setCurrentCity(currentOffer.city.name);
@@ -35,7 +35,7 @@ export class Property extends PureComponent {
   render() {
     const {
       id,
-      activeCity,
+      currentCity,
       offersOnMap,
       nearbyOffers,
       isAuthorizationRequired,
@@ -130,7 +130,7 @@ export class Property extends PureComponent {
             <section className="property__map map">
               <Map
                 selectedOffer={[latitude, longitude]}
-                currentCity={activeCity}
+                currentCity={currentCity}
                 coordinates={offersOnMap}
               />
             </section>
@@ -176,7 +176,7 @@ Property.propTypes = {
     }).isRequired
   }).isRequired,
   nearbyOffers: PropType.array.isRequired,
-  activeCity: PropType.string.isRequired,
+  currentCity: PropType.string.isRequired,
   offersOnMap: PropType.array.isRequired,
   isAuthorizationRequired: PropType.bool.isRequired,
   setCurrentCity: PropType.func.isRequired,
@@ -186,20 +186,19 @@ Property.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const nearbyOffers = getNearbyOffers(state, ownProps.id);
-  const offers = getOffers(state);
 
   return {
-    isLoading: offers.length !== 0,
+    isLoading: Boolean(nearbyOffers),
     currentOffer: getCurrentOffer(state, ownProps.id),
-    nearbyOffers,
-    offersOnMap: nearbyOffers.length ? nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]) : [0, 0],
-    activeCity: getCurrentCity(state),
+    nearbyOffers: nearbyOffers || [],
+    offersOnMap: nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]),
+    currentCity: getCurrentCity(state),
     isAuthorizationRequired: getAuthorizationStatus(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(DataOperation.loadData()),
+  loadData: () => dispatch(DataOperation.loadOffers()),
   setCurrentCity: (city) => dispatch(ActionCreators.setCity(city)),
 });
 

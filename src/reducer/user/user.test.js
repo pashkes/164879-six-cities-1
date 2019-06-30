@@ -24,11 +24,11 @@ describe(`Reducer works correctly`, () => {
       isPro: ``,
     };
     const getUserData = reducer(
-        {authorization: {}},
+        {userData: {}},
         ActionCreators.authorization(userData)
     );
 
-    expect(getUserData).toEqual({authorization: userData});
+    expect(getUserData).toEqual({userData});
   });
 
   it(`Should make a correctly API post login`, () => {

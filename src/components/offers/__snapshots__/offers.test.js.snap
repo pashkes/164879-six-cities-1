@@ -2,10 +2,13 @@
 
 exports[`list of offers renders correctly 1`] = `
 <div
+  aria-live="polite"
   className=" places__list"
+  role="status"
 >
   <CardPlace
     city="Amsterdam"
+    classModPrefix="cities"
     coordinates={
       Array [
         52.3809553943508,
@@ -16,6 +19,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={false}
     isPremium={false}
     key="334454"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/apartment-03.jpg"
     price={180}
@@ -25,6 +29,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Amsterdam"
+    classModPrefix="cities"
     coordinates={
       Array [
         52.3909553943508,
@@ -35,6 +40,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={false}
     isPremium={true}
     key="5435"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/apartment-01.jpg"
     price={120}
@@ -44,6 +50,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Amsterdam"
+    classModPrefix="cities"
     coordinates={
       Array [
         52.369553943508,
@@ -54,6 +61,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={true}
     isPremium={false}
     key="54353"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/room.jpg"
     price={80}
@@ -63,6 +71,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Amsterdam"
+    classModPrefix="cities"
     coordinates={
       Array [
         52.3909553943508,
@@ -73,6 +82,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={false}
     isPremium={false}
     key="53453"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/apartment-02.jpg"
     price={132}
@@ -82,6 +92,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Paris"
+    classModPrefix="cities"
     coordinates={
       Array [
         48.86679,
@@ -92,6 +103,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={false}
     isPremium={true}
     key="534534"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/apartment-01.jpg"
     price={120}
@@ -101,6 +113,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Cologne"
+    classModPrefix="cities"
     coordinates={
       Array [
         50.958694,
@@ -111,6 +124,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={true}
     isPremium={false}
     key="3434"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/room.jpg"
     price={80}
@@ -120,6 +134,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Hamburg"
+    classModPrefix="cities"
     coordinates={
       Array [
         53.598154,
@@ -130,6 +145,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={false}
     isPremium={false}
     key="65656"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/apartment-02.jpg"
     price={132}
@@ -139,6 +155,7 @@ exports[`list of offers renders correctly 1`] = `
   />
   <CardPlace
     city="Dusseldorf"
+    classModPrefix="cities"
     coordinates={
       Array [
         51.261306,
@@ -149,6 +166,7 @@ exports[`list of offers renders correctly 1`] = `
     isFavorite={false}
     isPremium={false}
     key="23232"
+    mainClassMod="cities__place-card"
     onSelected={[Function]}
     previewPhoto="img/apartment-03.jpg"
     price={180}

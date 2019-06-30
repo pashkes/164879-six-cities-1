@@ -43,7 +43,15 @@ export class Option extends PureComponent {
   render() {
     const {isSelected, value, name} = this.props;
     return (
-      <li className={`${isSelected ? `places__option--active` : ``} places__option`} onKeyDown={this.handleOptionKeyDownEnter} onClick={this.handleOptionClick} tabIndex="0" data-value={value}>{name}</li>
+      <li
+        className={`${isSelected ? `places__option--active` : ``} places__option`}
+        onKeyDown={this.handleOptionKeyDownEnter}
+        onClick={this.handleOptionClick}
+        tabIndex="0"
+        data-value={value}
+      >
+        {name}
+      </li>
     );
   }
 }

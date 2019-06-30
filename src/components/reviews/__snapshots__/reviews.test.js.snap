@@ -13,7 +13,9 @@ exports[`list of reviews renders correctly 1`] = `
     </span>
   </h2>
   <ul
+    aria-live="polite"
     className="reviews__list"
+    role="status"
   />
 </Fragment>
 `;

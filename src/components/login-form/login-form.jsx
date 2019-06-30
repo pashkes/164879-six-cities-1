@@ -8,10 +8,10 @@ import {withLoginForm} from "../../hocs/with-login-form/with-login-form";
 export class LoginForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleButtonSubmitForm = this.handleButtonSubmitForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleButtonSubmitForm(evt) {
+  handleSubmit(evt) {
     evt.preventDefault();
     const {
       emailValue,
@@ -31,7 +31,7 @@ export class LoginForm extends PureComponent {
     return (
       <section className="login">
         <h1 className="login__title">Sign in</h1>
-        <form onSubmit={this.handleButtonSubmitForm} className="login__form form" action="#" method="post">
+        <form onSubmit={this.handleSubmit} className="login__form form" action="#" method="post">
           <div className="login__input-wrapper form__input-wrapper">
             <label className="visually-hidden">E-mail</label>
             <input

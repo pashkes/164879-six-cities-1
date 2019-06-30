@@ -7,7 +7,7 @@ const withReviewForm = (Component) => {
   class WithReviewForm extends PureComponent {
     constructor(props) {
       super(props);
-      this.handlerTextMessage = this.handlerTextMessage.bind(this);
+      this.handleTextMessage = this.handleTextMessage.bind(this);
       this.setRating = this.setRating.bind(this);
       this.submitButton = React.createRef();
       this.messageBlock = React.createRef();
@@ -18,7 +18,7 @@ const withReviewForm = (Component) => {
       };
     }
 
-    handlerTextMessage(evt) {
+    handleTextMessage(evt) {
       this.setState({comment: evt.target.value});
     }
 
@@ -46,7 +46,7 @@ const withReviewForm = (Component) => {
         <Component
           {...this.props}
           comment={this.state.comment}
-          onChangeMessage={this.handlerTextMessage}
+          onChangeMessage={this.handleTextMessage}
           onChangeRating={this.setRating}
           rating={this.state.rating}
           submitButton={this.submitButton}

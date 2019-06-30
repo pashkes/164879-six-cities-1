@@ -2,52 +2,53 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 
-import CitiesCoordinates from "./../../mock/coordinatesCities";
+import {CITIES} from "./../../constants";
 
+const MapConfig = {
+  ID: `map`,
+  ZOOM: 12,
+  MARKER_PATH: `img/marker.svg`,
+  ACTIVE_MARKER_PATH: `img/active-marker.svg`,
+  MARKER_SIZE: [30, 30],
+  TITLE_LAYER: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`
+};
 
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-    this.zoom = 12;
+    this.group = null;
     this.icon = leaflet.icon({
-      iconUrl: `img/marker.svg`,
-      iconSize: [30, 30]
+      iconUrl: MapConfig.MARKER_PATH,
+      iconSize: MapConfig.MARKER_SIZE,
     });
     this.activeIcon = leaflet.icon({
-      iconUrl: `img/active-marker.svg`,
-      iconSize: [30, 30]
+      iconUrl: MapConfig.ACTIVE_MARKER_PATH,
+      iconSize: MapConfig.MARKER_SIZE,
     });
-    this.group = null;
   }
 
   addMarkers() {
     const {selectedOffer, coordinates} = this.props;
-    const activeOffer = selectedOffer.length !== 0;
     this.group = leaflet.layerGroup().addTo(this.map);
     for (let item of coordinates) {
       leaflet.marker(item, {icon: this.icon})
         .addTo(this.group);
     }
-    if (activeOffer) {
-      leaflet.marker(selectedOffer, {icon: this.activeIcon})
-        .addTo(this.group);
-    }
+    leaflet.marker(selectedOffer, {icon: this.activeIcon}).addTo(this.group);
   }
 
   initMap() {
-    const city = CitiesCoordinates.get(this.props.currentCity);
-    this.map = leaflet.map(`map`, {
+    const city = CITIES.get(this.props.currentCity);
+    this.map = leaflet.map(MapConfig.ID, {
       center: city,
-      zoom: this.zoom,
+      zoom: MapConfig.ZOOM,
       zoomControl: false,
       marker: true,
       scrollWheelZoom: false,
     });
-    this.map.setView(city, this.zoom);
+    this.map.setView(city, MapConfig.ZOOM);
     leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
+      .tileLayer(MapConfig.TITLE_LAYER)
       .addTo(this.map);
     this.addMarkers();
   }
@@ -58,20 +59,14 @@ class Map extends PureComponent {
 
   componentDidUpdate() {
     const {currentCity, coordinates, selectedOffer} = this.props;
-    const activeOffer = selectedOffer.length !== 0;
-
     this.group.clearLayers();
-    this.map.setView(CitiesCoordinates.get(currentCity), this.zoom);
-
+    this.map.setView(CITIES.get(currentCity), MapConfig.ZOOM);
     for (let item of coordinates) {
       leaflet.marker(item, {icon: this.icon})
         .addTo(this.group);
     }
-
-    if (activeOffer) {
-      leaflet.marker(selectedOffer, {icon: this.activeIcon})
-        .addTo(this.group);
-    }
+    leaflet.marker(selectedOffer, {icon: this.activeIcon})
+      .addTo(this.group);
   }
 
   render() {
@@ -85,10 +80,6 @@ Map.propTypes = {
   coordinates: PropTypes.array.isRequired,
   currentCity: PropTypes.string.isRequired,
   selectedOffer: PropTypes.array,
-};
-
-Map.defaultProps = {
-  selectedOffer: []
 };
 
 export default Map;

@@ -1,15 +1,16 @@
 import Constants, {TypeSort} from "./../../constants";
-import {toModelOffers, toModelReview, toModelOffer} from "./adapter";
+import {toModelOffers, toModelOffer, toModelReview} from "./adapter";
 
 const initialState = {
   offers: [],
   city: Constants.DEFAULT_CITY,
   reviews: {},
-  currentOfferId: false,
+  currentOfferId: null,
   typeSort: TypeSort.POPULAR,
   isReviewSending: false,
   isReviewSent: false,
   error: ``,
+  favorites: [],
 };
 
 const ActionType = {
@@ -24,10 +25,11 @@ const ActionType = {
   SHOW_ERROR: `SHOW_ERROR`,
   ADD_TO_FAVORITE: `ADD_TO_FAVORITE`,
   REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`,
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
 };
 
 const ActionCreators = {
-  loadData: (offers) => ({
+  loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
   }),
@@ -67,18 +69,22 @@ const ActionCreators = {
     type: ActionType.ADD_TO_FAVORITE,
     payload: id
   }),
-  removeFromFavorite: (id) =>({
+  removeFromFavorites: (id) => ({
     type: ActionType.REMOVE_FROM_FAVORITE,
     payload: id,
   }),
+  loadFavorites: (list) => ({
+    type: ActionType.LOAD_FAVORITES,
+    payload: list,
+  })
 };
 
 const Operation = {
-  loadData: () => {
+  loadOffers: () => {
     return (dispatch, _getState, api) => {
       return api.get(Constants.HOTEL_PATH)
         .then(({data}) => {
-          dispatch(ActionCreators.loadData(data));
+          dispatch(ActionCreators.loadOffers(data));
         });
     };
   },
@@ -107,17 +113,25 @@ const Operation = {
   },
   addToFavorites: (id) => (dispatch, _getState, api) => {
     return api
-      .post(`${Constants.TO_FAVORITE_PATH}/${id}/1`)
+      .post(`${Constants.FAVORITE_PATH}/${id}/1`)
       .then(({data}) => {
         dispatch(ActionCreators.addToFavorites(data));
       });
   },
-  removeFromFavorite: (id) => (dispatch, _getState, api) => {
+  removeFromFavorites: (id) => (dispatch, _getState, api) => {
     return api
-      .post(`${Constants.TO_FAVORITE_PATH}/${id}/0`)
+      .post(`${Constants.FAVORITE_PATH}/${id}/0`)
       .then(({data}) => {
-        dispatch(ActionCreators.addToFavorites(data));
+        dispatch(ActionCreators.removeFromFavorites(data));
       });
+  },
+  loadFavorites: () => {
+    return (dispatch, _getState, api) => {
+      return api.get(Constants.FAVORITE_PATH)
+        .then(({data}) => {
+          dispatch(ActionCreators.loadFavorites(data));
+        });
+    };
   }
 };
 
@@ -150,13 +164,19 @@ const reducer = (state = initialState, action) => {
     case ActionType.SHOW_ERROR:
       return {...state, ...{error: action.payload}};
     case ActionType.ADD_TO_FAVORITE:
-      return {...state, ...{
-        offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload))}
+      return {
+        ...state, ...{
+          offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload)),
+        },
       };
     case ActionType.REMOVE_FROM_FAVORITE:
-      return {...state, ...{
-        offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload))}
+      return {
+        ...state, ...{
+          offers: replaceOfferFromOffers(state.offers, toModelOffer(action.payload)),
+        }
       };
+    case ActionType.LOAD_FAVORITES:
+      return {...state, ...{favorites: toModelOffers(action.payload)}};
     default:
       return state;
   }

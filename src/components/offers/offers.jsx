@@ -16,14 +16,19 @@ export class Offers extends PureComponent {
   }
 
   render() {
-    const {offers, classModOffers = [], classModCard} = this.props;
-    return <div className={`${classModOffers.join(` `)} places__list`}>
+    const {offers, classModOffers = []} = this.props;
+    return <div
+      className={`${classModOffers.join(` `)} places__list`}
+      role="status"
+      aria-live="polite"
+    >
       {offers.map((offer) => {
         return <CardPlace
           key={offer.id}
           {...offer}
           onSelected={this.onSelectOffer}
-          classMod={classModCard}
+          classModPrefix={`cities`}
+          mainClassMod={`cities__place-card`}
         />;
       })}
     </div>;

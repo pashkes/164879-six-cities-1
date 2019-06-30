@@ -3,7 +3,7 @@ import toModelUserDate from "./adapter";
 
 const initialState = {
   isAuthorizationRequired: true,
-  authorization: {},
+  userData: {},
 };
 
 const ActionType = {
@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return {...state, ...{isAuthorizationRequired: action.payload}};
     case ActionType.AUTHORIZATION:
-      return {...state, ...{authorization: action.payload}};
+      return {...state, ...{userData: action.payload}};
     default:
       return state;
   }

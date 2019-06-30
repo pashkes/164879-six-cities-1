@@ -19,14 +19,14 @@ import {CommentLength} from "../../constants";
 export class ReviewForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.handleMessageKeyDown = this.handleMessageKeyDown.bind(this);
     this.handleMessageOutside = this.handleMessageOutside.bind(this);
     this.form = React.createRef();
   }
 
-  handleSubmitForm(evt) {
+  handleSubmit(evt) {
     evt.preventDefault();
     const {sendComment, rating, comment} = this.props;
     sendComment({rating, comment});
@@ -73,7 +73,7 @@ export class ReviewForm extends PureComponent {
     return (
       <form
         className="reviews__form form"
-        onSubmit={this.handleSubmitForm}
+        onSubmit={this.handleSubmit}
         action="#"
         method="post"
         ref={this.form}
@@ -91,7 +91,7 @@ export class ReviewForm extends PureComponent {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"/>
-        <span role="status" aria-live="assertive">{error ? error : ``}</span>
+        <span role="alert" aria-live="assertive">{error ? error : ``}</span>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -133,7 +133,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  sendComment: (data)=> {
+  sendComment: (data) => {
     dispatch(Operation.postReview(ownProps.idCurrentOffer, data));
     dispatch(ActionCreators.lockForm(true));
   },
