@@ -182,4 +182,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export {initialState, ActionType, Operation, reducer, ActionCreators};
+export {initialState, ActionType, Operation, reducer, ActionCreators, replaceOfferFromOffers};
