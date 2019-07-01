@@ -55,11 +55,14 @@ const mapDispatchToProps = (dispatch) => ({
   checkAuth: () => dispatch(UserOperation.checkAuth()),
 });
 
-const mapStateToProps = (state) => ({
-  isAuthorizationRequired: getAuthorizationStatus(state),
-  offers: getOffers(state),
-  isLoading: (getOffers(state)).length !== 0,
-});
+const mapStateToProps = (state) => {
+  const offers = getOffers(state);
+  return {
+    isAuthorizationRequired: getAuthorizationStatus(state),
+    offers,
+    isLoading: offers.length !== 0,
+  };
+};
 
 const _App = compose(
     connect(mapStateToProps, mapDispatchToProps),
