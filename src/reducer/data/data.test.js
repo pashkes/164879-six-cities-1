@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 
 import createApi from './../../api';
-import {initialState, Operation, ActionType, reducer, ActionCreators} from './data';
+import {initialState, Operation, ActionType, reducer, ActionCreators, replaceOfferFromOffers} from './data';
 import Constants, {TypeSort} from "./../../constants";
 
 
@@ -452,6 +452,93 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
+  it(`add from favorite`, () => {
+    const reducerDone = reducer(
+        {offers: []},
+        ActionCreators.addToFavorites(
+            {
+              id: 0,
+              city: {
+                name: ``,
+                location: {
+                  latitude: 0,
+                  longitude: 0,
+                  zoom: 1,
+                }
+              },
+              price: 0,
+              rating: 1,
+              title: ``,
+              type: ``,
+              description: ``,
+              goods: [``],
+              bedrooms: ``,
+              [`is_favorite`]: true,
+              [`is_premium`]: false,
+              [`preview_image`]: ``,
+              [`max_adults`]: ``,
+              images: [``],
+              host: {
+                [`avatar_url`]: ``,
+                id: 0,
+                [`is_pro`]: false,
+                name: ``,
+              },
+              location: {
+                latitude: 0,
+                longitude: 0,
+                zoom: 1,
+              },
+            }
+        )
+    );
+    expect(reducerDone).toEqual({offers: []});
+  });
+
+  it(`remove from favorite`, () => {
+    const reducerDone = reducer(
+        {offers: []},
+        ActionCreators.removeFromFavorites(
+            {
+              id: 0,
+              city: {
+                name: ``,
+                location: {
+                  latitude: 0,
+                  longitude: 0,
+                  zoom: 1,
+                }
+              },
+              price: 0,
+              rating: 1,
+              title: ``,
+              type: ``,
+              description: ``,
+              goods: [``],
+              bedrooms: ``,
+              [`is_favorite`]: false,
+              [`is_premium`]: true,
+              [`preview_image`]: ``,
+              [`max_adults`]: ``,
+              images: [``],
+              host: {
+                [`avatar_url`]: ``,
+                id: 0,
+                [`is_pro`]: false,
+                name: ``,
+              },
+              location: {
+                latitude: 0,
+                longitude: 0,
+                zoom: 1,
+              },
+            }
+        )
+    );
+    expect(reducerDone).toEqual({offers: []});
+  });
+
+
   it(`return default state`, () => {
     const reducerDone = reducer(
         initialState,
@@ -461,5 +548,34 @@ describe(`Reducer works correctly`, () => {
         }
     );
     expect(reducerDone).toEqual(initialState);
+  });
+
+  it(`should replace offer`, () => {
+    const offers = [
+      {
+        id: 1,
+        isFavorite: true,
+      },
+      {
+        id: 0,
+        isFavorite: false,
+      }
+    ];
+    const offer = {
+      id: 0,
+      isFavorite: true,
+    };
+    const expectOffers = [
+      {
+        id: 1,
+        isFavorite: true,
+      },
+      {
+        id: 0,
+        isFavorite: true,
+      }
+    ];
+    const replacedOffer = replaceOfferFromOffers(offers, offer);
+    expect(replacedOffer).toEqual(expectOffers);
   });
 });
