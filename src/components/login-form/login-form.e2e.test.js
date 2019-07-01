@@ -21,7 +21,16 @@ describe(`form work is correctly`, () => {
         />
     );
     const form = loginForm.find(`form`);
+    const inputEmail = loginForm.find(`input[type="email"]`);
+    const inputPassword = loginForm.find(`input[type="password"]`);
+    inputEmail.simulate(`change`, `user@gmail.com`);
+    inputPassword.simulate(`change`, `123`);
     form.simulate(`submit`, {preventDefault() {}});
-    expect(onButtonLogIn).toHaveBeenCalled();
+    expect(onChangeEmail).toBeCalled();
+    expect(onChangeEmail).toBeCalledWith(`user@gmail.com`);
+    expect(onChangePassword).toBeCalled();
+    expect(onChangePassword).toBeCalledWith(`123`);
+    expect(onButtonLogIn).toBeCalled();
+    expect(onButtonLogIn).toBeCalledWith(`user@gmail.com`, `123`);
   });
 });

@@ -56,7 +56,7 @@ describe(`button works correctly`, () => {
       history={history}
     />);
     button.simulate(`click`);
-    expect(push).toHaveBeenCalled();
+    expect(push).toBeCalled();
     expect(push).toBeCalledWith(Constants.LOGIN_PATH);
   });
 });

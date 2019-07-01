@@ -28,12 +28,10 @@ const withSelect = (Component) => {
 
     componentDidMount() {
       window.addEventListener(`click`, this.handleClickDocumentOutside);
-      window.addEventListener(`keydown`, this.handleDocumentKeyDownEsc);
     }
 
     componentWillUnmount() {
       window.removeEventListener(`click`, this.handleClickDocumentOutside);
-      window.removeEventListener(`keydown`, this.handleDocumentKeyDownEsc);
     }
 
     handleClickDocumentOutside(evt) {
@@ -65,6 +63,7 @@ const withSelect = (Component) => {
           {...this.props}
           selectedName={nameSelected}
           onClickDropdown={this.handleButtonClick}
+          onKeyDown={this.handleDocumentKeyDownEsc}
           onSelectOption={this.onSelectOption}
           button={this.button}
           dropdown={this.selectList}

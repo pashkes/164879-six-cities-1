@@ -44,6 +44,6 @@ it(`Call callback function when component is did mount`, () => {
         setCurrentCity={onCurrentCity}
       />
   );
-  expect(onCurrentCity).toHaveBeenCalled();
+  expect(onCurrentCity).toBeCalled();
   expect(onCurrentCity).toBeCalledWith(currentOffer.city.name);
 });

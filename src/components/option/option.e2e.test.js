@@ -30,9 +30,9 @@ describe(`Option work is correctly`, () => {
         />
     );
     option.simulate(`click`);
-    expect(onSelect).toHaveBeenCalled();
+    expect(onSelect).toBeCalled();
     expect(onSelect).toBeCalledWith(`value`, `name`);
-    expect(setTypeSort).toHaveBeenCalled();
+    expect(setTypeSort).toBeCalled();
     expect(setTypeSort).toBeCalledWith(`value`);
   });
 
@@ -48,9 +48,9 @@ describe(`Option work is correctly`, () => {
         />
     );
     option.simulate(`keyDown`, {keyCode: KeyCode.ENTER});
-    expect(onSelect).toHaveBeenCalled();
+    expect(onSelect).toBeCalled();
     expect(onSelect).toBeCalledWith(`value`, `name`);
-    expect(setTypeSort).toHaveBeenCalled();
+    expect(setTypeSort).toBeCalled();
     expect(setTypeSort).toBeCalledWith(`value`);
   });
 

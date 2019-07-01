@@ -24,6 +24,7 @@ exports[`Select renders correctly 1`] = `
   <ul
     aria-labelledby="sorter"
     className=" places__options places__options--custom"
+    tabIndex="-1"
   />
   <select
     defaultValue=""

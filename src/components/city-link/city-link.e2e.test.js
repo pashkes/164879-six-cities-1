@@ -18,6 +18,6 @@ it(`Should call callback function after click to the city`, () => {
   />);
   const link = city.find(`a`);
   link.simulate(`click`, {preventDefault() {}});
-  expect(handleClick).toHaveBeenCalled();
+  expect(handleClick).toBeCalled();
   expect(handleClick).toBeCalledWith(cityName);
 });
