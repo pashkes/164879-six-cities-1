@@ -6,12 +6,16 @@ import {CityLink} from "./city-link.jsx";
 
 configure({adapter: new Adapter()});
 
-it(`city link renders correctly if the city is current`, () => {
-  const currentCity = shallow(<CityLink city={`Amsterdam`} currentCity={`Amsterdam`} changeCity={jest.fn} changeCurrentCity={jest.fn} />);
-  expect(currentCity).toMatchSnapshot();
+
+describe(`city link renders correctly`, () => {
+  it(` if link is active`, () => {
+    const currentCity = shallow(<CityLink city={`Amsterdam`} currentCity={`Amsterdam`} changeCity={jest.fn} changeCurrentCity={jest.fn} />);
+    expect(currentCity).toMatchSnapshot();
+  });
+
+  it(` if link isn't active`, () => {
+    const defaultCity = shallow(<CityLink city={`Amsterdam`} currentCity={`Paris`} changeCity={jest.fn} />);
+    expect(defaultCity).toMatchSnapshot();
+  });
 });
 
-it(`city link renders correctly if the city isn't current`, () => {
-  const defaultCity = shallow(<CityLink city={`Amsterdam`} currentCity={`Paris`} changeCity={jest.fn} />);
-  expect(defaultCity).toMatchSnapshot();
-});

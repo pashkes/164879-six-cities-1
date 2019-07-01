@@ -5,15 +5,17 @@ import Adapter from "enzyme-adapter-react-16";
 import {Option} from './option.jsx';
 configure({adapter: new Adapter()});
 
-it(`Option renders correctly`, () => {
-  const option = shallow(<Option
-    button={{}}
-    name={`Popular`}
-    typeSort={jest.fn()}
-    onSelect={jest.fn()}
-    value={``}
-    isSelected={true}
-    onSelectOption={jest.fn()}
-  />);
-  expect(option).toMatchSnapshot();
+describe(`Option renders correctly`, () => {
+  it(`in default state`, () => {
+    const option = shallow(<Option
+      button={{}}
+      name={`Popular`}
+      setTypeSort={jest.fn()}
+      onSelect={jest.fn()}
+      value={``}
+      isSelected={false}
+      onSelectOption={jest.fn()}
+    />);
+    expect(option).toMatchSnapshot();
+  });
 });

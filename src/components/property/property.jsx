@@ -161,6 +161,9 @@ Property.propTypes = {
     rating: PropType.number.isRequired,
     goods: PropType.array.isRequired,
     price: PropType.number.isRequired,
+    city: PropType.shape({
+      name: PropType.string.isRequired,
+    }).isRequired,
     host: PropType.shape({
       avatarURL: PropType.string.isRequired,
       name: PropType.string.isRequired,

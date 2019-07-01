@@ -7,7 +7,7 @@ import {compose} from "recompose";
 
 import {ActionCreators} from "../../reducer/data/data";
 
-class Favorites extends PureComponent {
+export class Favorites extends PureComponent {
   constructor(props) {
     super(props);
     this.handelClickCity = this.handelClickCity.bind(this);

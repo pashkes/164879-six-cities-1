@@ -13,6 +13,7 @@ const Constants = {
   MAX_SHOWN_REVIEWS: 10,
   AMOUNT_NEARBY_OFFERS: 3,
   MAX_AMOUNT_PHOTO: 6,
+  ERROR_MESSAGE: `Something went wrong 😥😥😥`,
 };
 
 export const Page = {

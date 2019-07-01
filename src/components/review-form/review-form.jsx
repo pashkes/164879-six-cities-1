@@ -19,21 +19,15 @@ import {CommentLength} from "../../constants";
 export class ReviewForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleMessage = this.handleMessage.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleMessageKeyDown = this.handleMessageKeyDown.bind(this);
-    this.handleMessageOutside = this.handleMessageOutside.bind(this);
     this.form = React.createRef();
   }
 
-  handleSubmit(evt) {
+  handleSubmitForm(evt) {
     evt.preventDefault();
     const {sendComment, rating, comment} = this.props;
     sendComment({rating, comment});
-  }
-
-  handleMessage() {
-    document.addEventListener(`keydown`, this.handleMessageKeyDown);
   }
 
   handleMessageKeyDown({ctrlKey, keyCode}) {
@@ -46,10 +40,6 @@ export class ReviewForm extends PureComponent {
     if (isFormValid && ctrlKey && keyCode === KeyCode.ENTER) {
       sendComment({rating, comment});
     }
-  }
-
-  handleMessageOutside() {
-    document.removeEventListener(`keydown`, this.handleMessageKeyDown);
   }
 
   componentDidUpdate() {
@@ -73,7 +63,7 @@ export class ReviewForm extends PureComponent {
     return (
       <form
         className="reviews__form form"
-        onSubmit={this.handleSubmit}
+        onSubmit={this.handleSubmitForm}
         action="#"
         method="post"
         ref={this.form}
@@ -83,8 +73,7 @@ export class ReviewForm extends PureComponent {
         <textarea
           ref={textarea}
           onChange={onChangeMessage}
-          onFocus={this.handleMessage}
-          onBlur={this.handleMessageOutside}
+          onKeyDown={this.handleMessageKeyDown}
           minLength={CommentLength.MIN}
           maxLength={CommentLength.MAX}
           className="reviews__textarea form__textarea"

@@ -107,7 +107,7 @@ const Operation = {
         })
         .catch(() => {
           dispatch(ActionCreators.lockForm(false));
-          dispatch(ActionCreators.showError(`Something went wrong 😥😥😥`));
+          dispatch(ActionCreators.showError(Constants.ERROR_MESSAGE));
         });
     };
   },

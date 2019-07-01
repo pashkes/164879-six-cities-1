@@ -22,9 +22,8 @@ exports[`Review form renders correctly 1`] = `
     maxLength={300}
     minLength={50}
     name="review"
-    onBlur={[Function]}
     onChange={[MockFunction]}
-    onFocus={[Function]}
+    onKeyDown={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
   />
   <span

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`city link renders correctly if the city is current 1`] = `
+exports[`city link renders correctly  if link is active 1`] = `
 <li
   className="locations__item"
 >
@@ -16,7 +16,7 @@ exports[`city link renders correctly if the city is current 1`] = `
 </li>
 `;
 
-exports[`city link renders correctly if the city isn't current 1`] = `
+exports[`city link renders correctly  if link isn't active 1`] = `
 <li
   className="locations__item"
 >

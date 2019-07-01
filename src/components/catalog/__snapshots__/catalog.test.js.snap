@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`catalog renders correctly 1`] = `
+exports[`main page render is correctly if don't have offers 1`] = `
+<Fragment>
+  <MainEmpty
+    selectedCity=""
+  />
+</Fragment>
+`;
+
+exports[`main page render is correctly if have offers 1`] = `
 <Fragment>
   <main
     className="page__main page__main--index"

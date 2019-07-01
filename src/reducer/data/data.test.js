@@ -4,18 +4,17 @@ import createApi from './../../api';
 import {initialState, Operation, ActionType, reducer, ActionCreators} from './data';
 import Constants, {TypeSort} from "./../../constants";
 
-describe(`Reducer works correctly`, () => {
 
-  it(`Should make a correctly API load offers`, () => {
+describe(`Should make a correctly API`, () => {
+
+  it(`load offers`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const offers = Operation.loadOffers();
-
     apiMock
       .onGet(Constants.HOTEL_PATH)
       .reply(Constants.STATUS_OK, {fake: true});
-
     return offers(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
@@ -26,12 +25,11 @@ describe(`Reducer works correctly`, () => {
       });
   });
 
-  it(`Should make a correctly API for load reviews`, () => {
+  it(`load reviews`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const reviews = Operation.loadReviews(1);
-
     apiMock
       .onGet(`${Constants.COMMENTS_PATH}/1`)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -46,16 +44,14 @@ describe(`Reducer works correctly`, () => {
       });
   });
 
-  it(`Should make a correctly API for post review`, () => {
+  it(`post review`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const postReview = Operation.postReview(1);
-
     apiMock
       .onPost(`${Constants.COMMENTS_PATH}/1`)
       .reply(Constants.STATUS_OK, {fake: true});
-
     return postReview(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(4);
@@ -63,19 +59,29 @@ describe(`Reducer works correctly`, () => {
           type: ActionType.POST_REVIEW,
           payload: {data: {fake: true}, id: 1},
         });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.LOCK_FORM,
+          payload: false,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionType.CLEAN_FORM,
+          payload: true,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(4, {
+          type: ActionType.SHOW_ERROR,
+          payload: ``,
+        });
       });
   });
 
-  it(`Should make a correctly API for post review and return error when something went wrong`, () => {
+  it(`post review and return error when something went wrong`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const postReview = Operation.postReview(1);
-
     apiMock
       .onPost(`${Constants.COMMENTS_PATH}/1`)
       .networkError();
-
     return postReview(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
@@ -83,46 +89,79 @@ describe(`Reducer works correctly`, () => {
           type: ActionType.LOCK_FORM,
           payload: false,
         });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SHOW_ERROR,
+          payload: Constants.ERROR_MESSAGE,
+        });
       });
   });
 
-  it(`Should add loaded reviews correctly`, () => {
-    const reviewsFromServer = [{
-      id: 0,
-      comment: ``,
-      date: `2019-06-01T10:38:39.844Z`,
-      rating: 1,
-      user: {
-        name: ``,
-        [`avatar_url`]: ``,
-        [`is_pro`]: false,
-      },
-    }];
-    const expectReviewsAfterConvert = [{
-      id: 0,
-      comment: ``,
-      date: `June 2019`,
-      machineDate: `2019-06-06`,
-      rating: 1,
-      name: ``,
-      avatar: ``,
-      isPro: false,
-    }];
-    const reducerDone = reducer(
-        {
-          reviews: {}
-        },
-        ActionCreators.getReviews(reviewsFromServer, 0)
-    );
-    expect(reducerDone).toEqual({
-      reviews: {
-        0: expectReviewsAfterConvert,
-      },
-    });
-
+  it(`add to favorite`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+    const apiMock = new MockAdapter(api);
+    const id = 1;
+    const addToFavorite = Operation.addToFavorites(id);
+    apiMock
+      .onPost(`${Constants.FAVORITE_PATH}/${id}/1`)
+      .reply(Constants.STATUS_OK, {fake: true});
+    return addToFavorite(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toBeCalled();
+        expect(dispatch).toBeCalledWith(
+            {
+              type: ActionType.ADD_TO_FAVORITE,
+              payload: {fake: true}
+            }
+        );
+      });
   });
 
-  it(`Should add loaded offers correctly`, () => {
+  it(`remove from favorite`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+    const apiMock = new MockAdapter(api);
+    const id = 1;
+    const removeFromFavorite = Operation.removeFromFavorites(id);
+    apiMock
+      .onPost(`${Constants.FAVORITE_PATH}/${id}/0`)
+      .reply(Constants.STATUS_OK, {fake: true});
+    return removeFromFavorite(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toBeCalled();
+        expect(dispatch).toBeCalledWith(
+            {
+              type: ActionType.REMOVE_FROM_FAVORITE,
+              payload: {fake: true}
+            }
+        );
+      });
+  });
+
+  it(`load favorites`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+    const apiMock = new MockAdapter(api);
+    const loadFavorites = Operation.loadFavorites();
+    apiMock
+      .onGet(Constants.FAVORITE_PATH)
+      .reply(Constants.STATUS_OK, {fake: true});
+    return loadFavorites(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toBeCalled();
+        expect(dispatch).toBeCalledWith(
+            {
+              type: ActionType.LOAD_FAVORITES,
+              payload: {fake: true}
+            }
+        );
+      });
+  });
+
+});
+
+describe(`Reducer works correctly`, () => {
+  it(`add loaded offers`, () => {
     const offersFromServer = [{
       id: 0,
       city: {
@@ -201,7 +240,7 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`Should set current city`, () => {
+  it(`set current city`, () => {
     const reducerDone = reducer(
         {city: `Dusseldorf`},
         ActionCreators.setCity(`Amsterdam`)
@@ -211,7 +250,43 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`Should set current id of Offer`, () => {
+  it(`set loaded reviews`, () => {
+    const reviewsFromServer = [{
+      id: 0,
+      comment: ``,
+      date: `2019-06-01T10:38:39.844Z`,
+      rating: 1,
+      user: {
+        name: ``,
+        [`avatar_url`]: ``,
+        [`is_pro`]: false,
+      },
+    }];
+    const expectReviewsAfterConvert = [{
+      id: 0,
+      comment: ``,
+      date: `June 2019`,
+      machineDate: `2019-06-06`,
+      rating: 1,
+      name: ``,
+      avatar: ``,
+      isPro: false,
+    }];
+    const reducerDone = reducer(
+        {
+          reviews: {}
+        },
+        ActionCreators.getReviews(reviewsFromServer, 0)
+    );
+    expect(reducerDone).toEqual({
+      reviews: {
+        0: expectReviewsAfterConvert,
+      },
+    });
+
+  });
+
+  it(`set current id of Offer`, () => {
     const reducerDone = reducer(
         {currentOfferId: 0},
         ActionCreators.setActiveIdOffer(1)
@@ -221,7 +296,7 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`Should set sort type`, () => {
+  it(`set sort type`, () => {
     const reducerDone = reducer(
         {typeSort: TypeSort.POPULAR},
         ActionCreators.setSortType(TypeSort.TOP_RATED)
@@ -231,7 +306,7 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`Should add new review`, () => {
+  it(`add new review`, () => {
 
     const reducerDone = reducer(
         {reviews: {}},
@@ -261,7 +336,7 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`should set status sending review`, () => {
+  it(`set status sending review`, () => {
     const reducerDone = reducer(
         {isReviewSending: false},
         ActionCreators.lockForm(true)
@@ -273,7 +348,7 @@ describe(`Reducer works correctly`, () => {
     );
   });
 
-  it(`should set status whether sent review`, () => {
+  it(`set status whether sent review`, () => {
     const reducerDone = reducer(
         {isReviewSent: false},
         ActionCreators.cleanForm(true)
@@ -285,7 +360,7 @@ describe(`Reducer works correctly`, () => {
     );
   });
 
-  it(`should send error message`, () => {
+  it(`send error message`, () => {
     const reducerDone = reducer(
         {error: ``},
         ActionCreators.showError(`Something went wrong`)
@@ -297,7 +372,7 @@ describe(`Reducer works correctly`, () => {
     );
   });
 
-  it(`should correct add loaded favorites`, () => {
+  it(`add loaded favorites`, () => {
     const reducerDone = reducer(
         {favorites: []},
         ActionCreators.loadFavorites([
@@ -377,7 +452,7 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`should return default state`, () => {
+  it(`return default state`, () => {
     const reducerDone = reducer(
         initialState,
         {

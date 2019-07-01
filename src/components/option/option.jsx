@@ -17,11 +17,11 @@ export class Option extends PureComponent {
       onSelectOption,
       value,
       name,
-      typeSort,
+      setTypeSort,
       button
     } = this.props;
     onSelectOption(value, name);
-    typeSort(value);
+    setTypeSort(value);
     button.current.focus();
   }
 
@@ -30,13 +30,13 @@ export class Option extends PureComponent {
       button,
       onSelectOption,
       name,
-      typeSort,
+      setTypeSort,
       value,
     } = this.props;
     if (evt.keyCode === KeyCode.ENTER) {
       button.current.focus();
       onSelectOption(value, name);
-      typeSort(value);
+      setTypeSort(value);
     }
   }
 
@@ -60,13 +60,13 @@ Option.propTypes = {
   onSelectOption: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,
-  typeSort: PropTypes.func.isRequired,
+  setTypeSort: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   button: PropTypes.object.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  typeSort: (value) => dispatch(ActionCreators.setSortType(value)),
+  setTypeSort: (value) => dispatch(ActionCreators.setSortType(value)),
 });
 
 export default connect(null, mapDispatchToProps)(Option);

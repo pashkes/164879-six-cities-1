@@ -29,18 +29,33 @@ const propertyProps = {
   location: {latitude: 0, longitude: 0},
 };
 
-it(`Property page renders correctly`, () => {
-  const propertyPage = shallow(<Property
-    currentCity={``}
-    setCurrentCity={jest.fn()}
-    currentOfferCoordinates={[[0, 0]]}
-    isAuthorizationRequired={true}
-    isAuthorization={true}
-    offersOnMap={[]}
-    nearbyOffers={[]}
-    activeCity={``}
-    id={0}
-    currentOffer={propertyProps}
-  />);
-  expect(propertyPage).toMatchSnapshot();
+describe(`Property page renders correctly`, () => {
+  it(`if user require authorization`, () => {
+    const propertyPage = shallow(<Property
+      currentCity={``}
+      setCurrentCity={jest.fn()}
+      currentOfferCoordinates={[[0, 0]]}
+      isAuthorizationRequired={true}
+      offersOnMap={[]}
+      nearbyOffers={[]}
+      activeCity={``}
+      id={0}
+      currentOffer={propertyProps}
+    />);
+    expect(propertyPage).toMatchSnapshot();
+  });
+  it(`if user already authorized`, () => {
+    const propertyPage = shallow(<Property
+      currentCity={``}
+      setCurrentCity={jest.fn()}
+      currentOfferCoordinates={[[0, 0]]}
+      isAuthorizationRequired={false}
+      offersOnMap={[]}
+      nearbyOffers={[]}
+      activeCity={``}
+      id={0}
+      currentOffer={propertyProps}
+    />);
+    expect(propertyPage).toMatchSnapshot();
+  });
 });
