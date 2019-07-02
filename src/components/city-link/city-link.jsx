@@ -7,21 +7,24 @@ import {getCurrentCity} from "./../../reducer/data/selectors";
 export class CityLink extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleClickCity = this.handleClickCity.bind(this);
+
+    this._handleClickCity = this._handleClickCity.bind(this);
   }
 
-  handleClickCity(evt) {
-    const {changeCity, city} = this.props;
+  _handleClickCity(evt) {
+    const {onChangeCity, city} = this.props;
+
     evt.preventDefault();
-    changeCity(city);
+    onChangeCity(city);
   }
 
   render() {
     const {city, currentCity} = this.props;
+
     return (
       <li className="locations__item">
         <a
-          onClick={this.handleClickCity}
+          onClick={this._handleClickCity}
           className={`locations__item-link tabs__item ${currentCity === city ? `tabs__item--active` : ``}`}
           href="#">
           <span>{city}</span>
@@ -33,7 +36,7 @@ export class CityLink extends PureComponent {
 
 CityLink.propTypes = {
   city: PropTypes.string.isRequired,
-  changeCity: PropTypes.func.isRequired,
+  onChangeCity: PropTypes.func.isRequired,
   currentCity: PropTypes.string
 };
 

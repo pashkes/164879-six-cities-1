@@ -24,7 +24,8 @@ describe(`Option work is correctly`, () => {
           onSelectOption={onSelect}
           isSelected={false}
           value={`value`}
-          setTypeSort={setTypeSort}
+          onSetTypeSort={setTypeSort}
+          onFocusButton={jest.fn()}
           name={`name`}
           button={refButton}
         />
@@ -42,9 +43,9 @@ describe(`Option work is correctly`, () => {
           onSelectOption={onSelect}
           isSelected={false}
           value={`value`}
-          setTypeSort={setTypeSort}
+          onSetTypeSort={setTypeSort}
+          onFocusButton={jest.fn()}
           name={`name`}
-          button={refButton}
         />
     );
     option.simulate(`keyDown`, {keyCode: KeyCode.ENTER});

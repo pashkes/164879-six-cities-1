@@ -13,12 +13,14 @@ export class FavoritesPage extends PureComponent {
     super(props);
   }
   componentDidMount() {
-    const {loadFavorites} = this.props;
-    loadFavorites();
+    const {onLoadFavorites} = this.props;
+
+    onLoadFavorites();
   }
 
   render() {
     const {favorites, cities} = this.props;
+
     return (
       <Layout>
         {
@@ -57,12 +59,13 @@ export class FavoritesPage extends PureComponent {
 
 FavoritesPage.propTypes = {
   favorites: PropTypes.object.isRequired,
-  loadFavorites: PropTypes.func.isRequired,
+  onLoadFavorites: PropTypes.func.isRequired,
   cities: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const favorites = groupingFavoritesForCities(state);
+
   return {
     cities: Object.keys(favorites),
     favorites: favorites || {},
@@ -70,7 +73,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadFavorites: () => dispatch(Operation.loadFavorites()),
+  onLoadFavorites: () => dispatch(Operation.loadFavorites()),
 });
 
 

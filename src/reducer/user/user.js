@@ -2,7 +2,7 @@ import Constants from "./../../constants";
 import toModelUserDate from "./adapter";
 
 const initialState = {
-  isAuthorizationRequired: true,
+  isAuthRequire: true,
   userData: {},
 };
 
@@ -32,7 +32,7 @@ const Operation = {
         }
       });
   },
-  checkAuth: () => {
+  onCheckAuth: () => {
     return (dispatch, _getState, api) => {
       return api
         .get(Constants.LOGIN_PATH)
@@ -49,7 +49,7 @@ const Operation = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
-      return {...state, ...{isAuthorizationRequired: action.payload}};
+      return {...state, ...{isAuthRequire: action.payload}};
     case ActionType.AUTHORIZATION:
       return {...state, ...{userData: action.payload}};
     default:

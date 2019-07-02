@@ -49,7 +49,9 @@ exports[`Header should render is correctly if user already authorization 1`] = `
               />
               <span
                 className="header__user-name user__name"
-              />
+              >
+                user@gmail.com
+              </span>
             </Link>
           </li>
         </ul>

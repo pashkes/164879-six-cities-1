@@ -8,29 +8,29 @@ exports[`cities renders correctly 1`] = `
     className="locations__list tabs__list"
   >
     <ConnectFunction
-      changeCity={[Function]}
       city="Amsterdam"
-      key="0"
+      key="Amsterdam"
+      onChangeCity={[Function]}
     />
     <ConnectFunction
-      changeCity={[Function]}
       city="Paris"
-      key="1"
+      key="Paris"
+      onChangeCity={[Function]}
     />
     <ConnectFunction
-      changeCity={[Function]}
       city="Cologne"
-      key="2"
+      key="Cologne"
+      onChangeCity={[Function]}
     />
     <ConnectFunction
-      changeCity={[Function]}
       city="Hamburg"
-      key="3"
+      key="Hamburg"
+      onChangeCity={[Function]}
     />
     <ConnectFunction
-      changeCity={[Function]}
       city="Dusseldorf"
-      key="4"
+      key="Dusseldorf"
+      onChangeCity={[Function]}
     />
   </ul>
 </section>

@@ -7,10 +7,10 @@ const withReviewForm = (Component) => {
   class WithReviewForm extends PureComponent {
     constructor(props) {
       super(props);
-      this.handleTextMessage = this.handleTextMessage.bind(this);
-      this.setRating = this.setRating.bind(this);
-      this.submitButton = React.createRef();
-      this.messageBlock = React.createRef();
+
+      this._handleTextMessage = this._handleTextMessage.bind(this);
+      this._onSetRating = this._onSetRating.bind(this);
+
       this.state = {
         rating: 0,
         comment: ``,
@@ -18,14 +18,15 @@ const withReviewForm = (Component) => {
       };
     }
 
-    handleTextMessage(evt) {
+    _handleTextMessage(evt) {
       this.setState({comment: evt.target.value});
     }
 
     componentDidUpdate() {
-      const value = this.messageBlock.current.value;
-      const isMessageFilled = value.length >= CommentLength.MIN && value.length <= CommentLength.MAX;
-      const isRatingSelected = this.state.rating > 0;
+      const {comment, rating} = this.state;
+      const isMessageFilled = comment.length >= CommentLength.MIN && comment.length <= CommentLength.MAX;
+      const isRatingSelected = rating > 0;
+
       this.setState({isValidate: isMessageFilled && isRatingSelected});
 
       if (this.props.isReviewSent) {
@@ -37,7 +38,7 @@ const withReviewForm = (Component) => {
       }
     }
 
-    setRating(value) {
+    _onSetRating(value) {
       this.setState({rating: value});
     }
 
@@ -46,16 +47,15 @@ const withReviewForm = (Component) => {
         <Component
           {...this.props}
           comment={this.state.comment}
-          onChangeMessage={this.handleTextMessage}
-          onChangeRating={this.setRating}
+          onChangeMessage={this._handleTextMessage}
+          onChangeRating={this._onSetRating}
           rating={this.state.rating}
-          submitButton={this.submitButton}
-          textarea={this.messageBlock}
           isFormValid={this.state.isValidate}
         />
       );
     }
   }
+
   WithReviewForm.propTypes = {
     isReviewSent: PropTypes.bool.isRequired,
   };

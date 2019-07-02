@@ -8,15 +8,17 @@ import CardPlace from "../card-place/card-place.jsx";
 export class Offers extends PureComponent {
   constructor(props) {
     super(props);
-    this.onSelectOffer = this.onSelectOffer.bind(this);
+
+    this._onSelectOffer = this._onSelectOffer.bind(this);
   }
 
-  onSelectOffer(id) {
-    this.props.setActiveOffer(id);
+  _onSelectOffer(id) {
+    this.props.onSetActiveOffer(id);
   }
 
   render() {
     const {offers, classModOffers = []} = this.props;
+
     return <div
       className={`${classModOffers.join(` `)} places__list`}
       role="status"
@@ -26,7 +28,7 @@ export class Offers extends PureComponent {
         return <CardPlace
           key={offer.id}
           {...offer}
-          onSelected={this.onSelectOffer}
+          onSelected={this._onSelectOffer}
           classModPrefix={`cities`}
           mainClassMod={`cities__place-card`}
         />;
@@ -48,11 +50,11 @@ Offers.propTypes = {
   })).isRequired,
   classModOffers: PropTypes.array,
   classModCard: PropTypes.string,
-  setActiveOffer: PropTypes.func.isRequired,
+  onSetActiveOffer: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setActiveOffer: (id) => dispatch(ActionCreators.setActiveIdOffer(id)),
+  onSetActiveOffer: (id) => dispatch(ActionCreators.setActiveIdOffer(id)),
 });
 
 export default connect(null, mapDispatchToProps)(Offers);

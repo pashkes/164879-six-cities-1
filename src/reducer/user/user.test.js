@@ -34,7 +34,7 @@ describe(`Api works correctly`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
-    const authorization = Operation.checkAuth();
+    const authorization = Operation.onCheckAuth();
 
     apiMock
       .onGet(Constants.LOGIN_PATH)
@@ -58,11 +58,11 @@ describe(`Api works correctly`, () => {
 describe(`Reducer works correctly`, () => {
   it(`should change required authorization`, () => {
     const reducerDoneLogIn = reducer(
-        {isAuthorizationRequired: false},
+        {isAuthRequire: false},
         ActionCreators.requireAuthorization(true)
     );
 
-    expect(reducerDoneLogIn).toEqual({isAuthorizationRequired: true});
+    expect(reducerDoneLogIn).toEqual({isAuthRequire: true});
   });
 
   it(`should get correct user data`, () => {

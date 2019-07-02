@@ -25,6 +25,7 @@ export const Catalog = (props) => {
     currentOffer,
     cities,
   } = props;
+
   return (
     <Fragment>
       {
@@ -83,6 +84,7 @@ const sortOffers = (offers, sort) => {
 const mapStateToProps = (state) => {
   const offers = getFilteredOffers(state);
   const typeSort = getTypeSort(state);
+
   return {
     currentCity: getCurrentCity(state),
     offers: sortOffers(offers, typeSort),
@@ -92,5 +94,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export {mapStateToProps};
 export default connect(mapStateToProps)(Catalog);

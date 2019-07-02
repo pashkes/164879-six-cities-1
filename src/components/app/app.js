@@ -23,14 +23,16 @@ export class App extends PureComponent {
   }
 
   componentDidMount() {
-    const {checkAuth} = this.props;
-    checkAuth();
+    const {onCheckAuth} = this.props;
+
+    onCheckAuth();
   }
 
   render() {
-    const {isAuthorizationRequired} = this.props;
-    const FavoritesPrivate = withPrivateRoute(isAuthorizationRequired, Constants.LOGIN_PATH)(FavoritesPage);
-    const SignInPrivate = withPrivateRoute(!isAuthorizationRequired)(SignIn);
+    const {isAuthRequire} = this.props;
+    const FavoritesPrivate = withPrivateRoute(isAuthRequire, Constants.LOGIN_PATH)(FavoritesPage);
+    const SignInPrivate = withPrivateRoute(!isAuthRequire)(SignIn);
+
     return (
       <Switch>
         <Route path="/" exact component={MainPage} />
@@ -44,29 +46,30 @@ export class App extends PureComponent {
 }
 
 App.propTypes = {
-  isAuthorizationRequired: PropTypes.bool.isRequired,
-  loadData: PropTypes.func.isRequired,
-  checkAuth: PropTypes.func.isRequired,
+  isAuthRequire: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+  onCheckAuth: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(DataOperation.loadOffers()),
-  checkAuth: () => dispatch(UserOperation.checkAuth()),
+  onLoadData: () => dispatch(DataOperation.loadOffers()),
+  onCheckAuth: () => dispatch(UserOperation.onCheckAuth()),
 });
 
 const mapStateToProps = (state) => {
   const offers = getOffers(state);
+
   return {
-    isAuthorizationRequired: getAuthorizationStatus(state),
+    isAuthRequire: getAuthorizationStatus(state),
     offers,
     isLoading: offers.length !== 0,
   };
 };
 
-const _App = compose(
+const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
 
-export default _App(App);
+export default enhance(App);

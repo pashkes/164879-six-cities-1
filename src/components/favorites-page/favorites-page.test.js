@@ -8,12 +8,26 @@ configure({adapter: new Adapter()});
 
 describe(`Should correctly render`, () => {
   it(`favorites page is renders correctly`, () => {
-    const favorites = shallow(<FavoritesPage cities={[`Amsterdam`]} favorites={{}} isLoading={false} loadFavorites={jest.fn()} />);
+    const favorites = shallow(
+        <FavoritesPage
+          cities={[`Amsterdam`]}
+          favorites={{}}
+          isLoading={false}
+          onLoadFavorites={jest.fn()}
+        />
+    );
     expect(favorites).toMatchSnapshot();
   });
 
   it(`Should render empty favorites page if bookmarks is none`, () => {
-    const favorites = shallow(<FavoritesPage cities={[]} favorites={{}} isLoading={false} loadFavorites={jest.fn()} />);
+    const favorites = shallow(
+        <FavoritesPage
+          cities={[]}
+          favorites={{}}
+          isLoading={false}
+          onLoadFavorites={jest.fn()}
+        />
+    );
     expect(favorites).toMatchSnapshot();
   });
 });

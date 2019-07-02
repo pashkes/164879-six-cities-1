@@ -7,7 +7,7 @@ import Adapter from "enzyme-adapter-react-16";
 configure({adapter: new Adapter()});
 
 it(`list of offers renders correctly`, () => {
-  const cards = shallow(<Offers setActiveOffer={jest.fn()} offers={offers} />);
+  const cards = shallow(<Offers onSetActiveOffer={jest.fn()} offers={offers} />);
   expect(cards).toMatchSnapshot();
 });
 

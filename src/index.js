@@ -16,6 +16,7 @@ const initApp = () => {
   const api = createAPI(() => {
     store.dispatch(UserActionCreators.requireAuthorization(true));
   });
+
   store = createStore(
       reducer,
       composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))

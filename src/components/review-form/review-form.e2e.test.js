@@ -12,13 +12,6 @@ describe(`form comment works is correctly`, () => {
   const onChangeRating = jest.fn();
   const sendForm = jest.fn();
   const updateForm = jest.fn();
-  const focus = () => {
-  };
-  const textarea = {
-    current: {
-      focus
-    }
-  };
   const commentValue = `some text`;
   const ratingValue = 1;
   const submitForm = shallow(
@@ -28,10 +21,8 @@ describe(`form comment works is correctly`, () => {
         idCurrentOffer={0}
         rating={ratingValue}
         comment={commentValue}
-        sendComment={sendForm}
-        submitButton={{}}
-        textarea={textarea}
-        updateForm={updateForm}
+        onSendComment={sendForm}
+        onUpdateForm={updateForm}
         isReviewSending={false}
         isReviewSent={false}
         isFormValid={true}

@@ -7,7 +7,8 @@ import Constants, {Page} from "./../../constants";
 import {getUserData, getAuthorizationStatus} from "./../../reducer/user/selectors";
 
 export const Header = (props) => {
-  const {isAuthorizationRequired, userData} = props;
+  const {isAuthRequire, userData} = props;
+
   return (
     <header className="header">
       <div className="container">
@@ -20,12 +21,12 @@ export const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link to={isAuthorizationRequired ? Page.LOGIN : Page.FAVORITES} className="header__nav-link header__nav-link--profile">
+                <Link to={isAuthRequire ? Page.LOGIN : Page.FAVORITES} className="header__nav-link header__nav-link--profile">
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
-                    style={isAuthorizationRequired ? {} : {backgroundImage: `url(${Constants.BASE_URL}${userData.avatar})`}}>
+                    style={isAuthRequire ? {} : {backgroundImage: `url(${Constants.BASE_URL}${userData.avatar})`}}>
                   </div>
-                  <span className="header__user-name user__name">{isAuthorizationRequired ? `Sign In` : userData.email}</span>
+                  <span className="header__user-name user__name">{isAuthRequire ? `Sign In` : userData.email}</span>
                 </Link>
               </li>
             </ul>
@@ -38,14 +39,20 @@ export const Header = (props) => {
 ;
 
 Header.propTypes = {
-  isAuthorizationRequired: PropTypes.bool.isRequired,
-  userData: PropTypes.object.isRequired,
+  isAuthRequire: PropTypes.bool.isRequired,
+  userData: PropTypes.shape({
+    avatar: PropTypes.string,
+    email: PropTypes.string,
+    id: PropTypes.number,
+    isPro: PropTypes.bool,
+    name: PropTypes.string,
+  }).isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   userData: getUserData(state),
-  isAuthorizationRequired: getAuthorizationStatus(state)
+  isAuthRequire: getAuthorizationStatus(state)
 });
 
 export default connect(mapStateToProps)(Header);

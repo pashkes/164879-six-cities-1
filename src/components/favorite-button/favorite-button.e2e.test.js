@@ -14,11 +14,11 @@ describe(`button works correctly`, () => {
     const id = 0;
     const button = shallow(<FavoriteButton
       isFavorite={false}
-      addToFavorites={callbackFnAddToFavorite}
-      removeFromFavorites={jest.fn()}
+      onAddToFavorites={callbackFnAddToFavorite}
+      onRemoveFromFavorites={jest.fn()}
       id={id}
       prefixClass={``}
-      isAuthorizationRequired={false}
+      isAuthRequire={false}
     />);
     button.simulate(`click`);
     expect(callbackFnAddToFavorite).toHaveBeenCalled();
@@ -30,11 +30,11 @@ describe(`button works correctly`, () => {
     const id = 0;
     const button = shallow(<FavoriteButton
       isFavorite={true}
-      addToFavorites={jest.fn()}
-      removeFromFavorites={callbackFnRemoveFromFavorite}
+      onAddToFavorites={jest.fn()}
+      onRemoveFromFavorites={callbackFnRemoveFromFavorite}
       id={id}
       prefixClass={``}
-      isAuthorizationRequired={false}
+      isAuthRequire={false}
     />);
     button.simulate(`click`);
     expect(callbackFnRemoveFromFavorite).toHaveBeenCalled();
@@ -48,11 +48,11 @@ describe(`button works correctly`, () => {
     };
     const button = shallow(<FavoriteButton
       isFavorite={true}
-      addToFavorites={jest.fn()}
-      removeFromFavorites={jest.fn()}
+      onAddToFavorites={jest.fn()}
+      onRemoveFromFavorites={jest.fn()}
       id={0}
       prefixClass={``}
-      isAuthorizationRequired={true}
+      isAuthRequire={true}
       history={history}
     />);
     button.simulate(`click`);

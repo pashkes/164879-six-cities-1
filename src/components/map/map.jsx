@@ -16,29 +16,33 @@ const MapConfig = {
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+
     this.group = null;
-    this.icon = leaflet.icon({
+    this._icon = leaflet.icon({
       iconUrl: MapConfig.MARKER_PATH,
       iconSize: MapConfig.MARKER_SIZE,
     });
-    this.activeIcon = leaflet.icon({
+    this._activeIcon = leaflet.icon({
       iconUrl: MapConfig.ACTIVE_MARKER_PATH,
       iconSize: MapConfig.MARKER_SIZE,
     });
   }
 
-  addMarkers() {
+  _addMarkers() {
     const {selectedOffer, coordinates} = this.props;
+
     this.group = leaflet.layerGroup().addTo(this.map);
+
     for (let item of coordinates) {
-      leaflet.marker(item, {icon: this.icon})
+      leaflet.marker(item, {icon: this._icon})
         .addTo(this.group);
     }
-    leaflet.marker(selectedOffer, {icon: this.activeIcon}).addTo(this.group);
+    leaflet.marker(selectedOffer, {icon: this._activeIcon}).addTo(this.group);
   }
 
-  initMap() {
+  _initMap() {
     const city = CITIES.get(this.props.currentCity);
+
     this.map = leaflet.map(MapConfig.ID, {
       center: city,
       zoom: MapConfig.ZOOM,
@@ -46,26 +50,31 @@ class Map extends PureComponent {
       marker: true,
       scrollWheelZoom: false,
     });
+
     this.map.setView(city, MapConfig.ZOOM);
+
     leaflet
       .tileLayer(MapConfig.TITLE_LAYER)
       .addTo(this.map);
-    this.addMarkers();
+    this._addMarkers();
   }
 
   componentDidMount() {
-    this.initMap();
+    this._initMap();
   }
 
   componentDidUpdate() {
     const {currentCity, coordinates, selectedOffer} = this.props;
+
     this.group.clearLayers();
     this.map.setView(CITIES.get(currentCity), MapConfig.ZOOM);
+
     for (let item of coordinates) {
-      leaflet.marker(item, {icon: this.icon})
+      leaflet.marker(item, {icon: this._icon})
         .addTo(this.group);
     }
-    leaflet.marker(selectedOffer, {icon: this.activeIcon})
+
+    leaflet.marker(selectedOffer, {icon: this._activeIcon})
       .addTo(this.group);
   }
 

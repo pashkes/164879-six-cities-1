@@ -8,22 +8,25 @@ import City from "../city-link/city-link.jsx";
 export class Cities extends PureComponent {
   constructor(props) {
     super(props);
-    this.onSetCity = this.onSetCity.bind(this);
+    this._onSetCity = this._onSetCity.bind(this);
   }
 
-  onSetCity(city) {
-    this.props.changeCurrentCity(city);
+  _onSetCity(city) {
+    const {onChangeCity} = this.props;
+
+    onChangeCity(city);
   }
 
   render() {
     const {cities} = this.props;
+
     return (
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cities.map((city, i) => <City
-            key={i}
+          {cities.map((city) => <City
+            key={city}
             city={city}
-            changeCity={this.onSetCity}
+            onChangeCity={this._onSetCity}
           />)}
         </ul>
       </section>
@@ -33,11 +36,11 @@ export class Cities extends PureComponent {
 
 Cities.propTypes = {
   cities: PropTypes.array.isRequired,
-  changeCurrentCity: PropTypes.func.isRequired
+  onChangeCity: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCurrentCity: (city) => dispatch(ActionCreators.setCity(city)),
+  onChangeCity: (city) => dispatch(ActionCreators.setCity(city)),
 });
 
 export default connect(null, mapDispatchToProps)(Cities);

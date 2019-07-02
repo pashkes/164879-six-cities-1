@@ -7,6 +7,13 @@ import Favorites from "./favorites.jsx";
 configure({adapter: new Adapter()});
 
 it(`favorites is renders correctly`, () => {
-  const favorites = shallow(<Favorites history={{}} changeCity={jest.fn()} cities={[`Amsterdam`]} favorites={{'Amsterdam': []}} />);
+  const favorites = shallow(
+      <Favorites
+        history={{}}
+        onChangeCity={jest.fn()}
+        cities={[`Amsterdam`]}
+        favorites={{'Amsterdam': []}}
+      />
+  );
   expect(favorites).toMatchSnapshot();
 });

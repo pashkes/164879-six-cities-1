@@ -38,12 +38,14 @@ export const getFilteredOffers = createSelector(
 
 export const getCurrentOffer = (state, id) => {
   const offers = getOffers(state);
+
   return offers.find((item) => item.id === Number(id));
 };
 
 export const getNearbyOffers = (state, id) => {
   const offers = getOffers(state);
   const currentOffer = getCurrentOffer(state, id);
+
   return offers.map((offer) => {
     offer.dist = calcDistance(currentOffer.location.longitude, currentOffer.location.latitude, offer.location.longitude, offer.location.latitude);
     return offer;
@@ -58,11 +60,13 @@ const calcDistance = (x1, y1, x2, y2) => Math.sqrt(Math.pow((x1 - x2), 2) + Math
 
 export const groupingFavoritesForCities = (state) => {
   const favorites = getFavorites(state);
+
   if (favorites.length === 0) {
     return false;
   }
   const citiesKeys = [...new Set([...favorites.map((item) => item.city.name)])];
   const group = {};
+
   citiesKeys.forEach((item) => {
     group[item] = [];
   });
@@ -77,5 +81,6 @@ export const getSelectedOffer = (state) => {
   const currentOfferId = getSelectedIdOffer(state);
   const offers = getOffers(state);
   const currentOffer = offers.find((item) => item.id === currentOfferId);
+
   return currentOffer ? [currentOffer.location.latitude, currentOffer.location.longitude] : [0, 0];
 };

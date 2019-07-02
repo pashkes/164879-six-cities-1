@@ -12,6 +12,7 @@ describe(`Should make a correctly API`, () => {
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const offers = Operation.loadOffers();
+
     apiMock
       .onGet(Constants.HOTEL_PATH)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -30,6 +31,7 @@ describe(`Should make a correctly API`, () => {
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const reviews = Operation.loadReviews(1);
+
     apiMock
       .onGet(`${Constants.COMMENTS_PATH}/1`)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -49,6 +51,7 @@ describe(`Should make a correctly API`, () => {
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const postReview = Operation.postReview(1);
+
     apiMock
       .onPost(`${Constants.COMMENTS_PATH}/1`)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -79,6 +82,7 @@ describe(`Should make a correctly API`, () => {
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const postReview = Operation.postReview(1);
+
     apiMock
       .onPost(`${Constants.COMMENTS_PATH}/1`)
       .networkError();
@@ -102,6 +106,7 @@ describe(`Should make a correctly API`, () => {
     const apiMock = new MockAdapter(api);
     const id = 1;
     const addToFavorite = Operation.addToFavorites(id);
+
     apiMock
       .onPost(`${Constants.FAVORITE_PATH}/${id}/1`)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -123,6 +128,7 @@ describe(`Should make a correctly API`, () => {
     const apiMock = new MockAdapter(api);
     const id = 1;
     const removeFromFavorite = Operation.removeFromFavorites(id);
+
     apiMock
       .onPost(`${Constants.FAVORITE_PATH}/${id}/0`)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -143,6 +149,7 @@ describe(`Should make a correctly API`, () => {
     const api = createApi(dispatch);
     const apiMock = new MockAdapter(api);
     const loadFavorites = Operation.loadFavorites();
+
     apiMock
       .onGet(Constants.FAVORITE_PATH)
       .reply(Constants.STATUS_OK, {fake: true});
@@ -196,7 +203,6 @@ describe(`Reducer works correctly`, () => {
         zoom: 1,
       },
     }];
-
     const expectOfferAfterConvert = [{
       id: 0,
       city: {
@@ -235,6 +241,7 @@ describe(`Reducer works correctly`, () => {
         {offers: []},
         ActionCreators.loadOffers(offersFromServer)
     );
+
     expect(reducerDone).toEqual({
       offers: expectOfferAfterConvert,
     });
@@ -245,6 +252,7 @@ describe(`Reducer works correctly`, () => {
         {city: `Dusseldorf`},
         ActionCreators.setCity(`Amsterdam`)
     );
+
     expect(reducerDone).toEqual({
       city: `Amsterdam`
     });
@@ -278,6 +286,7 @@ describe(`Reducer works correctly`, () => {
         },
         ActionCreators.getReviews(reviewsFromServer, 0)
     );
+
     expect(reducerDone).toEqual({
       reviews: {
         0: expectReviewsAfterConvert,
@@ -291,6 +300,7 @@ describe(`Reducer works correctly`, () => {
         {currentOfferId: 0},
         ActionCreators.setActiveIdOffer(1)
     );
+
     expect(reducerDone).toEqual({
       currentOfferId: 1
     });
@@ -301,13 +311,13 @@ describe(`Reducer works correctly`, () => {
         {typeSort: TypeSort.POPULAR},
         ActionCreators.setSortType(TypeSort.TOP_RATED)
     );
+
     expect(reducerDone).toEqual({
       typeSort: {type: TypeSort.TOP_RATED}
     });
   });
 
   it(`add new review`, () => {
-
     const reducerDone = reducer(
         {reviews: {}},
         ActionCreators.postReview([{
@@ -322,6 +332,7 @@ describe(`Reducer works correctly`, () => {
           },
         }], 1)
     );
+
     expect(reducerDone).toEqual({
       reviews: {'1': [{
         id: 1,
@@ -341,6 +352,7 @@ describe(`Reducer works correctly`, () => {
         {isReviewSending: false},
         ActionCreators.lockForm(true)
     );
+
     expect(reducerDone).toEqual(
         {
           isReviewSending: true,
@@ -353,6 +365,7 @@ describe(`Reducer works correctly`, () => {
         {isReviewSent: false},
         ActionCreators.cleanForm(true)
     );
+
     expect(reducerDone).toEqual(
         {
           isReviewSent: true,
@@ -365,6 +378,7 @@ describe(`Reducer works correctly`, () => {
         {error: ``},
         ActionCreators.showError(`Something went wrong`)
     );
+
     expect(reducerDone).toEqual(
         {
           error: `Something went wrong`,
@@ -412,6 +426,7 @@ describe(`Reducer works correctly`, () => {
           }
         ])
     );
+
     expect(reducerDone).toEqual({
       favorites: [
         {
@@ -492,6 +507,7 @@ describe(`Reducer works correctly`, () => {
             }
         )
     );
+
     expect(reducerDone).toEqual({offers: []});
   });
 
@@ -535,6 +551,7 @@ describe(`Reducer works correctly`, () => {
             }
         )
     );
+
     expect(reducerDone).toEqual({offers: []});
   });
 
@@ -547,6 +564,7 @@ describe(`Reducer works correctly`, () => {
           payload: {unknownField: ``}
         }
     );
+
     expect(reducerDone).toEqual(initialState);
   });
 
@@ -576,6 +594,7 @@ describe(`Reducer works correctly`, () => {
       }
     ];
     const replacedOffer = replaceOfferFromOffers(offers, offer);
+
     expect(replacedOffer).toEqual(expectOffers);
   });
 });

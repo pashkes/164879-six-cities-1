@@ -9,13 +9,13 @@ it(`Select renders correctly`, () => {
   const option = shallow(<Select
     onSelected={jest.fn()}
     selected={``}
-    onClickDropdown={jest.fn()}
+    onOpenDropdown={jest.fn()}
     onSelectOption={jest.fn()}
     selectedName={``}
     isOpen={false}
+    onCloseDropdown={jest.fn()}
     options={[]}
-    dropdown={{}}
-    button={{}}
+    onKeyDownCloseDropdown={jest.fn()}
   />);
   expect(option).toMatchSnapshot();
 });

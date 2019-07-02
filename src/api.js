@@ -16,6 +16,7 @@ const createApi = (onLoginFail) => {
     }
     throw err;
   };
+
   api.interceptors.response.use(onSuccess, onFail);
 
   return api;
