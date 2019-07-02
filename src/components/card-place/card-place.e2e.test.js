@@ -20,6 +20,7 @@ it(`should call callback function after click to the image`, () => {
     rating={0}
     onSelected={callbackFunction}
   />);
+
   card.find(`.place-card__image-wrapper a`).simulate(`click`, {preventDefault() {}});
   expect(callbackFunction).toBeCalled();
   expect(callbackFunction).toBeCalledWith(idOfCard);

@@ -9,12 +9,25 @@ configure({adapter: new Adapter()});
 
 describe(`city link renders correctly`, () => {
   it(` if link is active`, () => {
-    const currentCity = shallow(<CityLink city={`Amsterdam`} currentCity={`Amsterdam`} changeCity={jest.fn} changeCurrentCity={jest.fn} />);
+    const currentCity = shallow(
+        <CityLink
+          city={`Amsterdam`}
+          currentCity={`Amsterdam`}
+          onChangeCity={jest.fn}
+          changeCurrentCity={jest.fn}
+        />
+    );
     expect(currentCity).toMatchSnapshot();
   });
 
   it(` if link isn't active`, () => {
-    const defaultCity = shallow(<CityLink city={`Amsterdam`} currentCity={`Paris`} changeCity={jest.fn} />);
+    const defaultCity = shallow(
+        <CityLink
+          city={`Amsterdam`}
+          currentCity={`Paris`}
+          onChangeCity={jest.fn}
+        />
+    );
     expect(defaultCity).toMatchSnapshot();
   });
 });

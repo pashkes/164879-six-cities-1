@@ -28,8 +28,9 @@ export class Property extends PureComponent {
   }
 
   componentDidMount() {
-    const {setCurrentCity, currentOffer} = this.props;
-    setCurrentCity(currentOffer.city.name);
+    const {onSetCurrentCity, currentOffer} = this.props;
+
+    onSetCurrentCity(currentOffer.city.name);
   }
 
   render() {
@@ -38,9 +39,10 @@ export class Property extends PureComponent {
       currentCity,
       offersOnMap,
       nearbyOffers,
-      isAuthorizationRequired,
+      isAuthRequire,
       currentOffer
     } = this.props;
+
     const {
       images,
       isPremium,
@@ -123,7 +125,7 @@ export class Property extends PureComponent {
                 </div>
                 <section className="property__reviews reviews">
                   <Reviews id={id}/>
-                  {!isAuthorizationRequired && <ReviewForm idCurrentOffer={id} />}
+                  {!isAuthRequire && <ReviewForm idCurrentOffer={id} />}
                 </section>
               </div>
             </div>
@@ -181,8 +183,8 @@ Property.propTypes = {
   nearbyOffers: PropType.array.isRequired,
   currentCity: PropType.string.isRequired,
   offersOnMap: PropType.array.isRequired,
-  isAuthorizationRequired: PropType.bool.isRequired,
-  setCurrentCity: PropType.func.isRequired,
+  isAuthRequire: PropType.bool.isRequired,
+  onSetCurrentCity: PropType.func.isRequired,
   currentOfferCoordinates: PropType.array,
 };
 
@@ -196,19 +198,19 @@ const mapStateToProps = (state, ownProps) => {
     nearbyOffers: nearbyOffers || [],
     offersOnMap: nearbyOffers.map((it) => [it.location.latitude, it.location.longitude]),
     currentCity: getCurrentCity(state),
-    isAuthorizationRequired: getAuthorizationStatus(state),
+    isAuthRequire: getAuthorizationStatus(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadData: () => dispatch(DataOperation.loadOffers()),
-  setCurrentCity: (city) => dispatch(ActionCreators.setCity(city)),
+  onLoadData: () => dispatch(DataOperation.loadOffers()),
+  onSetCurrentCity: (city) => dispatch(ActionCreators.setCity(city)),
 });
 
 
-const property = compose(
+const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
 
-export default property(Property);
+export default enhance(Property);

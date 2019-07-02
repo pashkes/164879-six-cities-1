@@ -12,6 +12,7 @@ const Review = (props) => {
     name,
     machineDate,
   } = props;
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

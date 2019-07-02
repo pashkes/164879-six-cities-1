@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 class Rating extends Component {
   constructor(props) {
     super(props);
-    this.handlerChange = this.handlerChange.bind(this);
+
+    this._handlerChange = this._handlerChange.bind(this);
   }
 
-  handlerChange({target}) {
+  _handlerChange({target}) {
     this.props.onChangeRating(Number(target.value));
   }
 
   render() {
     return (
-      <div className="reviews__rating-form form__rating" onChange={this.handlerChange}>
+      <div className="reviews__rating-form form__rating" onChange={this._handlerChange}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">

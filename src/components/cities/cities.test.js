@@ -15,7 +15,7 @@ const mockCities = [
 ];
 
 it(`cities renders correctly`, () => {
-  const cities = shallow(<Cities cities={mockCities} changeCurrentCity={jest.fn} changeCity={jest.fn()}/>);
+  const cities = shallow(<Cities cities={mockCities} onChangeCity={jest.fn} />);
   expect(cities).toMatchSnapshot();
 });
 

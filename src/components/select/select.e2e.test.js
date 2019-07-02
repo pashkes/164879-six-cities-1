@@ -13,13 +13,12 @@ describe(`Select works correctly`, () => {
   const select = shallow(
       <Select
         options={[]}
-        onKeyDown={onKeyDown}
-        onClickDropdown={onClickDropdown}
+        onCloseDropdown={onKeyDown}
+        onOpenDropdown={onClickDropdown}
         onSelectOption={jest.fn()}
         isOpen={false}
+        onKeyDownCloseDropdown={onKeyDown}
         selected={``}
-        button={{}}
-        dropdown={{}}
         selectedName={`Default value`}
       />
   );

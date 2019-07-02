@@ -5,6 +5,7 @@ import Header from "./../header/header.jsx";
 
 const Layout = (props) => {
   const {pageClasses, children} = props;
+
   return (
     <div className={`${pageClasses ? pageClasses.join(` `) : ``}`}>
       <Header />

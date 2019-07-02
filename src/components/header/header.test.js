@@ -9,11 +9,8 @@ configure({adapter: new Adapter()});
 describe(`Header should render is correctly`, () => {
   it(`if user require authorization`, () => {
     const header = shallow(<Header
-      isAuthorizationRequired={true}
-      userData={{
-        avatar: ``,
-        email: ``,
-      }}
+      isAuthRequire={true}
+      userData={{}}
       onClickLogOut={jest.fn()}
       logOut={jest.fn()}
     />);
@@ -22,10 +19,13 @@ describe(`Header should render is correctly`, () => {
 
   it(`if user already authorization`, () => {
     const header = shallow(<Header
-      isAuthorizationRequired={false}
+      isAuthRequire={false}
       userData={{
         avatar: ``,
-        email: ``,
+        email: `user@gmail.com`,
+        name: `user`,
+        isPro: true,
+        id: 0,
       }}
       onClickLogOut={jest.fn()}
       logOut={jest.fn()}

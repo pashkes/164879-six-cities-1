@@ -43,6 +43,7 @@ const toFormatMachineDate = (date) => {
   const year = toDate.getFullYear().toString();
   const day = (toDate.getDay()).toString().padStart(2, `0`);
   const month = (toDate.getMonth() + 1).toString().padStart(2, `0`);
+
   return `${year}-${month}-${day}`;
 };
 

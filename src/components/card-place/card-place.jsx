@@ -7,10 +7,11 @@ import FavoriteButton from "./../favorite-button/favorite-button.jsx";
 class CardPlace extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleImageClick = this.handleImageClick.bind(this);
+
+    this._handleImageClick = this._handleImageClick.bind(this);
   }
 
-  handleImageClick(evt) {
+  _handleImageClick(evt) {
     const {onSelected, id} = this.props;
     evt.preventDefault();
     onSelected(id);
@@ -29,10 +30,11 @@ class CardPlace extends PureComponent {
       mainClassMod = ``,
       classModPrefix = ``,
     } = this.props;
+
     return <article className={`${mainClassMod} place-card`}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={`${classModPrefix}__image-wrapper place-card__image-wrapper`}>
-        <a href="#" onClick={this.handleImageClick}>
+        <a href="#" onClick={this._handleImageClick}>
           <img className="place-card__image" src={previewPhoto} width="260" height="200" loading="lazy" alt="Place image"/>
         </a>
       </div>

@@ -8,45 +8,49 @@ import {KeyCode} from "./../../constants";
 export class Option extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleOptionClick = this.handleOptionClick.bind(this);
-    this.handleOptionKeyDownEnter = this.handleOptionKeyDownEnter.bind(this);
+
+    this._handleOptionClick = this._handleOptionClick.bind(this);
+    this._handleKeyDownEnter = this._handleKeyDownEnter.bind(this);
   }
 
-  handleOptionClick() {
+  _handleOptionClick() {
     const {
-      onSelectOption,
       value,
       name,
-      setTypeSort,
-      button
+      onSetTypeSort,
+      onSelectOption,
+      onFocusButton,
     } = this.props;
+
     onSelectOption(value, name);
-    setTypeSort(value);
-    button.current.focus();
+    onSetTypeSort(value);
+    onFocusButton();
   }
 
-  handleOptionKeyDownEnter(evt) {
+  _handleKeyDownEnter(evt) {
     const {
-      button,
-      onSelectOption,
+      onFocusButton,
       name,
-      setTypeSort,
       value,
+      onSelectOption,
+      onSetTypeSort,
     } = this.props;
+
     if (evt.keyCode === KeyCode.ENTER) {
-      button.current.focus();
       onSelectOption(value, name);
-      setTypeSort(value);
+      onSetTypeSort(value);
+      onFocusButton();
     }
   }
 
   render() {
     const {isSelected, value, name} = this.props;
+
     return (
       <li
         className={`${isSelected ? `places__option--active` : ``} places__option`}
-        onKeyDown={this.handleOptionKeyDownEnter}
-        onClick={this.handleOptionClick}
+        onKeyDown={this._handleKeyDownEnter}
+        onClick={this._handleOptionClick}
         tabIndex="0"
         data-value={value}
       >
@@ -57,16 +61,16 @@ export class Option extends PureComponent {
 }
 
 Option.propTypes = {
-  onSelectOption: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,
-  setTypeSort: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  button: PropTypes.object.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onSetTypeSort: PropTypes.func.isRequired,
+  onSelectOption: PropTypes.func.isRequired,
+  onFocusButton: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setTypeSort: (value) => dispatch(ActionCreators.setSortType(value)),
+  onSetTypeSort: (value) => dispatch(ActionCreators.setSortType(value)),
 });
 
 export default connect(null, mapDispatchToProps)(Option);

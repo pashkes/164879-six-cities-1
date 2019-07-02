@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {compose} from "recompose";
 
-import Rating from "../rating/rating.jsx";
 import withReviewForm from "./../../hocs/with-review-form/with-review-form";
-
 import {Operation, ActionCreators} from "../../reducer/data/data";
-
 import {
   getStatusSendingReview,
   getStatusIsSentReview,
@@ -16,36 +13,43 @@ import {
 import {KeyCode} from "../../constants";
 import {CommentLength} from "../../constants";
 
+import Rating from "../rating/rating.jsx";
+
 export class ReviewForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleSubmitForm = this.handleSubmitForm.bind(this);
-    this.handleMessageKeyDown = this.handleMessageKeyDown.bind(this);
+
+    this._handleSubmitForm = this._handleSubmitForm.bind(this);
+    this._handleMessageKeyDown = this._handleMessageKeyDown.bind(this);
+
     this.form = React.createRef();
   }
 
-  handleSubmitForm(evt) {
+  _handleSubmitForm(evt) {
     evt.preventDefault();
-    const {sendComment, rating, comment} = this.props;
-    sendComment({rating, comment});
+    const {onSendComment, rating, comment} = this.props;
+
+    onSendComment({rating, comment});
   }
 
-  handleMessageKeyDown({ctrlKey, keyCode}) {
+  _handleMessageKeyDown({ctrlKey, keyCode}) {
     const {
-      sendComment,
+      onSendComment,
       rating,
       comment,
       isFormValid,
     } = this.props;
+
     if (isFormValid && ctrlKey && keyCode === KeyCode.ENTER) {
-      sendComment({rating, comment});
+      onSendComment({rating, comment});
     }
   }
 
   componentDidUpdate() {
-    const {isReviewSent, updateForm} = this.props;
+    const {isReviewSent, onUpdateForm} = this.props;
+
     if (isReviewSent) {
-      updateForm();
+      onUpdateForm();
       this.form.current.reset();
     }
   }
@@ -55,15 +59,15 @@ export class ReviewForm extends PureComponent {
       onChangeMessage,
       onChangeRating,
       error,
-      submitButton,
-      textarea,
       isReviewSending,
       isFormValid,
+      comment,
     } = this.props;
+
     return (
       <form
         className="reviews__form form"
-        onSubmit={this.handleSubmitForm}
+        onSubmit={this._handleSubmitForm}
         action="#"
         method="post"
         ref={this.form}
@@ -71,9 +75,9 @@ export class ReviewForm extends PureComponent {
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <Rating onChangeRating={onChangeRating}/>
         <textarea
-          ref={textarea}
+          value={comment}
           onChange={onChangeMessage}
-          onKeyDown={this.handleMessageKeyDown}
+          onKeyDown={this._handleMessageKeyDown}
           minLength={CommentLength.MIN}
           maxLength={CommentLength.MAX}
           className="reviews__textarea form__textarea"
@@ -87,7 +91,6 @@ export class ReviewForm extends PureComponent {
             describe your stay with at least <b className="reviews__text-amount">{CommentLength.MIN} characters</b>.
           </p>
           <button
-            ref={submitButton}
             className="reviews__submit form__submit button"
             type="submit"
             disabled={!(isFormValid && !isReviewSending)}
@@ -105,10 +108,8 @@ ReviewForm.propTypes = {
   idCurrentOffer: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
-  sendComment: PropTypes.func.isRequired,
-  submitButton: PropTypes.object.isRequired,
-  textarea: PropTypes.object.isRequired,
-  updateForm: PropTypes.func.isRequired,
+  onSendComment: PropTypes.func.isRequired,
+  onUpdateForm: PropTypes.func.isRequired,
   isReviewSending: PropTypes.bool.isRequired,
   isReviewSent: PropTypes.bool.isRequired,
   error: PropTypes.string,
@@ -122,15 +123,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  sendComment: (data) => {
+  onSendComment: (data) => {
     dispatch(Operation.postReview(ownProps.idCurrentOffer, data));
     dispatch(ActionCreators.lockForm(true));
   },
-  updateForm: () => dispatch(ActionCreators.cleanForm(false)),
+  onUpdateForm: () => dispatch(ActionCreators.cleanForm(false)),
 });
 
-const reviewForm = compose(
+const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withReviewForm,
 );
-export default reviewForm(ReviewForm);
+export default enhance(ReviewForm);

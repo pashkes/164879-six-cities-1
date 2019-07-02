@@ -13,10 +13,10 @@ describe(`the button should correctly  is rendered `, () => {
       isFavorite={false}
       id={0}
       prefixClass={``}
-      isAuthorizationRequired={true}
+      isAuthRequire={true}
       history={{}}
-      addToFavorites={jest.fn()}
-      removeFromFavorites={jest.fn()}
+      onAddToFavorites={jest.fn()}
+      onRemoveFromFavorites={jest.fn()}
     />);
     expect(favoriteButton).toMatchSnapshot();
   });
@@ -26,9 +26,9 @@ describe(`the button should correctly  is rendered `, () => {
       isFavorite={true}
       id={0}
       prefixClass={``}
-      isAuthorizationRequired={true}
-      removeFromFavorites={jest.fn()}
-      addToFavorites={jest.fn()}
+      isAuthRequire={true}
+      onAddToFavorites={jest.fn()}
+      onRemoveFromFavorites={jest.fn()}
       history={{}}
     />);
     expect(favoriteButton).toMatchSnapshot();

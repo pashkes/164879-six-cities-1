@@ -40,8 +40,8 @@ it(`Call callback function when component is did mount`, () => {
         nearbyOffers={[]}
         currentCity={currentOffer.city.name}
         offersOnMap={[]}
-        isAuthorizationRequired={false}
-        setCurrentCity={onCurrentCity}
+        isAuthRequire={false}
+        onSetCurrentCity={onCurrentCity}
       />
   );
   expect(onCurrentCity).toBeCalled();

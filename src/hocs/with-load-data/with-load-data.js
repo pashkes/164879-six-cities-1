@@ -9,16 +9,18 @@ const withLoadData = (Component) => {
     }
 
     componentDidMount() {
-      const {isLoading, loadData} = this.props;
+      const {isLoading, onLoadData} = this.props;
+
       if (!isLoading) {
-        loadData();
+        onLoadData();
       }
     }
 
     componentDidUpdate() {
-      const {isLoading, loadData} = this.props;
+      const {isLoading, onLoadData} = this.props;
+
       if (!isLoading) {
-        loadData();
+        onLoadData();
       }
     }
 
@@ -29,7 +31,7 @@ const withLoadData = (Component) => {
 
   WithLoadData.propTypes = {
     isLoading: PropType.bool.isRequired,
-    loadData: PropType.func.isRequired,
+    onLoadData: PropType.func.isRequired,
   };
 
   return WithLoadData;

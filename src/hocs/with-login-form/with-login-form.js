@@ -4,30 +4,34 @@ export const withLoginForm = (Component) => {
   class WithLoginForm extends PureComponent {
     constructor(props) {
       super(props);
+      
       this.state = {
         email: ``,
         password: ``,
       };
-      this.handleEmailChange = this.handleEmailChange.bind(this);
-      this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      
+      this._handleChangeEmail = this._handleChangeEmail.bind(this);
+      this._handleChangePassword = this._handleChangePassword.bind(this);
     }
 
-    handleEmailChange(evt) {
+    _handleChangeEmail(evt) {
       this.setState({email: evt.target.value});
     }
 
-    handlePasswordChange(evt) {
+    _handleChangePassword(evt) {
       this.setState({password: evt.target.value});
     }
 
     render() {
       const {props} = this;
+      const {email, password} = this.state;
+      
       return <Component
         {...props}
-        onChangeEmail={this.handleEmailChange}
-        onChangePassword={this.handlePasswordChange}
-        emailValue={this.state.email}
-        passwordValue={this.state.password}
+        onChangeEmail={this._handleChangeEmail}
+        onChangePassword={this._handleChangePassword}
+        emailValue={email}
+        passwordValue={password}
       />;
     }
   }

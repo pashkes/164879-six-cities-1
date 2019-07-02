@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Constants from "../../constants";
 
 import Cities from "../cities/cities.jsx";
+
 const MainEmpty = ({selectedCity}) => {
   return (
     <main className="page__main page__main--index page__main--index-empty">

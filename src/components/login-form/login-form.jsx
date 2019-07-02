@@ -8,17 +8,19 @@ import {withLoginForm} from "../../hocs/with-login-form/with-login-form";
 export class LoginForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this._handleSubmitForm = this._handleSubmitForm.bind(this);
   }
 
-  handleSubmit(evt) {
+  _handleSubmitForm(evt) {
     evt.preventDefault();
     const {
       emailValue,
       passwordValue,
-      onButtonLogIn,
+      onLogIn,
     } = this.props;
-    onButtonLogIn(emailValue, passwordValue);
+
+    onLogIn(emailValue, passwordValue);
   }
 
   render() {
@@ -28,10 +30,11 @@ export class LoginForm extends PureComponent {
       emailValue,
       passwordValue,
     } = this.props;
+
     return (
       <section className="login">
         <h1 className="login__title">Sign in</h1>
-        <form onSubmit={this.handleSubmit} className="login__form form" action="#" method="post">
+        <form onSubmit={this._handleSubmitForm} className="login__form form" action="#" method="post">
           <div className="login__input-wrapper form__input-wrapper">
             <label className="visually-hidden">E-mail</label>
             <input
@@ -69,11 +72,11 @@ LoginForm.propTypes = {
   onChangePassword: PropTypes.func.isRequired,
   emailValue: PropTypes.string,
   passwordValue: PropTypes.string,
-  onButtonLogIn: PropTypes.func.isRequired
+  onLogIn: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onButtonLogIn: (email, password) => dispatch(Operation.authorization(email, password)),
+  onLogIn: (email, password) => dispatch(Operation.authorization(email, password)),
 });
 
 export default connect(null, mapDispatchToProps)(withLoginForm(LoginForm));

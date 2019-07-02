@@ -13,9 +13,9 @@ it(`Should call callback function after click to the city`, () => {
   const city = shallow(<CityLink
     city={cityName}
     currentCity={`Paris`}
-    changeCity={handleClick}
-    changeCurrentCity={jest.fn()}
+    onChangeCity={handleClick}
   />);
+
   const link = city.find(`a`);
   link.simulate(`click`, {preventDefault() {}});
   expect(handleClick).toBeCalled();

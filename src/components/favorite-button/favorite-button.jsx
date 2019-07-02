@@ -11,35 +11,37 @@ import Constants from "./../../constants";
 export class FavoriteButton extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+
+    this._handleClick = this._handleClick.bind(this);
   }
 
-  handleClick() {
+  _handleClick() {
     const {
       isFavorite,
-      addToFavorites,
+      onAddToFavorites,
       id,
-      removeFromFavorites,
-      isAuthorizationRequired,
+      onRemoveFromFavorites,
+      isAuthRequire,
       history,
     } = this.props;
 
-    if (isAuthorizationRequired) {
+    if (isAuthRequire) {
       history.push(Constants.LOGIN_PATH);
       return;
     }
     if (isFavorite) {
-      removeFromFavorites(id);
+      onRemoveFromFavorites(id);
     } else {
-      addToFavorites(id);
+      onAddToFavorites(id);
     }
   }
 
   render() {
     const {isFavorite, prefixClass, width = 18, height = 19} = this.props;
+
     return (
       <button
-        onClick={this.handleClick}
+        onClick={this._handleClick}
         type="button"
         className={`${prefixClass}__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
         aria-pressed={isFavorite ? `true` : `false`}
@@ -55,28 +57,28 @@ export class FavoriteButton extends PureComponent {
 
 FavoriteButton.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
-  addToFavorites: PropTypes.func.isRequired,
-  removeFromFavorites: PropTypes.func.isRequired,
+  onAddToFavorites: PropTypes.func.isRequired,
+  onRemoveFromFavorites: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   prefixClass: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
-  isAuthorizationRequired: PropTypes.bool.isRequired,
+  isAuthRequire: PropTypes.bool.isRequired,
   history: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthorizationRequired: getAuthorizationStatus(state),
+  isAuthRequire: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addToFavorites: (id) => dispatch(Operation.addToFavorites(id)),
-  removeFromFavorites: (id) => dispatch(Operation.removeFromFavorites(id)),
+  onAddToFavorites: (id) => dispatch(Operation.addToFavorites(id)),
+  onRemoveFromFavorites: (id) => dispatch(Operation.removeFromFavorites(id)),
 });
 
-const favoriteButton = compose(
+const enhance = compose(
     withRouter,
     connect(mapStateToProps, mapDispatchToProps)
 );
 
-export default favoriteButton(FavoriteButton);
+export default enhance(FavoriteButton);

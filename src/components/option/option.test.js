@@ -8,13 +8,13 @@ configure({adapter: new Adapter()});
 describe(`Option renders correctly`, () => {
   it(`in default state`, () => {
     const option = shallow(<Option
-      button={{}}
       name={`Popular`}
-      setTypeSort={jest.fn()}
+      onSetTypeSort={jest.fn()}
       onSelect={jest.fn()}
       value={``}
       isSelected={false}
       onSelectOption={jest.fn()}
+      onFocusButton={jest.fn()}
     />);
     expect(option).toMatchSnapshot();
   });

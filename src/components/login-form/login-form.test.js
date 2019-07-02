@@ -9,7 +9,7 @@ it(`Login form renders correctly`, () => {
   const cards = shallow(<LoginForm
     onChangeEmail={jest.fn()}
     onChangePassword={jest.fn()}
-    onButtonLogIn={jest.fn()}
+    onLogIn={jest.fn()}
   />);
   expect(cards).toMatchSnapshot();
 });
