@@ -15,6 +15,7 @@ export class Reviews extends PureComponent {
 
   render() {
     const {reviews} = this.props;
+
     return (
       <React.Fragment>
         <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
@@ -31,8 +32,8 @@ export class Reviews extends PureComponent {
 Reviews.propTypes = {
   id: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
-  loadData: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -44,12 +45,12 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadData: () => dispatch(Operation.loadReviews(ownProps.id)),
+  onLoadData: () => dispatch(Operation.loadReviews(ownProps.id)),
 });
 
-const review = compose(
+const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withLoadData
 );
 
-export default review(Reviews);
+export default enhance(Reviews);
