@@ -4,12 +4,10 @@ export const withLoginForm = (Component) => {
   class WithLoginForm extends PureComponent {
     constructor(props) {
       super(props);
-      
       this.state = {
         email: ``,
         password: ``,
       };
-      
       this._handleChangeEmail = this._handleChangeEmail.bind(this);
       this._handleChangePassword = this._handleChangePassword.bind(this);
     }
@@ -25,7 +23,6 @@ export const withLoginForm = (Component) => {
     render() {
       const {props} = this;
       const {email, password} = this.state;
-      
       return <Component
         {...props}
         onChangeEmail={this._handleChangeEmail}

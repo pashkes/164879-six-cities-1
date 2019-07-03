@@ -1,7 +1,24 @@
 language: node_js
-
 node_js:
-  - "10"
+  - '9.11'
 
-notifications:
-  email: false
+cache:
+  directories:
+    - "node_modules"
+
+script:
+  - npm run test
+  - npm run build
+  - echo my-custom-domain.ru > build/CNAME
+
+deploy:
+  provider: pages
+  github-token: 6ef970de341e3ea3e82471daca8f6755ffab3e1c  # Set in the settings page of your repository, as a secure variable
+  committer-from-gh: true
+  skip-cleanup: true
+  keep-history: true
+  local-dir: build
+  repo: pashkes/164879-six-cities-1
+  target-branch: master
+  on:
+    branch: master
