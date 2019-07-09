@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React, {PureComponent, Suspense, lazy} from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
@@ -12,10 +12,12 @@ import Constants, {Page} from "../../constants";
 import withPrivateRoute from "./../../hocs/with-private-route/with-private-route";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 
-import MainPage from "../main-page/main-page.jsx";
-import SignIn from "./../sign-in/sign-in.jsx";
-import FavoritesPage from "../favorites-page/favorites-page.jsx";
-import Property from "./../property/property.jsx";
+import Spinner from "./../spinner/spinner.jsx";
+
+const MainPage = lazy(() => import(`../main-page/main-page.jsx`));
+const SignIn = lazy(() => import(`./../sign-in/sign-in.jsx`));
+const FavoritesPage = lazy(() => import(`../favorites-page/favorites-page.jsx`));
+const Property = lazy(() => import(`./../property/property.jsx`));
 
 export class App extends PureComponent {
   constructor(props) {
@@ -34,13 +36,15 @@ export class App extends PureComponent {
     const SignInPrivate = withPrivateRoute(!isAuthRequire)(SignIn);
 
     return (
-      <Switch>
-        <Route path="/" exact component={MainPage} />
-        <Route path={Page.LOGIN} exact component={SignInPrivate} />
-        <Route path={Page.FAVORITES} exact component={FavoritesPrivate} />
-        <Route path={`${Page.OFFER}/:id`} exact render={({match}) => <Property id={Number(match.params.id)} />} />
-        <Redirect from='*' to='/' />
-      </Switch>
+      <Suspense fallback={<Spinner />}>
+        <Switch>
+          <Route path="/" exact component={MainPage} />
+          <Route path={Page.LOGIN} exact component={SignInPrivate} />
+          <Route path={Page.FAVORITES} exact component={FavoritesPrivate} />
+          <Route path={`${Page.OFFER}/:id`} exact render={({match}) => <Property id={Number(match.params.id)} />} />
+          <Redirect from='*' to='/' />
+        </Switch>
+      </Suspense>
     );
   }
 }
