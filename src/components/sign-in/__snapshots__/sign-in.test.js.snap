@@ -9,6 +9,7 @@ exports[`Sign in page renders correctly 1`] = `
       "page--login",
     ]
   }
+  title="Page of log in"
 >
   <main
     className="page__main page__main--login"

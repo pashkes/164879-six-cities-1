@@ -18,7 +18,7 @@ describe(`Api works correctly`, () => {
 
     return authorization(dispatch, jest.fn(), api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: false,
@@ -26,6 +26,10 @@ describe(`Api works correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.AUTHORIZATION,
           payload: {},
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionType.ERROR,
+          payload: ``,
         });
       });
   });

@@ -9,6 +9,7 @@ exports[`main page renders correctly 1`] = `
       "page--main",
     ]
   }
+  title="Six cities"
 >
   <ConnectFunction />
 </Layout>

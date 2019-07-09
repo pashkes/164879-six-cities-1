@@ -6,7 +6,7 @@ import Layout from "../layout/layout.jsx";
 
 const MainPage = () =>{
   return (
-    <Layout pageClasses={[`page`, `page--gray`, `page--main`]}>
+    <Layout title={`Six cities`} pageClasses={[`page`, `page--gray`, `page--main`]}>
       <Catalog/>
     </Layout>
   );

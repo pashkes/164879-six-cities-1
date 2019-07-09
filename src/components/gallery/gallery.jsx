@@ -7,7 +7,7 @@ const Gallery = ({photos}) => {
       <div className="property__gallery">
         {photos.map((item, i) => (
           <div key={i} className="property__image-wrapper">
-            <img className="property__image" src={item} alt="Photo studio"/>
+            <img className="property__image" src={item} alt="studio"/>
           </div>)
         )}
       </div>

@@ -33,15 +33,14 @@ export class Favorites extends PureComponent {
             return <li key={group} className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a
-                    href="#"
+                  <button
                     type="button"
                     onClick={this._handelClickCity}
                     data-city={group}
                     className="locations__item-link"
                   >
                     <span>{group}</span>
-                  </a>
+                  </button>
                 </div>
               </div>
               <div className="favorites__places" aria-live="polite" role="status">

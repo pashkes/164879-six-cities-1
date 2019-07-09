@@ -21,8 +21,6 @@ export class Offers extends PureComponent {
 
     return <div
       className={`${classModOffers.join(` `)} places__list`}
-      role="status"
-      aria-live="polite"
     >
       {offers.map((offer) => {
         return <CardPlace

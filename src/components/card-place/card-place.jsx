@@ -34,9 +34,9 @@ class CardPlace extends PureComponent {
     return <article className={`${mainClassMod} place-card`}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={`${classModPrefix}__image-wrapper place-card__image-wrapper`}>
-        <a href="#" onClick={this._handleImageClick}>
-          <img className="place-card__image" src={previewPhoto} width="260" height="200" loading="lazy" alt="Place image"/>
-        </a>
+        <button type="button" onClick={this._handleImageClick}>
+          <img className="place-card__image" src={previewPhoto} width="260" height="200" alt={title} />
+        </button>
       </div>
       <div className={`${classModPrefix}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">

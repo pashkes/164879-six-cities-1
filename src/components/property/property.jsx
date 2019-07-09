@@ -64,7 +64,7 @@ export class Property extends PureComponent {
     } = currentOffer;
 
     return (
-      <Layout pageClasses={[`page`]}>
+      <Layout title={title} pageClasses={[`page`]}>
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">

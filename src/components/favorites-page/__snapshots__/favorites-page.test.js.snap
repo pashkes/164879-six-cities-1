@@ -3,6 +3,7 @@
 exports[`Should correctly render Should render empty favorites page if bookmarks is none 1`] = `
 <Layout
   pageClasses=""
+  title="Page of favorite offers"
 >
   <main
     className="page__main page__main--favorites page__main--favorites-empty"
@@ -57,6 +58,7 @@ exports[`Should correctly render Should render empty favorites page if bookmarks
 exports[`Should correctly render favorites page is renders correctly 1`] = `
 <Layout
   pageClasses=""
+  title="Page of favorite offers"
 >
   <main
     className="page__main page__main--favorites"

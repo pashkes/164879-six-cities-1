@@ -23,12 +23,12 @@ export class CityLink extends PureComponent {
 
     return (
       <li className="locations__item">
-        <a
+        <button type="button"
           onClick={this._handleClickCity}
           className={`locations__item-link tabs__item ${currentCity === city ? `tabs__item--active` : ``}`}
-          href="#">
+        >
           <span>{city}</span>
-        </a>
+        </button>
       </li>
     );
   }

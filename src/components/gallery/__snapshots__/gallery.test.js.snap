@@ -12,7 +12,7 @@ exports[`gallery is renders correctly 1`] = `
       key="0"
     >
       <img
-        alt="Photo studio"
+        alt="studio"
         className="property__image"
         src=""
       />

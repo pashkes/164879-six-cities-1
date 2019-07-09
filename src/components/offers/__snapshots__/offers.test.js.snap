@@ -2,9 +2,7 @@
 
 exports[`list of offers renders correctly 1`] = `
 <div
-  aria-live="polite"
   className=" places__list"
-  role="status"
 >
   <CardPlace
     city="Amsterdam"

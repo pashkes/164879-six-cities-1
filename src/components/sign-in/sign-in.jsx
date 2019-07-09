@@ -5,7 +5,7 @@ import Layout from "../layout/layout.jsx";
 
 const SignIn = () => {
   return (
-    <Layout pageClasses={[`page`, `page--gray`, `page--login`]}>
+    <Layout title={`Page of log in`} pageClasses={[`page`, `page--gray`, `page--login`]}>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <LoginForm />

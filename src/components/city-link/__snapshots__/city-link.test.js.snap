@@ -4,15 +4,15 @@ exports[`city link renders correctly  if link is active 1`] = `
 <li
   className="locations__item"
 >
-  <a
+  <button
     className="locations__item-link tabs__item tabs__item--active"
-    href="#"
     onClick={[Function]}
+    type="button"
   >
     <span>
       Amsterdam
     </span>
-  </a>
+  </button>
 </li>
 `;
 
@@ -20,14 +20,14 @@ exports[`city link renders correctly  if link isn't active 1`] = `
 <li
   className="locations__item"
 >
-  <a
+  <button
     className="locations__item-link tabs__item "
-    href="#"
     onClick={[Function]}
+    type="button"
   >
     <span>
       Amsterdam
     </span>
-  </a>
+  </button>
 </li>
 `;

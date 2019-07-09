@@ -7,19 +7,18 @@ exports[`renders correctly if the card is favorite 1`] = `
   <div
     className="__image-wrapper place-card__image-wrapper"
   >
-    <a
-      href="#"
+    <button
       onClick={[Function]}
+      type="button"
     >
       <img
-        alt="Place image"
+        alt=""
         className="place-card__image"
         height="200"
-        loading="lazy"
         src=""
         width="260"
       />
-    </a>
+    </button>
   </div>
   <div
     className="__card-info place-card__info"
@@ -96,19 +95,18 @@ exports[`renders correctly if the card is premium 1`] = `
   <div
     className="__image-wrapper place-card__image-wrapper"
   >
-    <a
-      href="#"
+    <button
       onClick={[Function]}
+      type="button"
     >
       <img
-        alt="Place image"
+        alt=""
         className="place-card__image"
         height="200"
-        loading="lazy"
         src=""
         width="260"
       />
-    </a>
+    </button>
   </div>
   <div
     className="__card-info place-card__info"
@@ -178,19 +176,18 @@ exports[`renders correctly in the default state 1`] = `
   <div
     className="__image-wrapper place-card__image-wrapper"
   >
-    <a
-      href="#"
+    <button
       onClick={[Function]}
+      type="button"
     >
       <img
-        alt="Place image"
+        alt=""
         className="place-card__image"
         height="200"
-        loading="lazy"
         src=""
         width="260"
       />
-    </a>
+    </button>
   </div>
   <div
     className="__card-info place-card__info"

@@ -22,7 +22,7 @@ export class FavoritesPage extends PureComponent {
     const {favorites, cities} = this.props;
 
     return (
-      <Layout>
+      <Layout title={`Page of favorite offers`}>
         {
           cities.length !== 0 ? <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">

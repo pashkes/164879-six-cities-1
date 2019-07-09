@@ -16,7 +16,7 @@ it(`Should call callback function after click to the city`, () => {
     onChangeCity={handleClick}
   />);
 
-  const link = city.find(`a`);
+  const link = city.find(`button`);
   link.simulate(`click`, {preventDefault() {}});
   expect(handleClick).toBeCalled();
   expect(handleClick).toBeCalledWith(cityName);
