@@ -35,7 +35,7 @@ export const KeyCode = {
 };
 
 export const CommentLength = {
-  MIN: 50,
+  MIN: 5,
   MAX: 300,
 };
 

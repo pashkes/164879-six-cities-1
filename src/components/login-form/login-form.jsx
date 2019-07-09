@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 import {Operation} from "../../reducer/user/user";
 import {withLoginForm} from "../../hocs/with-login-form/with-login-form";
+import {getError} from "../../reducer/user/selectors";
 
 export class LoginForm extends PureComponent {
   constructor(props) {
@@ -29,6 +30,7 @@ export class LoginForm extends PureComponent {
       onChangePassword,
       emailValue,
       passwordValue,
+      error,
     } = this.props;
 
     return (
@@ -60,6 +62,7 @@ export class LoginForm extends PureComponent {
               required
             />
           </div>
+          <span role="alert" aria-live="polite">{error}</span>
           <button className="login__submit form__submit button" type="submit">Sign in</button>
         </form>
       </section>
@@ -72,11 +75,15 @@ LoginForm.propTypes = {
   onChangePassword: PropTypes.func.isRequired,
   emailValue: PropTypes.string,
   passwordValue: PropTypes.string,
-  onLogIn: PropTypes.func.isRequired
+  onLogIn: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 
+const mapStateToProps = (state) => ({
+  error: getError(state),
+});
 const mapDispatchToProps = (dispatch) => ({
   onLogIn: (email, password) => dispatch(Operation.authorization(email, password)),
 });
 
-export default connect(null, mapDispatchToProps)(withLoginForm(LoginForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withLoginForm(LoginForm));
