@@ -2,18 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Header from "./../header/header.jsx";
-import DocumentTitle from "react-document-title";
+import {Helmet} from "react-helmet";
 
 const Layout = (props) => {
   const {pageClasses, children, title} = props;
 
   return (
-    <DocumentTitle title={title}>
-      <div className={`${pageClasses ? pageClasses.join(` `) : ``}`}>
-        <Header />
-        {children}
-      </div>
-    </DocumentTitle>
+    <div className={`${pageClasses ? pageClasses.join(` `) : ``}`}>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+      <Header />
+      {children}
+    </div>
   );
 };
 
