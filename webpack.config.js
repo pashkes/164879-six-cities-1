@@ -1,7 +1,7 @@
 const path = require(`path`);
 
 module.exports = {
-  entry: `./src/index.js`,
+  entry: `./src/index.tsx`,
   output: {
     filename: `bundle.js`,
     // eslint-disable-next-line no-undef
@@ -17,13 +17,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(tsx|ts)?$/,
         exclude: /node_modules/,
         use: {
-          loader: `babel-loader`,
+          loader: `ts-loader`,
         },
       }
     ],
+  },
+  resolve: {
+    extensions: [`.ts`, `.tsx`, `.js`, `json`]
   },
   devtool: `source-map`
 };
