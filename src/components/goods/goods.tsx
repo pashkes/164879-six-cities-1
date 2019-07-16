@@ -1,7 +1,10 @@
-import React from "react";
-import Proptypes from "prop-types";
+import * as React from "react";
 
-const Goods = ({list}) =>{
+interface Props {
+  list: string[],
+}
+
+const Goods: React.FunctionComponent<Props> = ({list}) =>{
   return (
     <ul className="property__inside-list">{
       list.map((item, i) => (
@@ -11,10 +14,6 @@ const Goods = ({list}) =>{
       ))
     }</ul>
   );
-};
-
-Goods.propTypes = {
-  list: Proptypes.array
 };
 
 export default Goods;

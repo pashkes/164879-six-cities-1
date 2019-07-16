@@ -1,5 +1,4 @@
-import React, {PureComponent} from "react";
-import PropType from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import compose from 'recompose/compose';
 
@@ -13,20 +12,28 @@ import {Operation as DataOperation, ActionCreators} from "../../reducer/data/dat
 import {toPercentRating} from "./../../utils";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
-import Layout from "./../layout/layout.jsx";
-import Gallery from "./../gallery/gallery.jsx";
-import Goods from "./../goods/goods.jsx";
-import Reviews from "./../reviews/reviews.jsx";
-import Map from "./../map/map.jsx";
-import Offers from "./../offers/offers.jsx";
-import ReviewForm from "./../review-form/review-form.jsx";
-import FavoriteButton from "./../favorite-button/favorite-button.jsx";
+import Layout from "./../layout/layout";
+import Gallery from "./../gallery/gallery";
+import Goods from "./../goods/goods";
+import Reviews from "./../reviews/reviews";
+import Map from "./../map/map";
+import Offers from "./../offers/offers";
+import ReviewForm from "./../review-form/review-form";
+import FavoriteButton from "./../favorite-button/favorite-button";
+import {Offer} from "../../types";
 
-export class Property extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+interface Props {
+  id: number,
+  currentOffer: Offer,
+  nearbyOffers: [number[]],
+  currentCity: string,
+  offersOnMap: [[number, number]],
+  isAuthRequire: boolean,
+  onSetCurrentCity: (city: string) => void,
+  currentOfferCoordinates: number[],
+}
 
+export class Property extends React.PureComponent<Props> {
   componentDidMount() {
     const {onSetCurrentCity, currentOffer} = this.props;
 
@@ -64,7 +71,7 @@ export class Property extends PureComponent {
     } = currentOffer;
 
     return (
-      <Layout title={title} pageClasses={[`page`]}>
+      <Layout title={title} pageClasses={`page`}>
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
@@ -125,7 +132,7 @@ export class Property extends PureComponent {
                 </div>
                 <section className="property__reviews reviews">
                   <Reviews id={id}/>
-                  {!isAuthRequire && <ReviewForm idCurrentOffer={id} />}
+                  {!isAuthRequire && <ReviewForm idCurrentOffer={id}/>}
                 </section>
               </div>
             </div>
@@ -153,42 +160,6 @@ export class Property extends PureComponent {
   }
 }
 
-Property.propTypes = {
-  id: PropType.number.isRequired,
-  currentOffer: PropType.shape({
-    images: PropType.array.isRequired,
-    isPremium: PropType.bool.isRequired,
-    title: PropType.string.isRequired,
-    isFavorite: PropType.bool.isRequired,
-    rating: PropType.number.isRequired,
-    goods: PropType.array.isRequired,
-    price: PropType.number.isRequired,
-    city: PropType.shape({
-      name: PropType.string.isRequired,
-    }).isRequired,
-    host: PropType.shape({
-      avatarURL: PropType.string.isRequired,
-      name: PropType.string.isRequired,
-      isPro: PropType.bool.isRequired,
-    }).isRequired,
-    description: PropType.string.isRequired,
-    maxAdults: PropType.number.isRequired,
-    bedrooms: PropType.number.isRequired,
-    type: PropType.string.isRequired,
-    location: PropType.shape({
-      latitude: PropType.number.isRequired,
-      longitude: PropType.number.isRequired,
-    }).isRequired
-  }).isRequired,
-  nearbyOffers: PropType.array.isRequired,
-  currentCity: PropType.string.isRequired,
-  offersOnMap: PropType.array.isRequired,
-  isAuthRequire: PropType.bool.isRequired,
-  onSetCurrentCity: PropType.func.isRequired,
-  currentOfferCoordinates: PropType.array,
-};
-
-
 const mapStateToProps = (state, ownProps) => {
   const nearbyOffers = getNearbyOffers(state, ownProps.id);
 
@@ -209,8 +180,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 const enhance = compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    withLoadData
+  connect(mapStateToProps, mapDispatchToProps),
+  withLoadData
 );
 
 export default enhance(Property);

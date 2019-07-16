@@ -1,9 +1,13 @@
-import React, {PureComponent} from "react";
-import PropType from "prop-types";
-import Spinner from "./../../components/spinner/spinner.jsx";
+import * as React from "react";
+import Spinner from "./../../components/spinner/spinner";
+
+interface Props {
+  isLoading: boolean,
+  onLoadData: () => void,
+}
 
 const withLoadData = (Component) => {
-  class WithLoadData extends PureComponent {
+  class WithLoadData extends React.PureComponent<Props, null> {
     constructor(props) {
       super(props);
     }
@@ -28,11 +32,6 @@ const withLoadData = (Component) => {
       return this.props.isLoading ? <Component {...this.props} /> : <Spinner/>;
     }
   }
-
-  WithLoadData.propTypes = {
-    isLoading: PropType.bool.isRequired,
-    onLoadData: PropType.func.isRequired,
-  };
 
   return WithLoadData;
 };

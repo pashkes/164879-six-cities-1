@@ -1,32 +1,46 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
+import {Subtract} from 'utility-types';
+
+interface State {
+  email: string
+  password: string,
+}
+
+interface InjectedProps {
+  onChangeEmail: () => void,
+  onChangePassword: () => void,
+  emailValue: string,
+  passwordValue: string,
+}
 
 export const withLoginForm = (Component) => {
-  class WithLoginForm extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectedProps>;
+
+  class WithLoginForm extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
       this.state = {
         email: ``,
         password: ``,
       };
-      this._handleChangeEmail = this._handleChangeEmail.bind(this);
-      this._handleChangePassword = this._handleChangePassword.bind(this);
     }
 
-    _handleChangeEmail(evt) {
+    handleChangeEmail = (evt) => {
       this.setState({email: evt.target.value});
-    }
+    };
 
-    _handleChangePassword(evt) {
+    handleChangePassword = (evt) => {
       this.setState({password: evt.target.value});
-    }
+    };
 
     render() {
       const {props} = this;
       const {email, password} = this.state;
       return <Component
         {...props}
-        onChangeEmail={this._handleChangeEmail}
-        onChangePassword={this._handleChangePassword}
+        onChangeEmail={this.handleChangeEmail}
+        onChangePassword={this.handleChangePassword}
         emailValue={email}
         passwordValue={password}
       />;

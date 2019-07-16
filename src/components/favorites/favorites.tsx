@@ -1,27 +1,31 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {compose} from "recompose";
 
 import {ActionCreators} from "../../reducer/data/data";
-import CardPlace from "../card-place/card-place.jsx";
+import CardPlace from "../card-place/card-place";
 
-export class Favorites extends PureComponent {
-  constructor(props) {
-    super(props);
+import {Offer} from "../../types";
 
-    this._handelClickCity = this._handelClickCity.bind(this);
-  }
+interface Props {
+  favorites: {
+    [key: string]: Offer[]
+  },
+  cities: string[],
+  history: any,
+  onChangeCity: (city: string) => void,
+}
 
-  _handelClickCity(evt) {
+export class Favorites extends React.PureComponent<Props> {
+  handelClickCity = (evt) => {
     evt.preventDefault();
     const {onChangeCity, history} = this.props;
     const city = evt.currentTarget.getAttribute(`data-city`);
 
     onChangeCity(city);
     history.push(city);
-  }
+  };
 
   render() {
     const {favorites, cities} = this.props;
@@ -35,7 +39,7 @@ export class Favorites extends PureComponent {
                 <div className="locations__item">
                   <button
                     type="button"
-                    onClick={this._handelClickCity}
+                    onClick={this.handelClickCity}
                     data-city={group}
                     className="locations__item-link"
                   >
@@ -61,13 +65,6 @@ export class Favorites extends PureComponent {
     );
   }
 }
-
-Favorites.propTypes = {
-  favorites: PropTypes.object.isRequired,
-  cities: PropTypes.array.isRequired,
-  history: PropTypes.object.isRequired,
-  onChangeCity: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity: (city) => dispatch(ActionCreators.setCity(city)),

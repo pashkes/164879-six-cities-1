@@ -1,10 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import Constants from "../../constants";
 
-import Cities from "../cities/cities.jsx";
+import Cities from "../cities/cities";
 
-const MainEmpty = ({selectedCity}) => {
+interface Props {
+  selectedCity: string,
+}
+
+const MainEmpty: React.FunctionComponent<Props> = ({selectedCity}) => {
   return (
     <main className="page__main page__main--index page__main--index-empty">
       <h1 className="visually-hidden">Cities</h1>
@@ -25,10 +28,6 @@ const MainEmpty = ({selectedCity}) => {
       </div>
     </main>
   );
-};
-
-MainEmpty.propTypes = {
-  selectedCity: PropTypes.string.isRequired,
 };
 
 export default MainEmpty;

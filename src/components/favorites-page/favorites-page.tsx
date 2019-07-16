@@ -1,17 +1,21 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import {Link} from 'react-router-dom';
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import Layout from "../layout/layout.jsx";
+import Layout from "../layout/layout";
 import {Operation} from "../../reducer/data/data";
 import {groupingFavoritesForCities} from "../../reducer/data/selectors";
-import Favorites from "./../favorites/favorites.jsx";
+import Favorites from "./../favorites/favorites";
 
-export class FavoritesPage extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+import {Offer} from "../../types";
+
+interface Props {
+  favorites: Offer[],
+  onLoadFavorites: () => void,
+  cities: string[],
+}
+
+export class FavoritesPage extends React.PureComponent<Props, null> {
   componentDidMount() {
     const {onLoadFavorites} = this.props;
 
@@ -22,7 +26,7 @@ export class FavoritesPage extends PureComponent {
     const {favorites, cities} = this.props;
 
     return (
-      <Layout title={`Page of favorite offers`}>
+      <Layout pageClasses={``} title={`Page of favorite offers`}>
         {
           cities.length !== 0 ? <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
@@ -56,12 +60,6 @@ export class FavoritesPage extends PureComponent {
     );
   }
 }
-
-FavoritesPage.propTypes = {
-  favorites: PropTypes.object.isRequired,
-  onLoadFavorites: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
-};
 
 const mapStateToProps = (state) => {
   const favorites = groupingFavoritesForCities(state);

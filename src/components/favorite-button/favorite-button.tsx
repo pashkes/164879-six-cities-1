@@ -1,5 +1,4 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {compose} from "recompose";
@@ -8,14 +7,20 @@ import {Operation} from "../../reducer/data/data";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import Constants from "./../../constants";
 
-export class FavoriteButton extends PureComponent {
-  constructor(props) {
-    super(props);
+interface Props {
+  isFavorite: boolean,
+  onAddToFavorites: (id: number) => void,
+  onRemoveFromFavorites: (id: number) => void,
+  id: number,
+  prefixClass: string,
+  width?: string,
+  height?: string,
+  isAuthRequire: boolean,
+  history: any,
+}
 
-    this._handleClick = this._handleClick.bind(this);
-  }
-
-  _handleClick() {
+export class FavoriteButton extends React.PureComponent<Props, null> {
+  handleClick = () => {
     const {
       isFavorite,
       onAddToFavorites,
@@ -34,14 +39,14 @@ export class FavoriteButton extends PureComponent {
     } else {
       onAddToFavorites(id);
     }
-  }
+  };
 
   render() {
     const {isFavorite, prefixClass, width = 18, height = 19} = this.props;
 
     return (
       <button
-        onClick={this._handleClick}
+        onClick={this.handleClick}
         type="button"
         className={`${prefixClass}__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
         aria-pressed={isFavorite ? `true` : `false`}
@@ -54,18 +59,6 @@ export class FavoriteButton extends PureComponent {
     );
   }
 }
-
-FavoriteButton.propTypes = {
-  isFavorite: PropTypes.bool.isRequired,
-  onAddToFavorites: PropTypes.func.isRequired,
-  onRemoveFromFavorites: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  prefixClass: PropTypes.string.isRequired,
-  width: PropTypes.string,
-  height: PropTypes.string,
-  isAuthRequire: PropTypes.bool.isRequired,
-  history: PropTypes.object,
-};
 
 const mapStateToProps = (state) => ({
   isAuthRequire: getAuthorizationStatus(state),

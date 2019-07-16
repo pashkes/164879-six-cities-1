@@ -1,21 +1,20 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 
 import {ActionCreators} from "../../reducer/data/data";
-import City from "../city-link/city-link.jsx";
+import City from "../city-link/city-link";
 
-export class Cities extends PureComponent {
-  constructor(props) {
-    super(props);
-    this._onSetCity = this._onSetCity.bind(this);
-  }
+interface Props {
+  cities: string[],
+  onChangeCity: (city: string) => void,
+}
 
-  _onSetCity(city) {
+export class Cities extends React.PureComponent<Props> {
+  onSetCity = (city) => {
     const {onChangeCity} = this.props;
 
     onChangeCity(city);
-  }
+  };
 
   render() {
     const {cities} = this.props;
@@ -26,7 +25,7 @@ export class Cities extends PureComponent {
           {cities.map((city) => <City
             key={city}
             city={city}
-            onChangeCity={this._onSetCity}
+            onChangeCity={this.onSetCity}
           />)}
         </ul>
       </section>
@@ -34,10 +33,6 @@ export class Cities extends PureComponent {
   }
 }
 
-Cities.propTypes = {
-  cities: PropTypes.array.isRequired,
-  onChangeCity: PropTypes.func.isRequired
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity: (city) => dispatch(ActionCreators.setCity(city)),

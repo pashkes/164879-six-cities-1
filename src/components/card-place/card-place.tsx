@@ -1,21 +1,28 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {Link} from "react-router-dom";
 
-import FavoriteButton from "./../favorite-button/favorite-button.jsx";
+import FavoriteButton from "./../favorite-button/favorite-button";
 
-class CardPlace extends PureComponent {
-  constructor(props) {
-    super(props);
+interface Props {
+  id: number,
+  title: string,
+  previewPhoto: string,
+  type: string,
+  isPremium: boolean,
+  isFavorite: boolean,
+  price: number,
+  rating: number,
+  onSelected: (id: number) => void,
+  classModPrefix: string,
+  mainClassMod: string,
+}
 
-    this._handleImageClick = this._handleImageClick.bind(this);
-  }
-
-  _handleImageClick(evt) {
+class CardPlace extends React.PureComponent<Props, null> {
+  handleImageClick = (evt) => {
     const {onSelected, id} = this.props;
     evt.preventDefault();
     onSelected(id);
-  }
+  };
 
   render() {
     const {
@@ -34,7 +41,7 @@ class CardPlace extends PureComponent {
     return <article className={`${mainClassMod} place-card`}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : null}
       <div className={`${classModPrefix}__image-wrapper place-card__image-wrapper`}>
-        <button type="button" onClick={this._handleImageClick}>
+        <button type="button" onClick={this.handleImageClick}>
           <img className="place-card__image" src={previewPhoto} width="260" height="200" alt={title} />
         </button>
       </div>
@@ -64,19 +71,5 @@ class CardPlace extends PureComponent {
     </article>;
   }
 }
-
-CardPlace.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  previewPhoto: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
-  price: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired,
-  onSelected: PropTypes.func,
-  classModPrefix: PropTypes.string,
-  mainClassMod: PropTypes.string,
-};
 
 export default CardPlace;

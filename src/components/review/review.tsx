@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
 import {toRelatedRating} from "./../../utils";
+import {Comment} from "../../types";
 
-const Review = (props) => {
+const Review: React.FunctionComponent<Comment> = (props) => {
   const {
     comment,
     date,
@@ -33,16 +33,6 @@ const Review = (props) => {
       </div>
     </li>
   );
-};
-
-Review.propTypes = {
-  comment: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  machineDate: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
-  avatar: PropTypes.string.isRequired,
-  isPro: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export default Review;

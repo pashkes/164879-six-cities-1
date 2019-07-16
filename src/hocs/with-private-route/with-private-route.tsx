@@ -1,8 +1,8 @@
+import * as React from "react";
 import {Redirect} from "react-router-dom";
-import React from "react";
 
-const withPrivateRoute = (isAuthRequire, URL = `/`) => (Component) => {
-  const WithPrivateRoute = (props) => {
+const withPrivateRoute = (Component, isAuthRequire, URL = `/`) => {
+  const WithPrivateRoute: React.FunctionComponent = (props) => {
     return isAuthRequire ? <Redirect to={URL} /> : <Component {...props}/>;
   };
 

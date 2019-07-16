@@ -1,5 +1,4 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import DocumentTitle from "react-document-title";
 
@@ -7,14 +6,17 @@ import {Operation} from "../../reducer/user/user";
 import {withLoginForm} from "../../hocs/with-login-form/with-login-form";
 import {getError} from "../../reducer/user/selectors";
 
-export class LoginForm extends PureComponent {
-  constructor(props) {
-    super(props);
+interface Props {
+  onChangeEmail: () => void,
+  onChangePassword: () => void,
+  onLogIn: (email: string, password: string) => void,
+  emailValue: string,
+  passwordValue: string,
+  error: string,
+}
 
-    this._handleSubmitForm = this._handleSubmitForm.bind(this);
-  }
-
-  _handleSubmitForm(evt) {
+export class LoginForm extends React.PureComponent<Props> {
+  handleSubmitForm = (evt) => {
     evt.preventDefault();
     const {
       emailValue,
@@ -23,7 +25,7 @@ export class LoginForm extends PureComponent {
     } = this.props;
 
     onLogIn(emailValue, passwordValue);
-  }
+  };
 
   render() {
     const {
@@ -38,7 +40,7 @@ export class LoginForm extends PureComponent {
       <DocumentTitle title="Page of log in">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form onSubmit={this._handleSubmitForm} className="login__form form" action="#" method="post">
+          <form onSubmit={this.handleSubmitForm} className="login__form form" action="#" method="post">
             <div className="login__input-wrapper form__input-wrapper">
               <label htmlFor="login-email" className="visually-hidden">E-mail</label>
               <input
@@ -75,18 +77,10 @@ export class LoginForm extends PureComponent {
   }
 }
 
-LoginForm.propTypes = {
-  onChangeEmail: PropTypes.func.isRequired,
-  onChangePassword: PropTypes.func.isRequired,
-  emailValue: PropTypes.string,
-  passwordValue: PropTypes.string,
-  onLogIn: PropTypes.func.isRequired,
-  error: PropTypes.string,
-};
-
 const mapStateToProps = (state) => ({
   error: getError(state),
 });
+
 const mapDispatchToProps = (dispatch) => ({
   onLogIn: (email, password) => dispatch(Operation.authorization(email, password)),
 });

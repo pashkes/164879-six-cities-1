@@ -1,18 +1,22 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import compose from 'recompose/compose';
 
 import {Operation} from "./../../reducer/data/data";
 import {getComments} from "../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
-import Review from "./../review/review.jsx";
+import Review from "./../review/review";
 
-export class Reviews extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+import {Comment} from "../../types";
 
+interface Props {
+  id: number,
+  reviews: Comment[],
+  isLoading: boolean,
+  onLoadData: () => void,
+}
+
+export class Reviews extends React.PureComponent<Props> {
   render() {
     const {reviews} = this.props;
 
@@ -28,13 +32,6 @@ export class Reviews extends PureComponent {
     );
   }
 }
-
-Reviews.propTypes = {
-  id: PropTypes.number.isRequired,
-  reviews: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state, ownProps) => {
   const reviewList = getComments(state, ownProps.id);

@@ -1,14 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-import Header from "./../header/header.jsx";
+import Header from "./../header/header";
 import {Helmet} from "react-helmet";
+import {ReactNode} from "react";
 
-const Layout = (props) => {
+interface Props {
+  pageClasses: string,
+  title: string,
+  children: ReactNode,
+}
+
+const Layout: React.FunctionComponent<Props> = (props) => {
   const {pageClasses, children, title} = props;
 
   return (
-    <div className={`${pageClasses ? pageClasses.join(` `) : ``}`}>
+    <div className={pageClasses}>
       <Helmet>
         <title>{title}</title>
       </Helmet>
@@ -16,22 +22,6 @@ const Layout = (props) => {
       {children}
     </div>
   );
-};
-
-Layout.propTypes = {
-  pageClasses: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-  title: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array,
-  ]),
-};
-
-Layout.defaultProps = {
-  pageClasses: ``
 };
 
 export default Layout;

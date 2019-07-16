@@ -1,11 +1,11 @@
-import React from "react";
+import * as React from "react";
 import {Link} from "react-router-dom";
-import LoginForm from "./../login-form/login-form.jsx";
-import Layout from "../layout/layout.jsx";
+import LoginForm from "./../login-form/login-form";
+import Layout from "../layout/layout";
 
-const SignIn = () => {
+const SignIn: React.FunctionComponent = () => {
   return (
-    <Layout title={`Page of log in`} pageClasses={[`page`, `page--gray`, `page--login`]}>
+    <Layout title={`Page of log in`} pageClasses={`page page--gray page--login`}>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <LoginForm />

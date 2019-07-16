@@ -1,7 +1,10 @@
-import React from "react";
-import Proptypes from "prop-types";
+import * as React from "react";
 
-const Gallery = ({photos}) => {
+interface Props {
+  photos: string[],
+}
+
+const Gallery: React.FunctionComponent<Props> = ({photos}) => {
   return (
     <div className="property__gallery-container container">
       <div className="property__gallery">
@@ -13,10 +16,6 @@ const Gallery = ({photos}) => {
       </div>
     </div>
   );
-};
-
-Gallery.propTypes = {
-  photos: Proptypes.array
 };
 
 export default Gallery;

@@ -1,5 +1,4 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {compose} from "recompose";
 
@@ -13,26 +12,38 @@ import {
 import {KeyCode} from "../../constants";
 import {CommentLength} from "../../constants";
 
-import Rating from "../rating/rating.jsx";
+import Rating from "../rating/rating";
 
-export class ReviewForm extends PureComponent {
+interface Props {
+  onChangeMessage: () => void,
+  onChangeRating: () => void,
+  idCurrentOffer: number,
+  rating: number,
+  comment: string,
+  onSendComment: ({rating: number, comment: string}) => void,
+  onUpdateForm: () => void,
+  isReviewSending: boolean,
+  isReviewSent: boolean,
+  error: string,
+  isFormValid: boolean,
+}
+
+export class ReviewForm extends React.PureComponent<Props> {
+  readonly _form: React.RefObject<HTMLFormElement>;
   constructor(props) {
     super(props);
 
-    this._handleSubmitForm = this._handleSubmitForm.bind(this);
-    this._handleMessageKeyDown = this._handleMessageKeyDown.bind(this);
-
-    this.form = React.createRef();
+    this._form = React.createRef();
   }
 
-  _handleSubmitForm(evt) {
+  handleSubmitForm = (evt) => {
     evt.preventDefault();
     const {onSendComment, rating, comment} = this.props;
 
     onSendComment({rating, comment});
-  }
+  };
 
-  _handleMessageKeyDown({ctrlKey, keyCode}) {
+  handleMessageKeyDown = ({ctrlKey, keyCode}) => {
     const {
       onSendComment,
       rating,
@@ -43,14 +54,14 @@ export class ReviewForm extends PureComponent {
     if (isFormValid && ctrlKey && keyCode === KeyCode.ENTER) {
       onSendComment({rating, comment});
     }
-  }
+  };
 
   componentDidUpdate() {
     const {isReviewSent, onUpdateForm} = this.props;
 
     if (isReviewSent) {
       onUpdateForm();
-      this.form.current.reset();
+      this._form.current.reset();
     }
   }
 
@@ -67,17 +78,17 @@ export class ReviewForm extends PureComponent {
     return (
       <form
         className="reviews__form form"
-        onSubmit={this._handleSubmitForm}
+        onSubmit={this.handleSubmitForm}
         action="#"
         method="post"
-        ref={this.form}
+        ref={this._form}
       >
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <Rating onChangeRating={onChangeRating}/>
         <textarea
           value={comment}
           onChange={onChangeMessage}
-          onKeyDown={this._handleMessageKeyDown}
+          onKeyDown={this.handleMessageKeyDown}
           minLength={CommentLength.MIN}
           maxLength={CommentLength.MAX}
           className="reviews__textarea form__textarea"
@@ -101,20 +112,6 @@ export class ReviewForm extends PureComponent {
     );
   }
 }
-
-ReviewForm.propTypes = {
-  onChangeMessage: PropTypes.func.isRequired,
-  onChangeRating: PropTypes.func.isRequired,
-  idCurrentOffer: PropTypes.number.isRequired,
-  rating: PropTypes.number.isRequired,
-  comment: PropTypes.string.isRequired,
-  onSendComment: PropTypes.func.isRequired,
-  onUpdateForm: PropTypes.func.isRequired,
-  isReviewSending: PropTypes.bool.isRequired,
-  isReviewSent: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  isFormValid: PropTypes.bool.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   isReviewSending: getStatusSendingReview(state),

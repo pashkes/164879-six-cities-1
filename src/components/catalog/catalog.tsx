@@ -1,8 +1,9 @@
-import React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
+import {Offer} from "../../types";
+import {SortOptions, TypeSort} from "../../constants";
 
-import {TypeSort, SortOptions} from "../../constants";
+
 import {
   getCurrentCity,
   getFilteredOffers,
@@ -11,13 +12,21 @@ import {
   getCitiesFromServer,
 } from "../../reducer/data/selectors";
 
-import Map from "../map/map.jsx";
-import Sorter from "./../select/select.jsx";
-import Cities from "../cities/cities.jsx";
-import Offers from "../offers/offers.jsx";
-import MainEmpty from "./../main-empty/main-empty.jsx";
+import Map from "../map/map";
+import Sorter from "./../select/select";
+import Cities from "../cities/cities";
+import Offers from "../offers/offers";
+import MainEmpty from "./../main-empty/main-empty";
 
-export const Catalog = (props) => {
+interface Props {
+  currentCity: string,
+  offers: Offer[],
+  coordinates: [[number, number]],
+  currentOffer: [number, number],
+  cities: string[],
+}
+
+export const Catalog: React.FunctionComponent<Props> = (props) => {
   const {
     currentCity,
     offers,
@@ -26,8 +35,9 @@ export const Catalog = (props) => {
     cities,
   } = props;
 
+  // @ts-ignore
   return (
-    <Fragment>
+    <React.Fragment>
       {
         offers.length !== 0 ?
           <main className="page__main page__main--index">
@@ -44,7 +54,7 @@ export const Catalog = (props) => {
                     <span className="places__sorting-caption">Sort by</span>
                     <Sorter options={SortOptions}/>
                   </form>
-                  <Offers offers={offers} classModOffers={[`cities__places-list`, `tabs__content`]}/>
+                  <Offers offers={offers} classModOffers={`cities__places-list tabs__content`}/>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">
@@ -56,16 +66,8 @@ export const Catalog = (props) => {
           </main>
           : <MainEmpty selectedCity={currentCity}/>
       }
-    </Fragment>
+    </React.Fragment>
   );
-};
-
-Catalog.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired,
-  coordinates: PropTypes.array.isRequired,
-  currentOffer: PropTypes.array,
-  cities: PropTypes.array.isRequired,
 };
 
 const sortOffers = (offers, sort) => {

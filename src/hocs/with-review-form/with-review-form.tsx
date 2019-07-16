@@ -1,15 +1,32 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Subtract} from 'utility-types';
 
 import {CommentLength} from "../../constants";
 
+interface InjectedProps {
+  comment: string,
+  onChangeMessage: () => void,
+  onChangeRating: () => void,
+  rating: number,
+  isFormValid: boolean,
+  isValidate: boolean
+}
+
+interface State {
+  rating: number,
+  comment: string,
+  isValidate: boolean,
+}
+
 const withReviewForm = (Component) => {
-  class WithReviewForm extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectedProps>;
+
+  class WithReviewForm extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
-      this._handleTextMessage = this._handleTextMessage.bind(this);
-      this._onSetRating = this._onSetRating.bind(this);
+      this.onSetRating = this.onSetRating.bind(this);
 
       this.state = {
         rating: 0,
@@ -18,9 +35,9 @@ const withReviewForm = (Component) => {
       };
     }
 
-    _handleTextMessage(evt) {
+    handleTextMessage = (evt) => {
       this.setState({comment: evt.target.value});
-    }
+    };
 
     componentDidUpdate() {
       const {comment, rating} = this.state;
@@ -38,27 +55,23 @@ const withReviewForm = (Component) => {
       }
     }
 
-    _onSetRating(value) {
+    onSetRating = (value) => {
       this.setState({rating: value});
-    }
+    };
 
     render() {
       return (
         <Component
           {...this.props}
           comment={this.state.comment}
-          onChangeMessage={this._handleTextMessage}
-          onChangeRating={this._onSetRating}
+          onChangeMessage={this.handleTextMessage}
+          onChangeRating={this.onSetRating}
           rating={this.state.rating}
           isFormValid={this.state.isValidate}
         />
       );
     }
   }
-
-  WithReviewForm.propTypes = {
-    isReviewSent: PropTypes.bool.isRequired,
-  };
 
   return WithReviewForm;
 };

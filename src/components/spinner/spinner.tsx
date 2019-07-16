@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 
-const Spinner = () => (
+const Spinner: React.FunctionComponent = () => (
   <div className="spinner spinner-1" aria-label="loading..." />
 );
 

@@ -1,12 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import Constants, {Page} from "./../../constants";
 import {getUserData, getAuthorizationStatus} from "./../../reducer/user/selectors";
 
-export const Header = (props) => {
+interface Props {
+  isAuthRequire: boolean,
+  userData: {
+    avatar: string,
+    email: string,
+    id: number,
+    isPro: boolean,
+    name: string,
+  },
+}
+
+export const Header: React.FunctionComponent<Props> = (props) => {
   const {isAuthRequire, userData} = props;
 
   return (
@@ -21,7 +31,8 @@ export const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link to={isAuthRequire ? Page.LOGIN : Page.FAVORITES} className="header__nav-link header__nav-link--profile">
+                <Link to={isAuthRequire ? Page.LOGIN : Page.FAVORITES}
+                      className="header__nav-link header__nav-link--profile">
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
                     style={isAuthRequire ? {} : {backgroundImage: `url(${Constants.BASE_URL}${userData.avatar})`}}>
@@ -35,18 +46,6 @@ export const Header = (props) => {
       </div>
     </header>
   );
-}
-;
-
-Header.propTypes = {
-  isAuthRequire: PropTypes.bool.isRequired,
-  userData: PropTypes.shape({
-    avatar: PropTypes.string,
-    email: PropTypes.string,
-    id: PropTypes.number,
-    isPro: PropTypes.bool,
-    name: PropTypes.string,
-  }).isRequired,
 };
 
 

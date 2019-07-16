@@ -1,19 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-import Catalog from "./../catalog/catalog.jsx";
-import Layout from "../layout/layout.jsx";
+import Catalog from "./../catalog/catalog";
+import Layout from "../layout/layout";
 
-const MainPage = () =>{
+interface Props {
+  pageClass: string,
+}
+
+const MainPage: React.FunctionComponent<Props> = () =>{
   return (
-    <Layout title={`Six cities`} pageClasses={[`page`, `page--gray`, `page--main`]}>
+    <Layout title={`Six cities`} pageClasses={`page page--gray page--main`}>
       <Catalog/>
     </Layout>
   );
-};
-
-MainPage.propTypes = {
-  pageClass: PropTypes.string,
 };
 
 export default MainPage;

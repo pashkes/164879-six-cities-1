@@ -1,20 +1,17 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-class Rating extends Component {
-  constructor(props) {
-    super(props);
+interface Props {
+  onChangeRating: (rating: number) => void,
+}
 
-    this._handlerChange = this._handlerChange.bind(this);
-  }
-
-  _handlerChange({target}) {
+class Rating extends React.Component<Props> {
+  handlerChange = ({target}) => {
     this.props.onChangeRating(Number(target.value));
-  }
+  };
 
   render() {
     return (
-      <div className="reviews__rating-form form__rating" onChange={this._handlerChange}>
+      <div className="reviews__rating-form form__rating" onChange={this.handlerChange}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -53,9 +50,5 @@ class Rating extends Component {
     );
   }
 }
-
-Rating.propTypes = {
-  onChangeRating: PropTypes.func.isRequired,
-};
 
 export default Rating;

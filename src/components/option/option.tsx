@@ -1,19 +1,20 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 
 import {ActionCreators} from "./../../reducer/data/data";
 import {KeyCode} from "./../../constants";
 
-export class Option extends PureComponent {
-  constructor(props) {
-    super(props);
+interface Props {
+  value: string,
+  name: string,
+  isSelected: boolean,
+  onSetTypeSort: (value: string) => void,
+  onSelectOption: (value: string, name: string) => void,
+  onFocusButton: () => void,
+}
 
-    this._handleOptionClick = this._handleOptionClick.bind(this);
-    this._handleKeyDownEnter = this._handleKeyDownEnter.bind(this);
-  }
-
-  _handleOptionClick() {
+export class Option extends React.PureComponent<Props, null> {
+  handleOptionClick = () => {
     const {
       value,
       name,
@@ -25,9 +26,9 @@ export class Option extends PureComponent {
     onSelectOption(value, name);
     onSetTypeSort(value);
     onFocusButton();
-  }
+  };
 
-  _handleKeyDownEnter(evt) {
+  handleKeyDownEnter = (evt) => {
     const {
       onFocusButton,
       name,
@@ -41,7 +42,7 @@ export class Option extends PureComponent {
       onSetTypeSort(value);
       onFocusButton();
     }
-  }
+  };
 
   render() {
     const {isSelected, value, name} = this.props;
@@ -49,9 +50,9 @@ export class Option extends PureComponent {
     return (
       <li
         className={`${isSelected ? `places__option--active` : ``} places__option`}
-        onKeyDown={this._handleKeyDownEnter}
-        onClick={this._handleOptionClick}
-        tabIndex="0"
+        onKeyDown={this.handleKeyDownEnter}
+        onClick={this.handleOptionClick}
+        tabIndex={0}
         data-value={value}
       >
         {name}
@@ -60,14 +61,6 @@ export class Option extends PureComponent {
   }
 }
 
-Option.propTypes = {
-  value: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onSetTypeSort: PropTypes.func.isRequired,
-  onSelectOption: PropTypes.func.isRequired,
-  onFocusButton: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onSetTypeSort: (value) => dispatch(ActionCreators.setSortType(value)),

@@ -1,17 +1,33 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
+import {Subtract} from 'utility-types';
 
 import {TypeSort} from "../../constants";
 import {KeyCode} from "./../../constants";
 
+interface State {
+  isOpen: boolean,
+  selected: string,
+  nameSelected: string,
+}
+
+interface InjectedProps {
+  selectedName: string,
+  onOpenDropdown: () => void,
+  onKeyDownCloseDropdown: () => void,
+  onCloseDropdown: () => void,
+  onSelectOption: () => void,
+  isOpen: boolean,
+  selected: string,
+}
+
 const withSelect = (Component) => {
-  class WithSelect extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectedProps>;
+
+
+  class WithSelect extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
-
-      this._handleButtonClick = this._handleButtonClick.bind(this);
-      this._handleDocumentKeyDownEsc = this._handleDocumentKeyDownEsc.bind(this);
-      this._onSelectOption = this._onSelectOption.bind(this);
-      this._closeDropdown = this._closeDropdown.bind(this);
 
       this.state = {
         isOpen: false,
@@ -20,29 +36,29 @@ const withSelect = (Component) => {
       };
     }
 
-    _closeDropdown() {
+    closeDropdown = () => {
       this.setState({isOpen: false});
-    }
+    };
 
-    _handleButtonClick(evt) {
+    handleButtonClick = (evt) => {
       evt.preventDefault();
       const {isOpen} = this.state;
       this.setState({isOpen: !isOpen});
-    }
+    };
 
-    _handleDocumentKeyDownEsc(evt) {
+    handleDocumentKeyDownEsc = (evt) => {
       if (evt.keyCode === KeyCode.ESC) {
         this.setState({isOpen: false});
       }
-    }
+    };
 
-    _onSelectOption(value, name) {
+    onSelectOption = (value, name) => {
       this.setState((currentState) => ({
         isOpen: !currentState.isOpen,
         selected: value,
         nameSelected: name,
       }));
-    }
+    };
 
     render() {
       const {selected, nameSelected} = this.state;
@@ -51,12 +67,10 @@ const withSelect = (Component) => {
         <Component
           {...this.props}
           selectedName={nameSelected}
-          onOpenDropdown={this._handleButtonClick}
-          onKeyDownCloseDropdown={this._handleDocumentKeyDownEsc}
-          onCloseDropdown={this._closeDropdown}
-          onSelectOption={this._onSelectOption}
-          button={this.button}
-          dropdown={this.selectList}
+          onOpenDropdown={this.handleButtonClick}
+          onKeyDownCloseDropdown={this.handleDocumentKeyDownEsc}
+          onCloseDropdown={this.closeDropdown}
+          onSelectOption={this.onSelectOption}
           isOpen={this.state.isOpen}
           selected={selected}
         />

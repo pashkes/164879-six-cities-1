@@ -1,6 +1,5 @@
-import React, {PureComponent, Suspense, lazy} from "react";
-import {Switch, Route, Redirect} from "react-router-dom";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Switch, Redirect, Route } from 'react-router'
 import {connect} from "react-redux";
 import {compose} from "recompose";
 
@@ -12,18 +11,21 @@ import Constants, {Page} from "../../constants";
 import withPrivateRoute from "./../../hocs/with-private-route/with-private-route";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 
-import Spinner from "./../spinner/spinner.jsx";
+import Spinner from "./../spinner/spinner";
 
-const MainPage = lazy(() => import(`../main-page/main-page.jsx`));
-const SignIn = lazy(() => import(`./../sign-in/sign-in.jsx`));
-const FavoritesPage = lazy(() => import(`../favorites-page/favorites-page.jsx`));
-const Property = lazy(() => import(`./../property/property.jsx`));
+const MainPage = React.lazy(() => import(`../main-page/main-page`));
+const SignIn = React.lazy(() => import(`./../sign-in/sign-in`));
+const FavoritesPage = React.lazy(() => import(`../favorites-page/favorites-page`));
+const Property = React.lazy(() => import(`./../property/property`));
 
-export class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+interface Props {
+  isAuthRequire: boolean,
+  onLoadData: () => void,
+  onCheckAuth: () => void,
+  offers: [],
+}
 
+export class App extends React.PureComponent<Props, null> {
   componentDidMount() {
     const {onCheckAuth} = this.props;
 
@@ -32,11 +34,11 @@ export class App extends PureComponent {
 
   render() {
     const {isAuthRequire} = this.props;
-    const FavoritesPrivate = withPrivateRoute(isAuthRequire, Constants.LOGIN_PATH)(FavoritesPage);
-    const SignInPrivate = withPrivateRoute(!isAuthRequire)(SignIn);
+    const FavoritesPrivate = withPrivateRoute(FavoritesPage, isAuthRequire, Constants.LOGIN_PATH);
+    const SignInPrivate = withPrivateRoute(SignIn, !isAuthRequire);
 
     return (
-      <Suspense fallback={<Spinner />}>
+      <React.Suspense fallback={<Spinner />}>
         <Switch>
           <Route path="/" exact component={MainPage} />
           <Route path={Page.LOGIN} exact component={SignInPrivate} />
@@ -44,17 +46,10 @@ export class App extends PureComponent {
           <Route path={`${Page.OFFER}/:id`} exact render={({match}) => <Property id={Number(match.params.id)} />} />
           <Redirect from='*' to='/' />
         </Switch>
-      </Suspense>
+      </React.Suspense>
     );
   }
 }
-
-App.propTypes = {
-  isAuthRequire: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-  onCheckAuth: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData: () => dispatch(DataOperation.loadOffers()),

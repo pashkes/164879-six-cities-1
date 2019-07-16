@@ -1,6 +1,5 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import leaflet from "leaflet";
+import * as React from "react";
+import * as leaflet from "leaflet";
 
 import {CITIES} from "./../../constants";
 
@@ -13,18 +12,29 @@ const MapConfig = {
   TITLE_LAYER: `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`
 };
 
-class Map extends PureComponent {
+interface Props {
+  coordinates: [[number, number]],
+  currentCity: string,
+  selectedOffer: [number, number],
+}
+
+class Map extends React.PureComponent<Props> {
+  private map: any;
+  private group: any;
+  private icon: any;
+  private activeIcon: any;
+
   constructor(props) {
     super(props);
 
     this.group = null;
-    this._icon = leaflet.icon({
+    this.icon = leaflet.icon({
       iconUrl: MapConfig.MARKER_PATH,
-      iconSize: MapConfig.MARKER_SIZE,
+      iconSize: [30, 30],
     });
-    this._activeIcon = leaflet.icon({
+    this.activeIcon = leaflet.icon({
       iconUrl: MapConfig.ACTIVE_MARKER_PATH,
-      iconSize: MapConfig.MARKER_SIZE,
+      iconSize: [30, 30],
     });
   }
 
@@ -34,10 +44,10 @@ class Map extends PureComponent {
     this.group = leaflet.layerGroup().addTo(this.map);
 
     for (let item of coordinates) {
-      leaflet.marker(item, {icon: this._icon})
+      leaflet.marker(item, {icon: this.icon})
         .addTo(this.group);
     }
-    leaflet.marker(selectedOffer, {icon: this._activeIcon}).addTo(this.group);
+    leaflet.marker(selectedOffer, {icon: this.activeIcon}).addTo(this.group);
   }
 
   _initMap() {
@@ -47,7 +57,7 @@ class Map extends PureComponent {
       center: city,
       zoom: MapConfig.ZOOM,
       zoomControl: false,
-      marker: true,
+      // marker: true,
       scrollWheelZoom: false,
     });
 
@@ -57,6 +67,13 @@ class Map extends PureComponent {
       .tileLayer(MapConfig.TITLE_LAYER)
       .addTo(this.map);
     this._addMarkers();
+    this.map.on(`click`, () => {
+      if (this.map.scrollWheelZoom.enabled()) {
+        this.map.scrollWheelZoom.disable();
+      } else {
+        this.map.scrollWheelZoom.enable();
+      }
+    });
   }
 
   componentDidMount() {
@@ -70,13 +87,14 @@ class Map extends PureComponent {
     this.map.setView(CITIES.get(currentCity), MapConfig.ZOOM);
 
     for (let item of coordinates) {
-      leaflet.marker(item, {icon: this._icon})
+      leaflet.marker(item, {icon: this.icon})
         .addTo(this.group);
     }
 
-    leaflet.marker(selectedOffer, {icon: this._activeIcon})
+    leaflet.marker(selectedOffer, {icon: this.activeIcon})
       .addTo(this.group);
   }
+
 
   render() {
     return (
@@ -85,10 +103,5 @@ class Map extends PureComponent {
   }
 }
 
-Map.propTypes = {
-  coordinates: PropTypes.array.isRequired,
-  currentCity: PropTypes.string.isRequired,
-  selectedOffer: PropTypes.array,
-};
 
 export default Map;
