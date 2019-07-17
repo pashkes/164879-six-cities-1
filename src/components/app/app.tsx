@@ -5,18 +5,18 @@ import {compose} from "recompose";
 
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import {getOffers} from "../../reducer/data/selectors";
-import {Operation as DataOperation} from "./../../reducer/data/data";
-import {Operation as UserOperation} from "./../../reducer/user/user";
+import {Operation as DataOperation} from "../../reducer/data/data";
+import {Operation as UserOperation} from "../../reducer/user/user";
 import Constants, {Page} from "../../constants";
-import withPrivateRoute from "./../../hocs/with-private-route/with-private-route";
-import withLoadData from "./../../hocs/with-load-data/with-load-data";
+import withPrivateRoute from "../../hocs/with-private-route/with-private-route";
+import withLoadData from "../../hocs/with-load-data/with-load-data";
 
 import Spinner from "./../spinner/spinner";
 
 const MainPage = React.lazy(() => import(`../main-page/main-page`));
-const SignIn = React.lazy(() => import(`./../sign-in/sign-in`));
+const SignIn = React.lazy(() => import(`../sign-in/sign-in`));
 const FavoritesPage = React.lazy(() => import(`../favorites-page/favorites-page`));
-const Property = React.lazy(() => import(`./../property/property`));
+const Property = React.lazy(() => import(`../property/property`));
 
 interface Props {
   isAuthRequire: boolean,

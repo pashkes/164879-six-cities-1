@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as leaflet from "leaflet";
 
-import {CITIES} from "./../../constants";
+import {CITIES} from "../../constants";
 
 const MapConfig = {
   ID: `map`,
@@ -51,13 +51,12 @@ class Map extends React.PureComponent<Props> {
   }
 
   _initMap() {
-    const city = CITIES.get(this.props.currentCity);
-
+    const city = CITIES.get(this.props.currentCity) || [0, 0];
     this.map = leaflet.map(MapConfig.ID, {
       center: city,
       zoom: MapConfig.ZOOM,
       zoomControl: false,
-      // marker: true,
+      marker: true,
       scrollWheelZoom: false,
     });
 

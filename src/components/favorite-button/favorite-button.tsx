@@ -13,8 +13,8 @@ interface Props {
   onRemoveFromFavorites: (id: number) => void,
   id: number,
   prefixClass: string,
-  width?: string,
-  height?: string,
+  width?: number,
+  height?: number,
   isAuthRequire: boolean,
   history: any,
 }

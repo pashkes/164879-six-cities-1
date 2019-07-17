@@ -9,8 +9,7 @@ import {
   getStatusIsSentReview,
   getError,
 } from "./../../reducer/data/selectors";
-import {KeyCode} from "../../constants";
-import {CommentLength} from "../../constants";
+import {KeyCode, CommentLength} from "../../constants";
 
 import Rating from "../rating/rating";
 

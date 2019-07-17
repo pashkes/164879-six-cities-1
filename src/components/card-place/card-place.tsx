@@ -16,11 +16,9 @@ interface Props {
   classModPrefix: string,
   mainClassMod: string,
 }
-
 class CardPlace extends React.PureComponent<Props, null> {
-  handleImageClick = (evt) => {
+  handleImageClick = () => {
     const {onSelected, id} = this.props;
-    evt.preventDefault();
     onSelected(id);
   };
 

@@ -13,7 +13,7 @@ interface InjectedProps {
   passwordValue: string,
 }
 
-export const withLoginForm = (Component) => {
+const withLoginForm = (Component) => {
   type P = React.ComponentProps<typeof Component>;
   type T = Subtract<P, InjectedProps>;
 
@@ -49,3 +49,5 @@ export const withLoginForm = (Component) => {
 
   return WithLoginForm;
 };
+
+export default withLoginForm;

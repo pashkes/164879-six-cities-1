@@ -10,10 +10,8 @@ interface Props {
 }
 
 export class CityLink extends React.PureComponent<Props> {
-  handleClickCity = (evt) => {
+  handleClickCity = () => {
     const {onChangeCity, city} = this.props;
-
-    evt.preventDefault();
     onChangeCity(city);
   };
 

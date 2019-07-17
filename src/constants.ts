@@ -16,28 +16,28 @@ const Constants = {
   ERROR_MESSAGE: `Something went wrong 😥😥😥`,
 };
 
-export const Page = {
-  LOGIN: `/login`,
-  FAVORITES: `/favorites`,
-  OFFER: `/offer`
-};
+export enum Page {
+  LOGIN = "/login",
+  FAVORITES = "/favorites",
+  OFFER = "/offer"
+}
 
-export const TypeSort = {
-  POPULAR: `popular`,
-  TO_HIGH: `to-high`,
-  TO_LOW: `to-low`,
-  TOP_RATED: `top-rated`,
-};
+export enum TypeSort {
+  POPULAR = "popular",
+  TO_HIGH = "to-high",
+  TO_LOW = "to-low",
+  TOP_RATED = "top-rated",
+}
 
-export const KeyCode = {
-  ESC: 27,
-  ENTER: 13,
-};
+export enum KeyCode {
+  ESC = 27,
+  ENTER = 13,
+}
 
-export const CommentLength = {
-  MIN: 5,
-  MAX: 300,
-};
+export enum CommentLength {
+  MIN = 5,
+  MAX = 300,
+}
 
 export const SortOptions = [
   {
@@ -70,6 +70,5 @@ export const CITIES = new Map([
   [`Hamburg`, [53.551086, 9.993682]],
   [`Dusseldorf`, [51.227741, 6.773456]]
 ]);
-
 
 export default Constants;

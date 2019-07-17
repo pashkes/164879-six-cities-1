@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
-import LoginForm from "./../login-form/login-form";
+import LoginForm from "../login-form/login-form";
 import Layout from "../layout/layout";
 
 const SignIn: React.FunctionComponent = () => {

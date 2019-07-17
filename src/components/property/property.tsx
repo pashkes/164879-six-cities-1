@@ -9,7 +9,7 @@ import {
 } from "./../../reducer/data/selectors";
 import withLoadData from "./../../hocs/with-load-data/with-load-data";
 import {Operation as DataOperation, ActionCreators} from "../../reducer/data/data";
-import {toPercentRating} from "./../../utils";
+import {toPercentRating} from "../../utils";
 import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
 import Layout from "./../layout/layout";

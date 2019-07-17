@@ -1,9 +1,10 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import {compose} from "recompose";
 import DocumentTitle from "react-document-title";
 
 import {Operation} from "../../reducer/user/user";
-import {withLoginForm} from "../../hocs/with-login-form/with-login-form";
+import withLoginForm from "../../hocs/with-login-form/with-login-form";
 import {getError} from "../../reducer/user/selectors";
 
 interface Props {
@@ -85,4 +86,9 @@ const mapDispatchToProps = (dispatch) => ({
   onLogIn: (email, password) => dispatch(Operation.authorization(email, password)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withLoginForm(LoginForm));
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withLoginForm
+);
+
+export default enhance(LoginForm);
