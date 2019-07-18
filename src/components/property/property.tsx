@@ -25,12 +25,11 @@ import {Offer} from "../../types";
 interface Props {
   id: number,
   currentOffer: Offer,
-  nearbyOffers: [number[]],
+  nearbyOffers: [[number, number]],
   currentCity: string,
   offersOnMap: [[number, number]],
   isAuthRequire: boolean,
   onSetCurrentCity: (city: string) => void,
-  currentOfferCoordinates: number[],
 }
 
 export class Property extends React.PureComponent<Props> {
