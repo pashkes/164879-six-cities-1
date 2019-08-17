@@ -1,8 +1,8 @@
 {
   "name": "six-cities",
   "version": "1.0.0",
-  "private": true,
-  "description": "Личный проект «Шесть городов» от HTML Academy",
+  "private": false,
+  "description": "Личный проект «Шесть городов»",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --mode development",
@@ -10,7 +10,7 @@
     "test": "npm run eslint && jest",
     "test.jest": "jest",
     "test.jest.update": "jest -u",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d public"
   },
   "jest": {
     "snapshotSerializers": [
@@ -47,7 +47,6 @@
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "axios": "0.18.0",
-    "gh-pages-webpack-plugin": "^1.0.2",
     "history": "4.9.0",
     "leaflet": "1.5.1",
     "npm": "6.9.0",

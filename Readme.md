@@ -1,52 +1,18 @@
-# Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
+## Six cities
+**Project Brief:** Service for travelers which haven't wish overpay for rental housing. You can choose one of six popular cities for travel and get actual offers of the list on rent. Detailed information about housing, showing objects on the map, and laconic interface service help fast choose an optimal offer. It’s only a desktop version.
+**Tags:** React.js, Redux, Redux-Thunk, Jest, Enzyme, Axios, Reselect, Leaflet.
 
-* Студент: [Паша Тарасенко](https://up.htmlacademy.ru/react/1/user/164879).
-* Наставник: `Константин Мамаев`.
+**Pages of list:** 
+ 1. [Home](https://six-cities.netlify.com/)
+ 2. [Offer](https://six-cities.netlify.com/offer/1)
+ 3. [Sign in](https://six-cities.netlify.com/login) You can enter any a valid data
+ 4. After this you'll be allow page of favorites. You can add or remove offers to the favorite of the list and add comments in the offer page [Favorites](https://six-cities.netlify.com/favorites)
+ 
+**How to start dev server:**
+    `npm i`
+    `npm run start`
+   
+   **How to build the project:**
+    `npm run build`
 
----
-
-_Не удаляйте и не изменяйте папки и файлы:_
-_`.editorconfig`, `.gitattributes`, `.gitignore`, `.travis.yml`, `package.json`._
-
----
-
-### Памятка
-
-#### 1. Зарегистрируйтесь на Гитхабе
-
-Если у вас ещё нет аккаунта на [github.com](https://github.com/join), скорее зарегистрируйтесь.
-
-#### 2. Создайте форк
-
-Откройте репозиторий и нажмите кнопку «Fork» в правом верхнем углу. Репозиторий из Академии будет скопирован в ваш аккаунт.
-
-<img width="769" alt="Press 'Fork'" src="https://cloud.githubusercontent.com/assets/259739/20264045/a1ddbf40-aa7a-11e6-9a1a-724a1c0123c8.png">
-
-Получится вот так:
-
-<img width="769" alt="Forked" src="https://cloud.githubusercontent.com/assets/259739/20264122/f63219a6-aa7a-11e6-945a-89818fc7c014.png">
-
-#### 3. Клонируйте репозиторий на свой компьютер
-
-Будьте внимательны: нужно клонировать свой репозиторий (форк), а не репозиторий Академии. Также обратите внимание, что клонировать репозиторий нужно через SSH, а не через HTTPS. Нажмите зелёную кнопку в правой части экрана, чтобы скопировать SSH-адрес вашего репозитория:
-
-<img width="769" alt="SSH" src="https://cloud.githubusercontent.com/assets/259739/20264180/42704126-aa7b-11e6-9ab4-73372b812a53.png">
-
-Клонировать репозиторий можно так:
-
-```
-git clone SSH-адрес_вашего_форка
-```
-
-Команда клонирует репозиторий на ваш компьютер и подготовит всё необходимое для старта работы.
-
-#### 4. Начинайте обучение!
-
----
-
-<a href="https://htmlacademy.ru/intensive/react"><img align="left" width="50" height="50" title="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/react/logo-for-github.png"></a>
-
-Репозиторий создан для обучения на профессиональном онлайн‑курсе «[JavaScript, уровень 3](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru).
-
-[travis-image]: https://travis-ci.com/htmlacademy-react/164879-six-cities-1.svg?branch=master
-[travis-url]: https://travis-ci.com/htmlacademy-react/164879-six-cities-1
+![enter image description here](https://lh3.googleusercontent.com/KozGYgtBx-woEnzZgLkLwiRepNo2-i-iysq39Ib13BuF_PFDfKRQWAUGTsb7iKdk_GLCpQ9doNO9=s800 "Preview photo")
